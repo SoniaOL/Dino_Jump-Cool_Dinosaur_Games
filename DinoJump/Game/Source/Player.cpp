@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "SceneIntro.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -48,26 +49,31 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	//initilize textures
-	texture = app->tex->Load(texturePath);
-
-	// L07 DONE 5: Add physics to the player - initialize physics body
-	pbody = app->physics->CreateCircle(position.x + (10 * 2), position.y + (10 * 2), 10, bodyType::DYNAMIC);
-
-	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
-	pbody->listener = this; 
-
-	// L07 DONE 7: Assign collider type
-	pbody->ctype = ColliderType::PLAYER;
-
-	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
-	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
-
 	return true;
 }
 
 bool Player::Update()
 {
+
+	if (col) {
+
+		//initilize textures
+		texture = app->tex->Load(texturePath);
+
+		// L07 DONE 5: Add physics to the player - initialize physics body
+		pbody = app->physics->CreateCircle(position.x + (10 * 2), position.y + (10 * 2), 10, bodyType::DYNAMIC);
+
+		// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
+		pbody->listener = this;
+
+		// L07 DONE 7: Assign collider type
+		pbody->ctype = ColliderType::PLAYER;
+
+		//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
+		pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+
+		col = false;
+	}
 
 	// L07 DONE 5: Add physics to the player - updated player position using physics
 

@@ -2,6 +2,7 @@
 #define __SCENEINTRO_H__
 
 #include "Module.h"
+#include "Player.h"
 
 
 struct SDL_Texture;
@@ -35,10 +36,16 @@ public:
 
 public:
 
+	bool On = false;
+	Player* player;
+
 
 private:
 	const char* imgpath;
 	SDL_Texture* img; 
+	
+
+	
 
 };
 

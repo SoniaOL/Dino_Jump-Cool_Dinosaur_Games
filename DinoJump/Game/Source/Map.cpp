@@ -190,20 +190,6 @@ bool Map::Load()
     {
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
-    
-    // L07 DONE 3: Create colliders
-    // Later you can create a function here to load and create the colliders from the map
-    PhysBody* c1 = app->physics->CreateRectangle(34 + (380 / 2), 1765 + (18 / 2), 396, 18, bodyType::STATIC);
-    // L07 DONE 7: Assign collider type
-    c1->ctype = ColliderType::PLATFORM;
-
-    PhysBody* c2 = app->physics->CreateRectangle(18 + (18 / 2), 0 + (1800 / 2), 18, 1800, bodyType::STATIC);
-    // L07 DONE 7: Assign collider type
-    c2->ctype = ColliderType::PLATFORM;
-
-    PhysBody* c3 = app->physics->CreateRectangle(414 + (18 / 2), 0 + (1800 / 2), 18, 1800, bodyType::STATIC);
-    // L07 DONE 7: Assign collider type
-    c3->ctype = ColliderType::PLATFORM;
 
     if(ret == true)
     {

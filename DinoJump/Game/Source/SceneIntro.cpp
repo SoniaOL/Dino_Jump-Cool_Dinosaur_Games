@@ -7,7 +7,9 @@
 #include "Window.h"
 #include "Entity.h"
 #include "ModuleFadeToBlack.h"
-
+#include "EntityManager.h"
+#include "Map.h"
+#include "Scene.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -27,7 +29,8 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	imgpath = config.child("imgintro").attribute("texturepath").as_string();
-
+	app->entityManager->active = false;
+	app->map->active = false;
 
 	return ret;
 }
@@ -39,7 +42,6 @@ bool SceneIntro::Start()
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
 	img = app->tex->Load(imgpath); 
-	
 	
 	return true;
 }
@@ -53,16 +55,22 @@ bool SceneIntro::PreUpdate()
 // Called each loop iteration
 bool SceneIntro::Update(float dt)
 {
+
+	bool ret = true;
 	app->render->DrawTexture(img, -150, 700);
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 
-		app->fade->FadeToBlack(this, (Module*)app->scene, 90); 
+		this->active = false; 
+		app->scene->active = true;
+		app->entityManager->active = true; 
+		app->map->active = true;
+		On = true;
 	}
 
 
 
-	return true;
+	return ret;
 }
 
 // Called each loop iteration

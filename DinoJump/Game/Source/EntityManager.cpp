@@ -27,14 +27,13 @@ bool EntityManager::Awake(pugi::xml_node& config)
 	ListItem<Entity*>* item;
 	Entity* pEntity = NULL;
 
-	for (item = entities.start; item != NULL && ret == true; item = item->next)
-	{
-		pEntity = item->data;
+		for (item = entities.start; item != NULL && ret == true; item = item->next)
+		{
+			pEntity = item->data;
 
-		if (pEntity->active == false) continue;
-		ret = item->data->Awake();
-	}
-
+			if (pEntity->active == false) continue;
+			ret = item->data->Awake();
+		}
 	return ret;
 
 }

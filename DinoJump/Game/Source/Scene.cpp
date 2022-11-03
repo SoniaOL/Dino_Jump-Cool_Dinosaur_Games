@@ -7,6 +7,8 @@
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "SceneIntro.h"
+#include "Physics.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -60,6 +62,9 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 
+
+	this->active = false;
+
 	return true;
 }
 
@@ -72,6 +77,26 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	bool ret = true;
+
+	if (col)
+	{
+		// L07 DONE 3: Create colliders
+		// Later you can create a function here to load and create the colliders from the map
+		PhysBody* c1 = app->physics->CreateRectangle(34 + (380 / 2), 1765 + (18 / 2), 396, 18, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c1->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c2 = app->physics->CreateRectangle(18 + (18 / 2), 0 + (1800 / 2), 18, 1800, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c2->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c3 = app->physics->CreateRectangle(414 + (18 / 2), 0 + (1800 / 2), 18, 1800, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c3->ctype = ColliderType::PLATFORM;
+		col = false;
+	}
+
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGameRequest();
@@ -93,10 +118,12 @@ bool Scene::Update(float dt)
 
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 
-	// Draw map
-	app->map->Draw();
+	if (app->sceneIntro->On) {
+		// Draw map
+		app->map->Draw();
+	}
 
-	return true;
+	return ret;
 }
 
 // Called each loop iteration

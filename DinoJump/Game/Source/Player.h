@@ -30,6 +30,8 @@ public:
 
 public:
 
+	bool col = true;
+
 private:
 
 	//L02: DONE 1: Declare player parameters

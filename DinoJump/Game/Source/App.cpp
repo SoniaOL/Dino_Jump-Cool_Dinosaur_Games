@@ -41,10 +41,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(sceneIntro);
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);
 	AddModule(map);
-	AddModule(sceneIntro);
 	AddModule(scene);
 	AddModule(entityManager);
 	AddModule(fade);
