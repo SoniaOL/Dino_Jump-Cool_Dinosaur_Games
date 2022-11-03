@@ -59,7 +59,7 @@ bool SceneIntro::Update(float dt)
 	bool ret = true;
 	app->render->DrawTexture(img, -150, 700);
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 
 		this->active = false; 
 		app->scene->active = true;
