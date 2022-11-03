@@ -5,6 +5,7 @@
 #include "Point.h"
 #include "Animation.h"
 #include "SDL/include/SDL.h"
+#include "Physics.h"
 
 struct SDL_Texture;
 
@@ -29,6 +30,26 @@ public:
 
 
 public:
+
+	int width = 16;
+	int height = 16;
+	float time = 0;
+	float timeS = 0;
+	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
+	int jumpCounter = 0;
+	int slideCounter = 0;
+	bool slide = false;
+	bool jump = false;
+	bool isjumping = false;
+	bool Meta = false;
+	bool lava = false;
+	bool slideSlow = false;
+
+	int PlayerPosY = 0;
+	int PlayerPosX = 0;
+
+	PhysBody* CAM;
+	PhysBody* LAV;
 
 	bool col = true;
 

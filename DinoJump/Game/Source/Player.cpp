@@ -72,6 +72,16 @@ bool Player::Update()
 		//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 		pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
+		pbody->GetPosition(PlayerPosX, PlayerPosY);
+
+		CAM = app->physics->CreateRectangleSensor(PlayerPosX, PlayerPosY - 330, 2000, 10, KINEMATIC);
+		// L07 DONE 7: Assign collider type
+		CAM->ctype = ColliderType::CAM;
+
+		LAV = app->physics->CreateRectangleSensor(PlayerPosX, PlayerPosY + 70, 2000, 10, KINEMATIC);
+		// L07 DONE 7: Assign collider type
+		LAV->ctype = ColliderType::LAVA;
+
 		col = false;
 	}
 
@@ -79,35 +89,120 @@ bool Player::Update()
 
 	currentAnimation = &idleAnim;
 
-	int speed = 10; 
-	b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y); 
+	int speed = 5;
+
+	if (isjumping) {
+		vel.y = vel.y + (time / 5);
+	}
+
+	if (slideSlow) {
+		vel.x = vel.x - (timeS / 5);
+		if (vel.x <= 0) {
+			vel.x = 0;
+			slideSlow = false;
+		}
+	}
+	if (!slideSlow) {
+		vel.x = 0;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		if (jump)
+		{
+			LOG("JUMPCOUNTER: %d", jumpCounter);
+			time = 0;
+			isjumping = true;
+			vel.x = pbody->body->GetLinearVelocity().x;
+			vel.y = -10;
+			//pbody->body->ApplyForce(b2Vec2(0, METERS_TO_PIXELS(-100)), pbody->body->GetWorldCenter(), true);
+
+		}
+
+		if (isjumping) {
+			if (jumpCounter == 1)
+			{
+				jump = false;
+			}
+			jumpCounter++;
+		}
+
+		//pbody->body->ApplyForce(b2Vec2(METERS_TO_PIXELS(0), METERS_TO_PIXELS(-2000.0f)), pbody->body->GetWorldCenter(), true);
+		//position.y -= 1;
+	}
 
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		//position.y -= 1;
-		velocity = b2Vec2(0, -10);
+		vel = b2Vec2(0, -10);
 	}
+
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP) {
+		vel = b2Vec2(0, 0);
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		//position.y += 1;
-		velocity = b2Vec2(0, 10);
+		vel = b2Vec2(0, 10);
 	}
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP) {
+		vel = b2Vec2(0, 0);
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		//position.x -= 1;
 		flip = SDL_FLIP_HORIZONTAL;
 		currentAnimation = &movingAnim;
-		velocity = b2Vec2(-5, -GRAVITY_Y);
+		vel = b2Vec2(-speed, vel.y);
+		if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
+			if (slideCounter != 2)
+			{
+				slideSlow = true;
+				timeS = 0;
+				vel.x += -50;
+				//pbody->body->ApplyForce(b2Vec2(METERS_TO_PIXELS(-30), 0), pbody->body->GetWorldCenter(), true);
+				if (isjumping) {
+					slideCounter += 0.5f;
+				}
+			}
+			else {
+
+				slide = false;
+			}
+		}
+
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		//position.x += 1;
 		flip = SDL_FLIP_NONE;
 		currentAnimation = &movingAnim;
-		velocity = b2Vec2(5, -GRAVITY_Y);
+		vel = b2Vec2(speed, vel.y);
+		if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
+			if (slideCounter != 2)
+			{
+				slideSlow = true;
+				timeS = 0;
+				vel.x += 50;
+				//pbody->body->ApplyForce(b2Vec2(METERS_TO_PIXELS(30), 0), pbody->body->GetWorldCenter(), true);
+				if (isjumping) {
+					slideCounter++;
+				}
+			}
+			else {
 
+				slide = false;
+			}
+		}
+	}
 
+	if (lava) {
+		app->render->camera.y += 1;
+		CAM->body->SetLinearVelocity(b2Vec2(0, -1.2));
+		LAV->body->SetLinearVelocity(b2Vec2(0, -1.2));
+	}
+	if (!lava) {
+		CAM->body->SetLinearVelocity(b2Vec2(0, 0));
+		LAV->body->SetLinearVelocity(b2Vec2(0, 0));
 	}
 	//Set the velocity of the pbody of the player
-	pbody->body->SetLinearVelocity(velocity);
+	pbody->body->SetLinearVelocity(vel);
 
 	//Update player position in pixels
 
@@ -119,6 +214,9 @@ bool Player::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 24 / 2;
 
 	app->render->DrawTexture(texture, position.x , position.y, &dino, flip);
+
+	time++;
+	timeS++;
 
 	return true;
 }
@@ -135,18 +233,34 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
-		case ColliderType::ITEM:
-			LOG("Collision ITEM");
-			app->audio->PlayFx(pickCoinFxId);
-			break;
-		case ColliderType::PLATFORM:
-			LOG("Collision PLATFORM");
-			break;
-		case ColliderType::UNKNOWN:
-			LOG("Collision UNKNOWN");
-			break;
+	case ColliderType::ITEM:
+		LOG("Collision ITEM");
+		app->audio->PlayFx(pickCoinFxId);
+		break;
+	case ColliderType::PLATFORM:
+		LOG("Collision PLATFORM");
+		jump = true;
+		isjumping = false;
+		time = 0;
+		vel.y = -GRAVITY_Y;
+		jumpCounter = 0;
+		slideCounter = 0;
+		slide = true;
+		break;
+	case ColliderType::META:
+		Meta = true;
+		LOG("Collision META");
+		break;
+	case ColliderType::CAM:
+		lava = true;
+		LOG("Collision CAM");
+		break;
+	case ColliderType::LAVA:
+		lava = false;
+		LOG("Collision CAM");
+		break;
+	case ColliderType::UNKNOWN:
+		LOG("Collision UNKNOWN");
+		break;
 	}
-	
-
-
 }
