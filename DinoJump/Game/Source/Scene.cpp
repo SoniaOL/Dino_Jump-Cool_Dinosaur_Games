@@ -119,7 +119,84 @@ bool Scene::Update(float dt)
 		// L07 DONE 7: Assign collider type
 		c9->ctype = ColliderType::PLATFORM;
 
+		PhysBody* c10 = app->physics->CreateRectangle(18 + (56 / 2), 1512 + (36 / 2), 54, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c10->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c11 = app->physics->CreateRectangle(108 + (36 / 2), 1494 + (18 / 2), 36, 18, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c11->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c12 = app->physics->CreateRectangle(180 + (36 / 2), 1494 + (18 / 2), 36, 18, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c12->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c13 = app->physics->CreateRectangle(270 + (108 / 2), 1476 + (36 / 2), 108, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c13->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c14 = app->physics->CreateRectangle(18 + (56 / 2), 1512 + (36 / 2), 54, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c14->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c15 = app->physics->CreateRectangle(306 + (72 / 2), 1404 + (36 / 2), 72, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c15->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c16 = app->physics->CreateRectangle(396 + (36 / 2), 1350 + (36 / 2), 36, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c16->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c17 = app->physics->CreateRectangle(72 + (180 / 2), 1350 + (36 / 2), 180, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c17->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c18 = app->physics->CreateRectangle(90 + (18 / 2), 1314 + (18 / 2), 18, 18, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c18->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c19 = app->physics->CreateRectangle(18 + (72 / 2), 1278 + (36 / 2), 72, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c19->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c20 = app->physics->CreateRectangle(144 + (108 / 2), 1260 + (36 / 2), 108, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c20->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c21 = app->physics->CreateRectangle(288 + (18 / 2), 1241 + (18 / 2), 18, 18, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c21->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c22 = app->physics->CreateRectangle(306 + (18 / 2), 1224 + (18 / 2), 18, 18, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c22->ctype = ColliderType::PLATFORM;
 		col = false;
+
+		PhysBody* c23 = app->physics->CreateRectangle(342 + (90 / 2), 1188 + (36 / 2), 90, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c23->ctype = ColliderType::PLATFORM;
+		col = false;
+
+		PhysBody* c24 = app->physics->CreateRectangle(180 + (90 / 2), 1169 + (36 / 2), 90, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c24->ctype = ColliderType::PLATFORM;
+		col = false;
+
+		PhysBody* c25 = app->physics->CreateRectangle(18 + (90 / 2), 1170 + (36 / 2), 90, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c25->ctype = ColliderType::PLATFORM;
+		col = false;
+
+		PhysBody* c26 = app->physics->CreateRectangle(143 + (126 / 2), 1098 + (36 / 2), 126, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c26->ctype = ColliderType::PLATFORM;
+		col = false;
+
+		PhysBody* c27 = app->physics->CreateRectangle(360 + (72 / 2), 1044 + (36 / 2), 72, 36, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c27->ctype = ColliderType::PLATFORM;
+		col = false;
+	
 	}
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
