@@ -16,6 +16,10 @@
 SceneIntro::SceneIntro(bool startEnabled) : Module()
 {
 	name.Create("sceneIntro");
+
+	dinoIntro.PushBack({ 0,0,450,900 }); 
+	dinoIntro.PushBack({ 450,0,450,900 });
+	dinoIntro.speed = 0.009; 
 }
 
 // Destructor
@@ -29,6 +33,7 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	imgpath = config.child("imgintro").attribute("texturepath").as_string();
+	imgpath2 = config.child("imgintro").attribute("texturepath2").as_string();
 	app->entityManager->active = false;
 	app->map->active = false;
 
@@ -42,6 +47,13 @@ bool SceneIntro::Start()
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
 	img = app->tex->Load(imgpath); 
+	img2 = app->tex->Load(imgpath2); 
+
+
+
+
+
+
 	
 	return true;
 }
@@ -57,7 +69,15 @@ bool SceneIntro::Update(float dt)
 {
 
 	bool ret = true;
-	app->render->DrawTexture(img, 0, 860);
+	/*app->render->DrawTexture(img, 0, 860);
+	app->render->DrawTexture(img2, 0, 860);*/
+	currentAnimation = &dinoIntro; 
+	SDL_Rect dinoI = currentAnimation->GetCurrentFrame(); 
+
+	currentAnimation->Update();
+
+	app->render->DrawTexture(img, 0, 860, &dinoI);
+
 
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 

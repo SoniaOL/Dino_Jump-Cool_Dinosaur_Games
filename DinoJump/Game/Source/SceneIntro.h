@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Player.h"
+#include "Animation.h"
 
 
 struct SDL_Texture;
@@ -42,7 +43,13 @@ public:
 
 private:
 	const char* imgpath;
+	const char* imgpath2;
 	SDL_Texture* img; 
+	SDL_Texture* img2; 
+
+	Animation* currentAnimation = nullptr;
+	Animation dinoIntro;
+	Animation dino2;
 	
 
 	
