@@ -57,7 +57,7 @@ bool SceneIntro::Update(float dt)
 {
 
 	bool ret = true;
-	app->render->DrawTexture(img, -150, 700);
+	app->render->DrawTexture(img, 0, 860);
 
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 

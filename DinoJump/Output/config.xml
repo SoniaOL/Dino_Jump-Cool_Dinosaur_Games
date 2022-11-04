@@ -22,7 +22,7 @@
   </audio>
 	
   <sceneIntro>
-	<imgintro texturepath ="Assets/Textures/Slovushki.png"/>
+	<imgintro texturepath ="Assets/Textures/dino.png"/>
   </sceneIntro>	
 
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
