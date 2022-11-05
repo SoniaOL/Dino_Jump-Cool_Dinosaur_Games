@@ -4,6 +4,7 @@
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
+#include "Physics.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -131,4 +132,26 @@ bool EntityManager::Update(float dt)
 	}
 
 	return ret;
+}
+
+bool EntityManager::LoadState(pugi::xml_node& data)
+{
+	PosX = data.child("player").attribute("x").as_int();
+	PosY = data.child("player").attribute("y").as_int();
+
+	app->scene->player->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+	return true;
+}
+
+// L03: DONE 8: Create a method to save the state of the renderer
+// using append_child and append_attribute
+bool EntityManager::SaveState(pugi::xml_node& data)
+{
+	pugi::xml_node play = data.append_child("player");
+
+	play.append_attribute("x") = app->scene->player->position.x;
+	play.append_attribute("y") = app->scene->player->position.y;
+
+	return true;
 }

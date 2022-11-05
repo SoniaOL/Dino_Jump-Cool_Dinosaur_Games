@@ -37,6 +37,11 @@ public:
 
 	List<Entity*> entities;
 
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
+
+	float PosX;
+	float PosY;
 };
 
 #endif // __ENTITYMANAGER_H__
