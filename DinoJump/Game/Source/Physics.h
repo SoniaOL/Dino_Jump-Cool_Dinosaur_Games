@@ -30,6 +30,7 @@ enum class ColliderType {
 	META,
 	CAM,
 	LAVA,
+	LAVADETECT,
 	UNKNOWN
 	// ..
 };

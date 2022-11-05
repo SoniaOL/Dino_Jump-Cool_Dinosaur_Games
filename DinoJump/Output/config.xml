@@ -22,12 +22,18 @@
   </audio>
 	
   <sceneIntro>
-	<imgintro texturepath ="Assets/Textures/dinoInicio.png"/>
+	  <imgintro texturepath ="Assets/Textures/dinoInicio.png"/>
+	  <imgintrodeath death ="Assets/Textures/Slovushki.png"/>
   </sceneIntro>	
 
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
   <scene>
-    <player x="150" y="1700" texturepath="Assets/Textures/player3.png"/>
+    <player>
+      <play x="150" y="1700" texturepath="Assets/Textures/player3.png"/>
+      <CAM x="37" y="1412" />
+      <LAVDetect x="37" y="1812" />
+      <LAV x="37" y="1842" />
+    </player>
     <item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>

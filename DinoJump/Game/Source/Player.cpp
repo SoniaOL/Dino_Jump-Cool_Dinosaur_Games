@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "SceneIntro.h"
+#include "EntityManager.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -40,9 +41,18 @@ bool Player::Awake() {
 	//texturePath = "Assets/Textures/player/idle1.png";
 
 	//L02: DONE 5: Get Player parameters from XML
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
-	texturePath = parameters.attribute("texturepath").as_string();
+	position.x = parameters.child("play").attribute("x").as_int();
+	position.y = parameters.child("play").attribute("y").as_int();
+	texturePath = parameters.child("play").attribute("texturepath").as_string();
+
+	lavaPosX = parameters.child("LAV").attribute("x").as_int();
+	lavaPosY = parameters.child("LAV").attribute("y").as_int();
+
+	camPosX = parameters.child("CAM").attribute("x").as_int();
+	camPosY = parameters.child("CAM").attribute("y").as_int();
+
+	DetectPosX = parameters.child("LAVDetect").attribute("x").as_int();
+	DetectPosY = parameters.child("LAVDetect").attribute("y").as_int();
 
 	return true;
 }
@@ -74,11 +84,15 @@ bool Player::Update()
 
 		pbody->GetPosition(PlayerPosX, PlayerPosY);
 
-		CAM = app->physics->CreateRectangleSensor(PlayerPosX, PlayerPosY - 330, 2000, 10, KINEMATIC);
+		CAM = app->physics->CreateRectangleSensor(camPosX, camPosY, 2000, 10, KINEMATIC);
 		// L07 DONE 7: Assign collider type
 		CAM->ctype = ColliderType::CAM;
 
-		LAV = app->physics->CreateRectangleSensor(PlayerPosX, PlayerPosY + 70, 2000, 10, KINEMATIC);
+		LAVDetect = app->physics->CreateRectangleSensor(DetectPosX, DetectPosY, 2000, 10, KINEMATIC);
+		// L07 DONE 7: Assign collider type
+		LAVDetect->ctype = ColliderType::LAVADETECT;
+		
+		LAV = app->physics->CreateRectangleSensor(lavaPosX, lavaPosY, 2000, 10, KINEMATIC);
 		// L07 DONE 7: Assign collider type
 		LAV->ctype = ColliderType::LAVA;
 
@@ -90,6 +104,8 @@ bool Player::Update()
 	currentAnimation = &idleAnim;
 
 	int speed = 5;
+
+	LAV->body->SetLinearVelocity(b2Vec2(0, -0.1));
 
 	if (isjumping) {
 		vel.y = vel.y + (time / 5);
@@ -195,11 +211,11 @@ bool Player::Update()
 	if (lava) {
 		app->render->camera.y += 1;
 		CAM->body->SetLinearVelocity(b2Vec2(0, -1.2));
-		LAV->body->SetLinearVelocity(b2Vec2(0, -1.2));
+		LAVDetect->body->SetLinearVelocity(b2Vec2(0, -1.2));
 	}
 	if (!lava) {
 		CAM->body->SetLinearVelocity(b2Vec2(0, 0));
-		LAV->body->SetLinearVelocity(b2Vec2(0, 0));
+		LAVDetect->body->SetLinearVelocity(b2Vec2(0, 0));
 	}
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
@@ -210,10 +226,19 @@ bool Player::Update()
 
 	currentAnimation->Update();
 
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 24 / 2;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 24 / 2;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 
-	app->render->DrawTexture(texture, position.x , position.y, &dino, flip);
+	camPosX = METERS_TO_PIXELS(CAM->body->GetTransform().p.x);
+	camPosY = METERS_TO_PIXELS(CAM->body->GetTransform().p.y);
+
+	lavaPosX = METERS_TO_PIXELS(LAV->body->GetTransform().p.x);
+	lavaPosY = METERS_TO_PIXELS(LAV->body->GetTransform().p.y);
+
+	DetectPosX = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.x);
+	DetectPosY = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.y);
+
+	app->render->DrawTexture(texture, position.x - 12, position.y - 12, &dino, flip);
 
 	time++;
 	timeS++;
@@ -256,8 +281,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision CAM");
 		break;
 	case ColliderType::LAVA:
+		die = true;
+		LOG("Collision LAVA");
+		break;
+	case ColliderType::LAVADETECT:
 		lava = false;
-		LOG("Collision CAM");
+		LOG("Collision DETECT");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

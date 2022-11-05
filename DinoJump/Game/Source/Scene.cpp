@@ -79,6 +79,14 @@ bool Scene::Update(float dt)
 {
 	bool ret = true;
 
+	if (player->die) {
+		app->entityManager->active = false;
+		app->map->active = false;
+		app->sceneIntro->On = false;
+		app->sceneIntro->active = true;
+		this->active = false;
+	}
+
 	if (col)
 	{
 		// L07 DONE 3: Create colliders
@@ -200,11 +208,15 @@ bool Scene::Update(float dt)
 	}
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		app->SaveGameRequest();
+		app->sceneIntro->reset = false;
+	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		app->LoadGameRequest();
+		app->sceneIntro->reset = false;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera.y += 1;

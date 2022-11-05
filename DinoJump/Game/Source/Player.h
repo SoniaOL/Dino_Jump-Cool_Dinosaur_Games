@@ -48,10 +48,21 @@ public:
 	int PlayerPosY = 0;
 	int PlayerPosX = 0;
 
+	int lavaPosX = 0;
+	int lavaPosY = 0;	
+	
+	int camPosX = 0;
+	int camPosY = 0;
+
+	int DetectPosX = 0;
+	int DetectPosY = 0;
+
 	PhysBody* CAM;
+	PhysBody* LAVDetect;
 	PhysBody* LAV;
 
 	bool col = true;
+	bool die = false;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;

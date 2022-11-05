@@ -33,7 +33,8 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	imgpath = config.child("imgintro").attribute("texturepath").as_string();
-	imgpath2 = config.child("imgintro").attribute("texturepath2").as_string();
+	deathpath = config.child("imgintrodeath").attribute("death").as_string();
+
 	app->entityManager->active = false;
 	app->map->active = false;
 
@@ -47,13 +48,7 @@ bool SceneIntro::Start()
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
 	img = app->tex->Load(imgpath); 
-	img2 = app->tex->Load(imgpath2); 
-
-
-
-
-
-
+	death = app->tex->Load(deathpath); 
 	
 	return true;
 }
@@ -76,19 +71,38 @@ bool SceneIntro::Update(float dt)
 
 	currentAnimation->Update();
 
-	app->render->DrawTexture(img, 0, 860, &dinoI);
+	if (!app->scene->player->die) {
+		LOG("LIVE!");
+		app->render->DrawTexture(img, 0, 860, &dinoI);
+	}
+	if (app->scene->player->die) {
+		LOG("DIE!");
+		app->render->DrawTexture(death, 0, 860);
 
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+		{
+			app->scene->player->die = false;
+			this->active = false;
+			app->scene->active = true;
+			app->entityManager->active = true;
+			app->map->active = true;
+			On = true;
+			reset = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-
-		this->active = false; 
-		app->scene->active = true;
-		app->entityManager->active = true; 
-		app->map->active = true;
-		On = true;
+			app->SaveGameRequest();
+		}
 	}
 
-
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) 
+	{
+		app->scene->player->die = false;
+		this->active = false;
+		app->scene->active = true;
+		app->entityManager->active = true;
+		app->map->active = true;
+		On = true;
+		app->LoadGameRequest();
+	}
 
 	return ret;
 }
@@ -100,8 +114,6 @@ bool SceneIntro::PostUpdate()
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-
-
 
 	return ret;
 }

@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
+#include "SceneIntro.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -242,9 +243,16 @@ bool Render::LoadState(pugi::xml_node& data)
 bool Render::SaveState(pugi::xml_node& data)
 {
 	pugi::xml_node cam = data.append_child("camera");
+	if (!app->sceneIntro->reset) {
+		cam.append_attribute("x") = camera.x;
+		cam.append_attribute("y") = camera.y;
+	}
 
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
+	if (app->sceneIntro->reset) {
+		cam.append_attribute("x") = 0;
+		cam.append_attribute("y") = 900;
+	}
+	
 
 	return true;
 }

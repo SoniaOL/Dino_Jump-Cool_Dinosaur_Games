@@ -38,14 +38,15 @@ public:
 public:
 
 	bool On = false;
+	bool reset = false;
 	Player* player;
 
 
 private:
 	const char* imgpath;
-	const char* imgpath2;
+	const char* deathpath;
 	SDL_Texture* img; 
-	SDL_Texture* img2; 
+	SDL_Texture* death; 
 
 	Animation* currentAnimation = nullptr;
 	Animation dinoIntro;

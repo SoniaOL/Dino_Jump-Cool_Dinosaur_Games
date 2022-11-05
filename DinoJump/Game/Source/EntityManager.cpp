@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Scene.h"
 #include "Physics.h"
+#include "SceneIntro.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -136,10 +137,27 @@ bool EntityManager::Update(float dt)
 
 bool EntityManager::LoadState(pugi::xml_node& data)
 {
+	app->scene->player->lava = false;
+
 	PosX = data.child("player").attribute("x").as_int();
 	PosY = data.child("player").attribute("y").as_int();
 
 	app->scene->player->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+	PosX = data.child("CAM").attribute("x").as_int();
+	PosY = data.child("CAM").attribute("y").as_int();
+
+	app->scene->player->CAM->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+	PosX = data.child("LAVDetect").attribute("x").as_int();
+	PosY = data.child("LAVDetect").attribute("y").as_int();
+
+	app->scene->player->LAVDetect->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+	PosX = data.child("LAV").attribute("x").as_int();
+	PosY = data.child("LAV").attribute("y").as_int();
+
+	app->scene->player->LAV->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
 	return true;
 }
@@ -149,9 +167,46 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 bool EntityManager::SaveState(pugi::xml_node& data)
 {
 	pugi::xml_node play = data.append_child("player");
+	pugi::xml_node lav = data.append_child("LAV");
+	pugi::xml_node lavDetect = data.append_child("LAVDetect");
+	pugi::xml_node cam = data.append_child("CAM");
 
-	play.append_attribute("x") = app->scene->player->position.x;
-	play.append_attribute("y") = app->scene->player->position.y;
+
+	if (!app->sceneIntro->reset) {
+		
+		play.append_attribute("x") = app->scene->player->position.x;
+		play.append_attribute("y") = app->scene->player->position.y;
+
+		lav.append_attribute("x") = app->scene->player->lavaPosX;
+		lav.append_attribute("y") = app->scene->player->lavaPosY;
+
+		lavDetect.append_attribute("x") = app->scene->player->DetectPosX;
+		lavDetect.append_attribute("y") = app->scene->player->DetectPosY;
+
+		cam.append_attribute("x") = app->scene->player->camPosX;
+		cam.append_attribute("y") = app->scene->player->camPosY;
+	}
+
+	if (app->sceneIntro->reset) {
+		play.append_attribute("x") = 176;
+		play.append_attribute("y") = 1745;
+
+		lav.append_attribute("x") = 37;
+		lav.append_attribute("y") = 1842;
+
+		lavDetect.append_attribute("x") = 37;
+		lavDetect.append_attribute("y") = 1770;
+
+		cam.append_attribute("x") = 37;
+		cam.append_attribute("y") = 1412;
+
+
+		app->LoadGameRequest();
+
+		LOG("RESET");
+
+		app->sceneIntro->reset = false;
+	}
 
 	return true;
 }

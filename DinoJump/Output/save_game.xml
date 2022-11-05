@@ -4,9 +4,18 @@
 	<window />
 	<textures />
 	<audio />
+	<sceneIntro />
+	<:anonymous />
+	<map />
 	<scene />
-	<entitymanager />
+	<entitymanager>
+		<player x="176" y="1745" />
+		<LAV x="37" y="1842" />
+		<LAVDetect x="37" y="1770" />
+		<CAM x="37" y="1412" />
+	</entitymanager>
+	<:anonymous />
 	<renderer>
-		<camera x="195" y="36" />
+		<camera x="0" y="-1007" />
 	</renderer>
 </save_state>
