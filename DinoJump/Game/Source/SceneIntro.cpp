@@ -20,6 +20,10 @@ SceneIntro::SceneIntro(bool startEnabled) : Module()
 	dinoIntro.PushBack({ 0,0,450,900 }); 
 	dinoIntro.PushBack({ 450,0,450,900 });
 	dinoIntro.speed = 0.009; 
+
+	dinoDeath.PushBack({ 0,0,450,900 });
+	dinoDeath.PushBack({ 455,0,450,900 });
+	dinoDeath.speed = 0.009;
 }
 
 // Destructor
@@ -67,9 +71,12 @@ bool SceneIntro::Update(float dt)
 	/*app->render->DrawTexture(img, 0, 860);
 	app->render->DrawTexture(img2, 0, 860);*/
 	currentAnimation = &dinoIntro; 
+	currentAnimationdeath = &dinoDeath; 
 	SDL_Rect dinoI = currentAnimation->GetCurrentFrame(); 
+	SDL_Rect dinoD = currentAnimationdeath->GetCurrentFrame(); 
 
 	currentAnimation->Update();
+	currentAnimationdeath->Update();
 
 	if (!app->scene->player->die) {
 		LOG("LIVE!");
@@ -77,7 +84,7 @@ bool SceneIntro::Update(float dt)
 	}
 	if (app->scene->player->die) {
 		LOG("DIE!");
-		app->render->DrawTexture(death, 0, 860);
+		app->render->DrawTexture(death, 0, 860, &dinoD);
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 		{

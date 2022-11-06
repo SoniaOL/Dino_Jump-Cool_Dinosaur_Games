@@ -51,6 +51,10 @@ private:
 	Animation* currentAnimation = nullptr;
 	Animation dinoIntro;
 	Animation dino2;
+
+	Animation* currentAnimationdeath = nullptr;
+	Animation dinoDeath;
+
 	
 
 	

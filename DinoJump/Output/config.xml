@@ -23,7 +23,7 @@
 	
   <sceneIntro>
 	  <imgintro texturepath ="Assets/Textures/dinoInicio.png"/>
-	  <imgintrodeath death ="Assets/Textures/Slovushki.png"/>
+	  <imgintrodeath death ="Assets/Textures/dinoDeath.png"/>
   </sceneIntro>	
 
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
