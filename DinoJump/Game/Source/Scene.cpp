@@ -83,6 +83,8 @@ bool Scene::Update(float dt)
 	if (player->die || player->Meta) {
 		LOG("META");
 		app->scene->player->LAV->body->SetLinearVelocity(b2Vec2(0 ,0));
+		app->scene->player->camg = false;
+		app->scene->player->lava = false;
 		app->entityManager->active = false;
 		app->map->active = false;
 		app->sceneIntro->On = false;
