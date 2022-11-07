@@ -114,7 +114,7 @@ bool Player::Update()
 
 	int speed = 5;
 
-	LAV->body->SetLinearVelocity(b2Vec2(0, -0.1));
+	LAV->body->SetLinearVelocity(b2Vec2(0, -0.3));
 
 	if (isjumping) {
 		vel.y = vel.y + (time / 5);

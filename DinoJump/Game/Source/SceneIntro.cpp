@@ -79,11 +79,12 @@ bool SceneIntro::Update(float dt)
 
 	if (!app->scene->player->die) {
 		LOG("LIVE!");
-		app->render->DrawTexture(img, 0, 860, &dinoI);
+		app->render->DrawTexture(img, 0, 900, &dinoI);
 	}
 	if (app->scene->player->die) {
 		LOG("DIE!");
-		app->render->DrawTexture(death, 0, 860, &dinoD);
+		app->render->camera.y = -900; 
+		app->render->DrawTexture(death, 0, 900 , &dinoD);
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 		{
