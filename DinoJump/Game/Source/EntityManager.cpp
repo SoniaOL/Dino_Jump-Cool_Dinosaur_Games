@@ -139,6 +139,7 @@ bool EntityManager::Update(float dt)
 bool EntityManager::LoadState(pugi::xml_node& data)
 {
 	app->scene->player->lava = false;
+	app->scene->player->camg = false;
 
 	PosX = data.child("player").attribute("x").as_int();
 	PosY = data.child("player").attribute("y").as_int();
@@ -160,6 +161,16 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 
 	app->scene->player->LAV->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
+	PosX = data.child("CAMG").attribute("x").as_int();
+	PosY = data.child("CAMG").attribute("y").as_int();
+
+	app->scene->player->CAMG->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+	PosX = data.child("CAMGDETECT").attribute("x").as_int();
+	PosY = data.child("CAMGDETECT").attribute("y").as_int();
+
+	app->scene->player->CAMGDetect->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
 	return true;
 }
 
@@ -171,6 +182,8 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 	pugi::xml_node lav = data.append_child("LAV");
 	pugi::xml_node lavDetect = data.append_child("LAVDetect");
 	pugi::xml_node cam = data.append_child("CAM");
+	pugi::xml_node camg = data.append_child("CAMG");
+	pugi::xml_node camgD = data.append_child("CAMGDETECT");
 
 
 	if (!app->sceneIntro->reset) {
@@ -186,6 +199,12 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 
 		cam.append_attribute("x") = app->scene->player->camPosX;
 		cam.append_attribute("y") = app->scene->player->camPosY;
+
+		camg.append_attribute("x") = app->scene->player->DetectPosX;
+		camg.append_attribute("y") = app->scene->player->DetectPosY - 15;
+		
+		camgD.append_attribute("x") = app->scene->player->camPosX;
+		camgD.append_attribute("y") = app->scene->player->camPosY + 50;
 	}
 
 	if (app->sceneIntro->reset) {
@@ -200,6 +219,12 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 
 		cam.append_attribute("x") = 37;
 		cam.append_attribute("y") = 1412;
+
+		camg.append_attribute("x") = 37;
+		camg.append_attribute("y") = 1785;
+
+		camgD.append_attribute("x") = 37;
+		camgD.append_attribute("y") = 1462;
 
 		app->render->SaveState(data);
 		app->render->LoadState(data);

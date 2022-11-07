@@ -77,7 +77,7 @@ bool Player::Update()
 		textureLava = app->tex->Load(texturePathLava); 
 
 		// L07 DONE 5: Add physics to the player - initialize physics body
-		pbody = app->physics->CreateCircle(position.x + (10 * 2), position.y + (10 * 2), 10, bodyType::DYNAMIC);
+		pbody = app->physics->CreateCircle(position.x + (8 * 2), position.y + (8 * 2), 8, bodyType::DYNAMIC);
 
 		// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 		pbody->listener = this;
@@ -95,7 +95,6 @@ bool Player::Update()
 		CAM->ctype = ColliderType::CAM;
 
 		CAMG = app->physics->CreateRectangleSensor(DetectPosX, DetectPosY - 15, 2000, 10, KINEMATIC);
-		CAMG = app->physics->CreateRectangleSensor(DetectPosX, DetectPosY - 15, 2000, 10, KINEMATIC);
 		// L07 DONE 7: Assign collider type
 		CAMG->ctype = ColliderType::CAMG;
 
@@ -103,11 +102,15 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		LAVDetect->ctype = ColliderType::LAVADETECT;
 		
+		CAMGDetect = app->physics->CreateRectangleSensor(camPosX, camPosY + 50, 2000, 10, KINEMATIC);
+		// L07 DONE 7: Assign collider type
+		CAMGDetect->ctype = ColliderType::CAMGDETECT;
+
 		LAV = app->physics->CreateRectangleSensor(lavaPosX, lavaPosY, 2000, 10, KINEMATIC);
 		// L07 DONE 7: Assign collider type
 		LAV->ctype = ColliderType::LAVA;
 
-		META = app->physics->CreateRectangleSensor(position.x - 90, position.y - 200, 50, 90, STATIC);
+		META = app->physics->CreateRectangleSensor(229, 719, 50, 90, STATIC);
 		// L07 DONE 7: Assign collider type
 		META->ctype = ColliderType::META;
 
@@ -233,33 +236,43 @@ bool Player::Update()
 		}
 	}
 
-	if (lava) {
-		if (!stop) {
-			app->render->camera.y += 1;
-			CAM->body->SetLinearVelocity(b2Vec2(0, -1.2));
-			LAVDetect->body->SetLinearVelocity(b2Vec2(0, -1.2));
-			CAMG->body->SetLinearVelocity(b2Vec2(0, -1.2));
+	if (lava) 
+	{
+			app->render->camera.y += 4;
+			CAM->body->SetLinearVelocity(b2Vec2(0, -4.8));
+			LAVDetect->body->SetLinearVelocity(b2Vec2(0, -4.8));
+			CAMG->body->SetLinearVelocity(b2Vec2(0, -4.8));
+			CAMGDetect->body->SetLinearVelocity(b2Vec2(0, -4.8));
+	}
+
+	if(!lava)
+	{
+		if (!camg)
+		{
+			CAM->body->SetLinearVelocity(b2Vec2(0, 0));
+			LAVDetect->body->SetLinearVelocity(b2Vec2(0, 0));
+			CAMG->body->SetLinearVelocity(b2Vec2(0, 0));
+			CAMGDetect->body->SetLinearVelocity(b2Vec2(0, 0));
 		}
 	}
 
-	if(!lava){
-		if (camg) {
-			app->render->camera.y -= 1;
-			CAM->body->SetLinearVelocity(b2Vec2(0, 1.2));
-			LAVDetect->body->SetLinearVelocity(b2Vec2(0, 1.2));
-			CAMG->body->SetLinearVelocity(b2Vec2(0, 1.2));
-		}
+	if (camg) 
+	{
+		app->render->camera.y -= 4;
+		CAM->body->SetLinearVelocity(b2Vec2(0, 4.8));
+		LAVDetect->body->SetLinearVelocity(b2Vec2(0, 4.8));
+		CAMG->body->SetLinearVelocity(b2Vec2(0, 4.8));
+		CAMGDetect->body->SetLinearVelocity(b2Vec2(0, 4.8));
+	}
 
-		if (stop) {
+	if (!camg) 
+	{
+		if (!lava)
+		{
 			CAM->body->SetLinearVelocity(b2Vec2(0, 0));
 			LAVDetect->body->SetLinearVelocity(b2Vec2(0, 0));
 			CAMG->body->SetLinearVelocity(b2Vec2(0, 0));
-		}
-
-		if (!stop) {
-			CAM->body->SetLinearVelocity(b2Vec2(0, 0));
-			LAVDetect->body->SetLinearVelocity(b2Vec2(0, 0));
-			CAMG->body->SetLinearVelocity(b2Vec2(0, 0));
+			CAMGDetect->body->SetLinearVelocity(b2Vec2(0, 0));
 		}
 	}
 
@@ -285,7 +298,7 @@ bool Player::Update()
 	DetectPosX = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.x);
 	DetectPosY = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.y);
 
-	app->render->DrawTexture(texture, position.x - 12, position.y - 10, &dino, flip);
+	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &dino, flip);
 	app->render->DrawTexture(textureLava, lavaPosX - 35, lavaPosY - 5);
 
 	time++;
@@ -312,7 +325,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	//	item->CleanUp(); 
 	//	break;
 	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
 		jump = true;
 		isjumping = false;
 		time = 0;
@@ -323,26 +335,22 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::META:
 		Meta = true;
-		LOG("Collision META");
 		break;
 	case ColliderType::CAM:
 		lava = true;
-		camg = false;
-		stop = true;
-		LOG("Collision CAM");
 		break;
 	case ColliderType::CAMG:
 		camg = true;
-		LOG("Collision CAM");
 		break;
 	case ColliderType::LAVA:
 		die = true;
-		LOG("Collision LAVA");
 		break;
 	case ColliderType::LAVADETECT:
 		lava = false;
-		stop = false;
-		LOG("Collision DETECT");
+		break;
+	case ColliderType::CAMGDETECT:
+		LOG("CAMGDETECT");
+		camg = false;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

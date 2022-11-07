@@ -32,6 +32,7 @@ enum class ColliderType {
 	CAMG,
 	LAVA,
 	LAVADETECT,
+	CAMGDETECT,
 	UNKNOWN
 	// ..
 };

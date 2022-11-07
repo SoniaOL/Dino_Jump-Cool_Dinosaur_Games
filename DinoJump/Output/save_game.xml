@@ -13,6 +13,8 @@
 		<LAV x="37" y="1842" />
 		<LAVDetect x="37" y="1770" />
 		<CAM x="37" y="1412" />
+		<CAMG x="37" y="1785" />
+		<CAMGDETECT x="37" y="1462" />
 		<camera x="0" y="-900" />
 	</entitymanager>
 	<:anonymous />
