@@ -200,7 +200,8 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		cam.append_attribute("x") = 37;
 		cam.append_attribute("y") = 1412;
 
-
+		app->render->SaveState(data);
+		app->render->LoadState(data);
 		app->LoadGameRequest();
 
 		LOG("RESET");

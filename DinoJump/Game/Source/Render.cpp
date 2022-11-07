@@ -249,8 +249,8 @@ bool Render::SaveState(pugi::xml_node& data)
 	}
 
 	if (app->sceneIntro->reset) {
-		cam.append_attribute("x") = 0;
-		cam.append_attribute("y") = 900;
+		cam.append_attribute("x") = cameraX;
+		cam.append_attribute("y") = cameraY;
 	}
 	
 

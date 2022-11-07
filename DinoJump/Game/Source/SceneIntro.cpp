@@ -53,7 +53,7 @@ bool SceneIntro::Start()
 
 	img = app->tex->Load(imgpath); 
 	death = app->tex->Load(deathpath); 
-	
+
 	return true;
 }
 
@@ -66,7 +66,6 @@ bool SceneIntro::PreUpdate()
 // Called each loop iteration
 bool SceneIntro::Update(float dt)
 {
-
 	bool ret = true;
 	/*app->render->DrawTexture(img, 0, 860);
 	app->render->DrawTexture(img2, 0, 860);*/

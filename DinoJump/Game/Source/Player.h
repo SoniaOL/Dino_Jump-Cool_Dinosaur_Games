@@ -44,6 +44,7 @@ public:
 	bool Meta = false;
 	bool lava = false;
 	bool slideSlow = false;
+	bool init = true;
 
 	int PlayerPosY = 0;
 	int PlayerPosX = 0;

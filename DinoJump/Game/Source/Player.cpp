@@ -96,6 +96,15 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		LAV->ctype = ColliderType::LAVA;
 
+		if (init)
+		{
+			app->sceneIntro->reset = true;
+
+			app->SaveGameRequest();
+
+			init = false;
+		}
+
 		col = false;
 	}
 

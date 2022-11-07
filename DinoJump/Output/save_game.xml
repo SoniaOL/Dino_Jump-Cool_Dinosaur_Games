@@ -13,9 +13,10 @@
 		<LAV x="37" y="1842" />
 		<LAVDetect x="37" y="1770" />
 		<CAM x="37" y="1412" />
+		<camera x="0" y="-900" />
 	</entitymanager>
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-1007" />
+		<camera x="0" y="-900" />
 	</renderer>
 </save_state>
