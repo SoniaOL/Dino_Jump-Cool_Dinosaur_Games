@@ -77,7 +77,7 @@ bool Player::Update()
 		textureLava = app->tex->Load(texturePathLava); 
 
 		// L07 DONE 5: Add physics to the player - initialize physics body
-		pbody = app->physics->CreateCircle(position.x + (10 * 2), position.y + (10 * 2), 10, bodyType::DYNAMIC);
+		pbody = app->physics->CreateCircle(position.x + (8 * 2), position.y + (8 * 2), 8, bodyType::DYNAMIC);
 
 		// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 		pbody->listener = this;
@@ -107,7 +107,7 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		LAV->ctype = ColliderType::LAVA;
 
-		META = app->physics->CreateRectangleSensor(position.x - 90, position.y - 200, 50, 90, STATIC);
+		META = app->physics->CreateRectangleSensor(229, 719, 50, 90, STATIC);
 		// L07 DONE 7: Assign collider type
 		META->ctype = ColliderType::META;
 
@@ -285,7 +285,7 @@ bool Player::Update()
 	DetectPosX = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.x);
 	DetectPosY = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.y);
 
-	app->render->DrawTexture(texture, position.x - 12, position.y - 10, &dino, flip);
+	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &dino, flip);
 	app->render->DrawTexture(textureLava, lavaPosX - 35, lavaPosY - 5);
 
 	time++;
