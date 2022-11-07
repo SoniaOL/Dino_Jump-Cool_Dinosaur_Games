@@ -354,6 +354,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::LAVA:
 		die = true;
+		audiob = true; 
 		break;
 	case ColliderType::LAVADETECT:
 		lava = false;

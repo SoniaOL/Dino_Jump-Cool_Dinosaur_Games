@@ -105,9 +105,9 @@ bool SceneIntro::Update(float dt)
 	if (app->scene->player->die) {
 		app->render->camera.y = -900; 
 		app->render->DrawTexture(death, 0, 900 , &dinoD);
-		if (audiob == true) {
+		if (app->scene->player->audiob == true) {
 			app->audio->PlayFx(audio);
-			audiob = false; 
+			app->scene->player->audiob = false;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 		{
