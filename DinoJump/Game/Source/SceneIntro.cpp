@@ -38,6 +38,7 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 
 	imgpath = config.child("imgintro").attribute("texturepath").as_string();
 	deathpath = config.child("imgintrodeath").attribute("death").as_string();
+	audioPathlose = config.child("audio").attribute("pathlose").as_string(); 
 
 	app->entityManager->active = false;
 	app->map->active = false;
@@ -53,6 +54,7 @@ bool SceneIntro::Start()
 
 	img = app->tex->Load(imgpath); 
 	death = app->tex->Load(deathpath); 
+	audio = app->audio->LoadFx(audioPathlose);
 
 	return true;
 }
@@ -98,11 +100,15 @@ bool SceneIntro::Update(float dt)
 
 	if (!app->scene->player->die) {
 		app->render->DrawTexture(img, 0, 900, &dinoI);
+	   
 	}
 	if (app->scene->player->die) {
 		app->render->camera.y = -900; 
 		app->render->DrawTexture(death, 0, 900 , &dinoD);
-
+		if (audiob == true) {
+			app->audio->PlayFx(audio);
+			audiob = false; 
+		}
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 		{
 			app->scene->player->die = false;

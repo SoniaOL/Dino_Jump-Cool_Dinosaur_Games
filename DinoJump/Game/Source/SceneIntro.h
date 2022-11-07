@@ -55,6 +55,11 @@ private:
 	Animation* currentAnimationdeath = nullptr;
 	Animation dinoDeath;
 
+	const char* audioPathwin;
+	const char* audioPathlose;
+	int audio;
+	bool audiob = true; 
+
 	
 
 	

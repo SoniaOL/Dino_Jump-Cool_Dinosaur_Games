@@ -35,12 +35,16 @@ bool Scene::Awake(pugi::xml_node& config)
 	//	Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 	//	item->parameters = itemNode;
 	//}
-	//audioPath = parameters; 
-	audio = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+
+	
 
 	//L02: DONE 3: Instantiate the player using the entity manager
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
+
+
+	audioPath = config.child("player").child("audio").attribute("path").as_string();
+	/*audio = app->audio->LoadFx(audioPath);*/
 
 	return ret;
 }
@@ -52,8 +56,10 @@ bool Scene::Start()
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	
+	
 	// L03: DONE: Load map
 	app->map->Load();
+
 
 	// L04: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
@@ -96,6 +102,8 @@ bool Scene::Update(float dt)
 
 	if (col)
 	{
+
+		app->audio->PlayMusic(audioPath);
 		// L07 DONE 3: Create colliders
 		// Later you can create a function here to load and create the colliders from the map
 		PhysBody* c1 = app->physics->CreateRectangle(34 + (380 / 2), 1765 + (18 / 2), 396, 18, bodyType::STATIC);
@@ -261,6 +269,8 @@ bool Scene::Update(float dt)
 	
 	
 	}
+
+	
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
