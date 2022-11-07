@@ -34,6 +34,7 @@
 	  <CAMG x="37" y="1820" />	
       <LAVDetect x="37" y="1812" />
       <LAV x="37" y="1842" texturepath="Assets/Textures/Lava.png " />
+	  <audio path="Assets/Audio/Music/Background.ogg"/>	
 		
     </player>
     <!--item x="159" y="1700" texturepath="Assets/Textures/goldCoin.png"/>
@@ -45,7 +46,7 @@
 
   <map>
     <mapfolder path="Assets/Maps/TiledMap/Tilemap/"/>
-    <mapfile path="Assets/Maps/TiledMap/Tilemap/RockTile.tmx"/>
+    <mapfile path="Assets/Maps/TiledMap/Tilemap/RockTile.tmx"/> 
   </map>
   
 </config>

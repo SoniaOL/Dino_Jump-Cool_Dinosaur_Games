@@ -35,6 +35,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	//	Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 	//	item->parameters = itemNode;
 	//}
+	//audioPath = parameters; 
+	audio = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
 	//L02: DONE 3: Instantiate the player using the entity manager
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);

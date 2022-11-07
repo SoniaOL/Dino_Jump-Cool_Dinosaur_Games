@@ -114,6 +114,10 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		META->ctype = ColliderType::META;
 
+		TOP = app->physics->CreateRectangleSensor(144, 613, 168, 36, STATIC);
+		// L07 DONE 7: Assign collider type
+		TOP->ctype = ColliderType::TOP;
+
 
 		if (init)
 		{

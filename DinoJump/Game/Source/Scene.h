@@ -44,6 +44,9 @@ public:
 private:
 	SDL_Texture* img;
 
+	const char* audioPath;
+	int audio; 
+
 };
 
 #endif // __SCENE_H__
