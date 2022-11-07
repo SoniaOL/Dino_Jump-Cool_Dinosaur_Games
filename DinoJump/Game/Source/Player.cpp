@@ -10,6 +10,7 @@
 #include "Physics.h"
 #include "SceneIntro.h"
 #include "EntityManager.h"
+#include "Map.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -235,6 +236,11 @@ bool Player::Update()
 			}
 		}
 	}
+
+	//if () {
+	//	lava = false;
+	//	camg = false;
+	//}
 
 	if (lava) 
 	{
