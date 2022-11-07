@@ -96,6 +96,11 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		LAV->ctype = ColliderType::LAVA;
 
+		META = app->physics->CreateRectangleSensor(position.x - 90, position.y - 200, 50, 90, STATIC);
+		// L07 DONE 7: Assign collider type
+		META->ctype = ColliderType::META;
+
+
 		if (init)
 		{
 			app->sceneIntro->reset = true;

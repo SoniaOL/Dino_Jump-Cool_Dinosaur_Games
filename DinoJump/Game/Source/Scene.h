@@ -39,6 +39,7 @@ public:
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
 	bool col = true;
+	int count = 0;
 
 private:
 	SDL_Texture* img;

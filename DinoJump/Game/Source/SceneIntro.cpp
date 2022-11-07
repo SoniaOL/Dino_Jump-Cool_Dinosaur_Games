@@ -77,18 +77,14 @@ bool SceneIntro::Update(float dt)
 	currentAnimation->Update();
 	currentAnimationdeath->Update();
 
-	if (!app->scene->player->die) {
-		LOG("LIVE!");
+	if (app->scene->player->Meta) {
+		app->render->camera.y = -900;
 		app->render->DrawTexture(img, 0, 900, &dinoI);
-	}
-	if (app->scene->player->die) {
-		LOG("DIE!");
-		app->render->camera.y = -900; 
-		app->render->DrawTexture(death, 0, 900 , &dinoD);
 
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			app->scene->player->die = false;
+			app->scene->player->Meta = false;
 			this->active = false;
 			app->scene->active = true;
 			app->entityManager->active = true;
@@ -100,15 +96,40 @@ bool SceneIntro::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) 
+	if (!app->scene->player->die) {
+		app->render->DrawTexture(img, 0, 900, &dinoI);
+	}
+	if (app->scene->player->die) {
+		app->render->camera.y = -900; 
+		app->render->DrawTexture(death, 0, 900 , &dinoD);
+
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+		{
+			app->scene->player->die = false;
+			app->scene->player->Meta = false;
+			this->active = false;
+			app->scene->active = true;
+			app->entityManager->active = true;
+			app->map->active = true;
+			On = true;
+			reset = true;
+
+			app->SaveGameRequest();
+		}
+	}
+	if (!app->scene->player->Meta)
 	{
-		app->scene->player->die = false;
-		this->active = false;
-		app->scene->active = true;
-		app->entityManager->active = true;
-		app->map->active = true;
-		On = true;
-		app->LoadGameRequest();
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			app->scene->player->die = false;
+			app->scene->player->Meta = false;
+			this->active = false;
+			app->scene->active = true;
+			app->entityManager->active = true;
+			app->map->active = true;
+			On = true;
+			app->LoadGameRequest();
+		}
 	}
 
 	return ret;

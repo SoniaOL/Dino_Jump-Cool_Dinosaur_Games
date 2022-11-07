@@ -80,10 +80,10 @@ public:
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
-private:
-
 	// Debug mode
 	bool debug;
+
+private:
 
 	// Box2D World
 	b2World* world;

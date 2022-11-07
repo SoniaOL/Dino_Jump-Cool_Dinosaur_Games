@@ -61,6 +61,7 @@ public:
 	PhysBody* CAM;
 	PhysBody* LAVDetect;
 	PhysBody* LAV;
+	PhysBody* META;
 
 	bool col = true;
 	bool die = false;

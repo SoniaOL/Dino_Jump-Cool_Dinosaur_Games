@@ -80,7 +80,9 @@ bool Scene::Update(float dt)
 {
 	bool ret = true;
 
-	if (player->die) {
+	if (player->die || player->Meta) {
+		LOG("META");
+		app->scene->player->LAV->body->SetLinearVelocity(b2Vec2(0 ,0));
 		app->entityManager->active = false;
 		app->map->active = false;
 		app->sceneIntro->On = false;
@@ -217,6 +219,23 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		app->LoadGameRequest();
 		app->sceneIntro->reset = false;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) 
+	{
+		switch (count)
+		{
+		case 0:
+			app->physics->debug = true;
+			count++;
+			break;
+		case 1:
+			app->physics->debug = false;
+			count = 0;
+			break;
+		default:
+			break;
+		}
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
