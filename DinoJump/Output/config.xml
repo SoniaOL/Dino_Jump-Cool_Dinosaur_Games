@@ -31,14 +31,16 @@
     <player>
       <play x="150" y="1700" texturepath="Assets/Textures/player3.png"/>
       <CAM x="37" y="1412" />
+	  <CAMG x="37" y="1820" />	
       <LAVDetect x="37" y="1812" />
-      <LAV x="37" y="1842" />
+      <LAV x="37" y="1842" texturepath="Assets/Textures/Lava.png " />
+		
     </player>
-    <item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
+    <!--item x="159" y="1700" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
-    <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
+    <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/ -->
   </scene>
 
   <map>

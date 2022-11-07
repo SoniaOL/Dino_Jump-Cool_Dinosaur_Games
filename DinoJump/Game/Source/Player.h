@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "SDL/include/SDL.h"
 #include "Physics.h"
+//#include "Item.h"
 
 struct SDL_Texture;
 
@@ -43,8 +44,10 @@ public:
 	bool isjumping = false;
 	bool Meta = false;
 	bool lava = false;
+	bool camg = false; 
 	bool slideSlow = false;
 	bool init = true;
+	bool stop = false;
 
 	int PlayerPosY = 0;
 	int PlayerPosX = 0;
@@ -55,10 +58,14 @@ public:
 	int camPosX = 0;
 	int camPosY = 0;
 
+	int camPosGroundX = 0;
+	int camPosGroundY = 0;
+
 	int DetectPosX = 0;
 	int DetectPosY = 0;
 
 	PhysBody* CAM;
+	PhysBody* CAMG;
 	PhysBody* LAVDetect;
 	PhysBody* LAV;
 	PhysBody* META;
@@ -75,13 +82,18 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	int pickCoinFxId;
+	SDL_Texture* textureLava; 
+	const char* texturePathLava;
+
+	/*int pickCoinFxId;*/
 
 	Animation* currentAnimation = nullptr;
 	Animation idleAnim;
 	Animation movingAnim;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	/*Item* item; */
 
 };
 

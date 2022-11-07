@@ -51,8 +51,13 @@ bool Player::Awake() {
 	camPosX = parameters.child("CAM").attribute("x").as_int();
 	camPosY = parameters.child("CAM").attribute("y").as_int();
 
+	camPosGroundX = parameters.child("CAMG").attribute("x").as_int();
+	camPosGroundY = parameters.child("CAMG").attribute("y").as_int();
+
 	DetectPosX = parameters.child("LAVDetect").attribute("x").as_int();
 	DetectPosY = parameters.child("LAVDetect").attribute("y").as_int();
+
+	texturePathLava = parameters.child("LAV").attribute("texturepath").as_string(); 
 
 	return true;
 }
@@ -69,6 +74,7 @@ bool Player::Update()
 
 		//initilize textures
 		texture = app->tex->Load(texturePath);
+		textureLava = app->tex->Load(texturePathLava); 
 
 		// L07 DONE 5: Add physics to the player - initialize physics body
 		pbody = app->physics->CreateCircle(position.x + (10 * 2), position.y + (10 * 2), 10, bodyType::DYNAMIC);
@@ -80,13 +86,18 @@ bool Player::Update()
 		pbody->ctype = ColliderType::PLAYER;
 
 		//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
-		pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+		/*pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");*/
 
 		pbody->GetPosition(PlayerPosX, PlayerPosY);
 
 		CAM = app->physics->CreateRectangleSensor(camPosX, camPosY, 2000, 10, KINEMATIC);
 		// L07 DONE 7: Assign collider type
 		CAM->ctype = ColliderType::CAM;
+
+		CAMG = app->physics->CreateRectangleSensor(DetectPosX, DetectPosY - 15, 2000, 10, KINEMATIC);
+		CAMG = app->physics->CreateRectangleSensor(DetectPosX, DetectPosY - 15, 2000, 10, KINEMATIC);
+		// L07 DONE 7: Assign collider type
+		CAMG->ctype = ColliderType::CAMG;
 
 		LAVDetect = app->physics->CreateRectangleSensor(DetectPosX, DetectPosY, 2000, 10, KINEMATIC);
 		// L07 DONE 7: Assign collider type
@@ -223,14 +234,36 @@ bool Player::Update()
 	}
 
 	if (lava) {
-		app->render->camera.y += 1;
-		CAM->body->SetLinearVelocity(b2Vec2(0, -1.2));
-		LAVDetect->body->SetLinearVelocity(b2Vec2(0, -1.2));
+		if (!stop) {
+			app->render->camera.y += 1;
+			CAM->body->SetLinearVelocity(b2Vec2(0, -1.2));
+			LAVDetect->body->SetLinearVelocity(b2Vec2(0, -1.2));
+			CAMG->body->SetLinearVelocity(b2Vec2(0, -1.2));
+		}
 	}
-	if (!lava) {
-		CAM->body->SetLinearVelocity(b2Vec2(0, 0));
-		LAVDetect->body->SetLinearVelocity(b2Vec2(0, 0));
+
+	if(!lava){
+		if (camg) {
+			app->render->camera.y -= 1;
+			CAM->body->SetLinearVelocity(b2Vec2(0, 1.2));
+			LAVDetect->body->SetLinearVelocity(b2Vec2(0, 1.2));
+			CAMG->body->SetLinearVelocity(b2Vec2(0, 1.2));
+		}
+
+		if (stop) {
+			CAM->body->SetLinearVelocity(b2Vec2(0, 0));
+			LAVDetect->body->SetLinearVelocity(b2Vec2(0, 0));
+			CAMG->body->SetLinearVelocity(b2Vec2(0, 0));
+		}
+
+		if (!stop) {
+			CAM->body->SetLinearVelocity(b2Vec2(0, 0));
+			LAVDetect->body->SetLinearVelocity(b2Vec2(0, 0));
+			CAMG->body->SetLinearVelocity(b2Vec2(0, 0));
+		}
 	}
+
+
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
@@ -252,7 +285,8 @@ bool Player::Update()
 	DetectPosX = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.x);
 	DetectPosY = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.y);
 
-	app->render->DrawTexture(texture, position.x - 12, position.y - 12, &dino, flip);
+	app->render->DrawTexture(texture, position.x - 12, position.y - 10, &dino, flip);
+	app->render->DrawTexture(textureLava, lavaPosX - 35, lavaPosY - 5);
 
 	time++;
 	timeS++;
@@ -272,10 +306,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
-		app->audio->PlayFx(pickCoinFxId);
-		break;
+	//case ColliderType::ITEM:
+	//	LOG("Collision ITEM");
+	//	app->audio->PlayFx(pickCoinFxId);
+	//	item->CleanUp(); 
+	//	break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 		jump = true;
@@ -292,6 +327,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::CAM:
 		lava = true;
+		camg = false;
+		stop = true;
+		LOG("Collision CAM");
+		break;
+	case ColliderType::CAMG:
+		camg = true;
 		LOG("Collision CAM");
 		break;
 	case ColliderType::LAVA:
@@ -300,6 +341,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::LAVADETECT:
 		lava = false;
+		stop = false;
 		LOG("Collision DETECT");
 		break;
 	case ColliderType::UNKNOWN:
