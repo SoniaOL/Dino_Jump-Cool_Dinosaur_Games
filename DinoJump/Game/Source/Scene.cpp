@@ -210,10 +210,10 @@ bool Scene::Update(float dt)
 		c27->ctype = ColliderType::PLATFORM;
 		col = false;
 
-		PhysBody* c28 = app->physics->CreateRectangle(360 + (72 / 2), 1744 + (36 / 2), 72, 36, bodyType::STATIC);
-		// L07 DONE 7: Assign collider type
-		c28->ctype = ColliderType::PLATFORM;
-		col = false;
+		//PhysBody* c28 = app->physics->CreateRectangle(360 + (72 / 2), 1744 + (36 / 2), 72, 36, bodyType::STATIC);
+		//// L07 DONE 7: Assign collider type
+		//c28->ctype = ColliderType::PLATFORM;
+		//col = false;
 
 		PhysBody* c29 = app->physics->CreateRectangle(288 + (54 / 2), 1097 + (18 / 2), 54, 18, bodyType::STATIC);
 		// L07 DONE 7: Assign collider type
