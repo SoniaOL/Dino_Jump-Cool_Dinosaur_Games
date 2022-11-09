@@ -231,16 +231,16 @@ bool Scene::Update(float dt)
 		c29->ctype = ColliderType::PLATFORM;
 		col = false;
 
-		PhysBody* c30 = app->physics->CreateRectangle(36 + (54 / 2), 1026 + (18 / 2), 54, 18, bodyType::STATIC);
+		PhysBody* c30 = app->physics->CreateRectangle(36 + (54 / 2), 1008 + (18 / 2), 54, 18, bodyType::STATIC);
 		// L07 DONE 7: Assign collider type
 		c30->ctype = ColliderType::PLATFORM;
 		col = false;
 
-		PhysBody* c32 = app->physics->CreateRectangle(252 + (18 / 2), 1025 + (18 / 2), 18, 18, bodyType::STATIC);
+		PhysBody* c32 = app->physics->CreateRectangle(252 + (18 / 2), 1008 + (18 / 2), 18, 18, bodyType::STATIC);
 		// L07 DONE 7: Assign collider type
 		c32->ctype = ColliderType::PLATFORM;
 
-		PhysBody* c33 = app->physics->CreateRectangle(162 + (18 / 2), 1025 + (18 / 2), 18, 18, bodyType::STATIC);
+		PhysBody* c33 = app->physics->CreateRectangle(162 + (18 / 2), 1008 + (18 / 2), 18, 18, bodyType::STATIC);
 		// L07 DONE 7: Assign collider type
 		c33->ctype = ColliderType::PLATFORM;
 
@@ -248,7 +248,7 @@ bool Scene::Update(float dt)
 		// L07 DONE 7: Assign collider type
 		c34->ctype = ColliderType::PLATFORM;
 
-		PhysBody* c35 = app->physics->CreateRectangle(252 + (126 / 2), 845 + (36 / 2), 126, 36, bodyType::STATIC);
+		PhysBody* c35 = app->physics->CreateRectangle(252 + (126 / 2), 865 + (36 / 2), 126, 36, bodyType::STATIC);
 		// L07 DONE 7: Assign collider type
 		c35->ctype = ColliderType::PLATFORM;
 
@@ -267,6 +267,14 @@ bool Scene::Update(float dt)
 		PhysBody* c39 = app->physics->CreateRectangle(36 + (18 / 2), 954 + (18 / 2), 18, 18, bodyType::STATIC);
 		// L07 DONE 7: Assign collider type
 		c39->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c40 = app->physics->CreateRectangle(342 + (18 / 2), 810 + (18 / 2), 18, 18, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c40->ctype = ColliderType::PLATFORM;
+
+		PhysBody* c41 = app->physics->CreateRectangle(36 + (378 / 2), 630 + (18 / 2), 378, 18, bodyType::STATIC);
+		// L07 DONE 7: Assign collider type
+		c41->ctype = ColliderType::UNKNOWN;
 	
 	
 	}
