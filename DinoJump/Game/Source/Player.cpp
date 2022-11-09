@@ -115,11 +115,6 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		META->ctype = ColliderType::META;
 
-		TOP = app->physics->CreateRectangleSensor(144, 613, 168, 36, STATIC);
-		// L07 DONE 7: Assign collider type
-		TOP->ctype = ColliderType::TOP;
-
-
 		if (init)
 		{
 			app->sceneIntro->reset = true;
@@ -132,6 +127,11 @@ bool Player::Update()
 		col = false;
 	}
 
+	//CAMERA TOP
+	if (app->render->camera.y >= -618) {
+		lava = false;
+	}
+
 	// L07 DONE 5: Add physics to the player - updated player position using physics
 
 	currentAnimation = &idleAnim;
@@ -141,18 +141,29 @@ bool Player::Update()
 	LAV->body->SetLinearVelocity(b2Vec2(0, -0.3));
 
 	if (isjumping) {
-		vel.y = vel.y + (time / 5);
+		vel.y = vel.y + (time / 20);
 	}
 
 	if (slideSlow) {
-		vel.x = vel.x - (timeS / 5);
-		if (vel.x <= 0) {
-			vel.x = 0;
-			slideSlow = false;
+		if (Right) {
+			vel.x = vel.x - (timeS / 20);
+			if (vel.x <= 0) {
+				vel.x = 0;
+				slideSlow = false;
+			}
+		}
+		if (Left) {
+			vel.x = vel.x + (timeS / 20);
+			if (vel.x >= 0) {
+				vel.x = 0;
+				slideSlow = false;
+			}
 		}
 	}
 	if (!slideSlow) {
 		vel.x = 0;
+		Left = false;
+		Right = false;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
@@ -163,9 +174,8 @@ bool Player::Update()
 			time = 0;
 			isjumping = true;
 			vel.x = pbody->body->GetLinearVelocity().x;
-			vel.y = -10;
+			vel.y = -6;
 			//pbody->body->ApplyForce(b2Vec2(0, METERS_TO_PIXELS(-100)), pbody->body->GetWorldCenter(), true);
-
 		}
 
 		if (isjumping) {
@@ -199,13 +209,16 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		flip = SDL_FLIP_HORIZONTAL;
 		currentAnimation = &movingAnim;
-		vel = b2Vec2(-speed, vel.y);
+		if (!slideSlow) {
+			vel = b2Vec2(-speed, vel.y);
+		}
 		if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
 			if (slideCounter != 2)
 			{
 				slideSlow = true;
+				Left = true;
 				timeS = 0;
-				vel.x += -50;
+				vel.x += -5;
 				//pbody->body->ApplyForce(b2Vec2(METERS_TO_PIXELS(-30), 0), pbody->body->GetWorldCenter(), true);
 				if (isjumping) {
 					slideCounter += 0.5f;
@@ -222,13 +235,16 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		flip = SDL_FLIP_NONE;
 		currentAnimation = &movingAnim;
-		vel = b2Vec2(speed, vel.y);
+		if (!slideSlow) {
+			vel = b2Vec2(speed, vel.y);
+		}
 		if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
 			if (slideCounter != 2)
 			{
 				slideSlow = true;
+				Right = true;
 				timeS = 0;
-				vel.x += 50;
+				vel.x += 5;
 				//pbody->body->ApplyForce(b2Vec2(METERS_TO_PIXELS(30), 0), pbody->body->GetWorldCenter(), true);
 				if (isjumping) {
 					slideCounter++;
@@ -240,11 +256,6 @@ bool Player::Update()
 			}
 		}
 	}
-
-	//if () {
-	//	lava = false;
-	//	camg = false;
-	//}
 
 	if (lava) 
 	{

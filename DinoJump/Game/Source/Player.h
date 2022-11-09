@@ -74,7 +74,9 @@ public:
 
 	bool col = true;
 	bool die = false;
-	bool audiob = true; 
+	bool audiob = true;
+	bool Right = false;
+	bool Left = false;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
