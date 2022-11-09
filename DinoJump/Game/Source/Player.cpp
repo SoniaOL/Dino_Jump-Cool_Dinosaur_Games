@@ -174,7 +174,7 @@ bool Player::Update()
 			time = 0;
 			isjumping = true;
 			vel.x = pbody->body->GetLinearVelocity().x;
-			vel.y = -6;
+			vel.y = -5;
 			//pbody->body->ApplyForce(b2Vec2(0, METERS_TO_PIXELS(-100)), pbody->body->GetWorldCenter(), true);
 		}
 
