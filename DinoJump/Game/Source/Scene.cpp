@@ -98,6 +98,7 @@ bool Scene::Update(float dt)
 		app->sceneIntro->On = false;
 		app->sceneIntro->active = true;
 		this->active = false;
+		app->physics->debug = false;
 	}
 
 	if (col)

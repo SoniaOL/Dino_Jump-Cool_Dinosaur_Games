@@ -174,7 +174,7 @@ bool Player::Update()
 			time = 0;
 			isjumping = true;
 			vel.x = pbody->body->GetLinearVelocity().x;
-			vel.y = -6;
+			vel.y = -5;
 			//pbody->body->ApplyForce(b2Vec2(0, METERS_TO_PIXELS(-100)), pbody->body->GetWorldCenter(), true);
 		}
 
@@ -218,7 +218,7 @@ bool Player::Update()
 				slideSlow = true;
 				Left = true;
 				timeS = 0;
-				vel.x += -5;
+				vel.x += -2.5f;
 				//pbody->body->ApplyForce(b2Vec2(METERS_TO_PIXELS(-30), 0), pbody->body->GetWorldCenter(), true);
 				if (isjumping) {
 					slideCounter += 0.5f;
@@ -244,7 +244,7 @@ bool Player::Update()
 				slideSlow = true;
 				Right = true;
 				timeS = 0;
-				vel.x += 5;
+				vel.x += 2.5f;
 				//pbody->body->ApplyForce(b2Vec2(METERS_TO_PIXELS(30), 0), pbody->body->GetWorldCenter(), true);
 				if (isjumping) {
 					slideCounter++;
