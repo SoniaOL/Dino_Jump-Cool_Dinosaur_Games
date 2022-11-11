@@ -90,6 +90,13 @@ private:
 	SDL_Texture* textureLava; 
 	const char* texturePathLava;
 
+	SDL_Texture* textureMeta;
+	const char* texturePathMeta;
+
+
+	const char* audioPath;
+	int audio;
+
 	/*int pickCoinFxId;*/
 
 	Animation* currentAnimation = nullptr;

@@ -57,7 +57,8 @@ private:
 
 	const char* audioPathwin;
 	const char* audioPathlose;
-	int audio;
+	int audiolose;
+	int audiowin;
 	//bool audiob = true; 
 
 	

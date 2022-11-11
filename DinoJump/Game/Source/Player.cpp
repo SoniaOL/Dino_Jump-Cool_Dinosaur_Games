@@ -41,6 +41,8 @@ bool Player::Awake() {
 	//pos = position;
 	//texturePath = "Assets/Textures/player/idle1.png";
 
+	audioPath = parameters.child("audioJump").attribute("path").as_string();
+
 	//L02: DONE 5: Get Player parameters from XML
 	position.x = parameters.child("play").attribute("x").as_int();
 	position.y = parameters.child("play").attribute("y").as_int();
@@ -60,10 +62,14 @@ bool Player::Awake() {
 
 	texturePathLava = parameters.child("LAV").attribute("texturepath").as_string(); 
 
+	texturePathMeta = parameters.child("Meta").attribute("texturepath").as_string();
+
 	return true;
 }
 
 bool Player::Start() {
+
+	audio = app->audio->LoadFx(audioPath);
 
 	return true;
 }
@@ -76,6 +82,7 @@ bool Player::Update()
 		//initilize textures
 		texture = app->tex->Load(texturePath);
 		textureLava = app->tex->Load(texturePathLava); 
+		textureMeta = app->tex->Load(texturePathMeta);
 
 		// L07 DONE 5: Add physics to the player - initialize physics body
 		pbody = app->physics->CreateCircle(position.x + (8 * 2), position.y + (8 * 2), 8, bodyType::DYNAMIC);
@@ -170,6 +177,7 @@ bool Player::Update()
 	{
 		if (jump)
 		{
+			app->audio->PlayFx(audio);
 			LOG("JUMPCOUNTER: %d", jumpCounter);
 			time = 0;
 			isjumping = true;
@@ -321,6 +329,7 @@ bool Player::Update()
 
 	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &dino, flip);
 	app->render->DrawTexture(textureLava, lavaPosX - 35, lavaPosY - 5);
+	app->render->DrawTexture(textureMeta, 130, 643);
 
 	time++;
 	timeS++;
