@@ -369,6 +369,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::META:
 		Meta = true;
+		audiow = true; 
 		break;
 	case ColliderType::CAM:
 		lava = true;

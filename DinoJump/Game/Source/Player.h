@@ -75,6 +75,7 @@ public:
 	bool col = true;
 	bool die = false;
 	bool audiob = true;
+	bool audiow = true; 
 	bool Right = false;
 	bool Left = false;
 

@@ -24,6 +24,10 @@ SceneIntro::SceneIntro(bool startEnabled) : Module()
 	dinoDeath.PushBack({ 0,0,450,900 });
 	dinoDeath.PushBack({ 455,0,450,900 });
 	dinoDeath.speed = 0.009;
+
+	dinoWin.PushBack({ 0,0,450,900 });
+	dinoWin.PushBack({ 453,0,450,900 });
+	dinoWin.speed = 0.009;
 }
 
 // Destructor
@@ -38,6 +42,7 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 
 	imgpath = config.child("imgintro").attribute("texturepath").as_string();
 	deathpath = config.child("imgintrodeath").attribute("death").as_string();
+	winpath = config.child("imgintrodeath").attribute("win").as_string();
 	audioPathlose = config.child("audio").attribute("pathlose").as_string(); 
 	audioPathwin = config.child("audio").attribute("pathwin").as_string(); 
 
@@ -55,6 +60,7 @@ bool SceneIntro::Start()
 
 	img = app->tex->Load(imgpath); 
 	death = app->tex->Load(deathpath); 
+	win = app->tex->Load(winpath); 
 	audiolose = app->audio->LoadFx(audioPathlose);
 	audiowin = app->audio->LoadFx(audioPathwin);
 
@@ -75,16 +81,27 @@ bool SceneIntro::Update(float dt)
 	app->render->DrawTexture(img2, 0, 860);*/
 	currentAnimation = &dinoIntro; 
 	currentAnimationdeath = &dinoDeath; 
+	currentAnimationwin = &dinoWin; 
 	SDL_Rect dinoI = currentAnimation->GetCurrentFrame(); 
-	SDL_Rect dinoD = currentAnimationdeath->GetCurrentFrame(); 
+	SDL_Rect dinoD = currentAnimationdeath->GetCurrentFrame();
+	SDL_Rect dinoW = currentAnimationwin->GetCurrentFrame();
 
 	currentAnimation->Update();
 	currentAnimationdeath->Update();
+	currentAnimationwin->Update();
+
+	if (!app->scene->player->die) {
+		app->render->DrawTexture(img, 0, 900, &dinoI);
+
+	}
 
 	if (app->scene->player->Meta) {
-		app->audio->PlayFx(audiowin);
+		if (app->scene->player->audiow == true) {
+			app->audio->PlayFx(audiowin);
+			app->scene->player->audiow = false;
+		}
 		app->render->camera.y = -900;
-		app->render->DrawTexture(img, 0, 900, &dinoI);
+		app->render->DrawTexture(win, 0, 900, &dinoW);
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
@@ -101,10 +118,10 @@ bool SceneIntro::Update(float dt)
 		}
 	}
 
-	if (!app->scene->player->die) {
+	/*if (!app->scene->player->die) {
 		app->render->DrawTexture(img, 0, 900, &dinoI);
 	   
-	}
+	}*/
 	if (app->scene->player->die) {
 		app->render->camera.y = -900; 
 		app->render->DrawTexture(death, 0, 900 , &dinoD);

@@ -23,7 +23,7 @@
 	
   <sceneIntro>
 	  <imgintro texturepath ="Assets/Textures/dinoInicio.png"/>
-	  <imgintrodeath death ="Assets/Textures/dinoDeath.png"/>
+	  <imgintrodeath death ="Assets/Textures/dinoDeath.png" win ="Assets/Textures/dinoWin.png"/>
       <audio pathwin="Assets/Audio/Fx/win.ogg" pathlose="Assets/Audio/Fx/lose.ogg"/>	
   </sceneIntro>	
 
