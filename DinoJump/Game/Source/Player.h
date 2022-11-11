@@ -95,7 +95,9 @@ private:
 
 
 	const char* audioPath;
+	const char* audioPathSlide;
 	int audio;
+	int audioSlide;
 
 	/*int pickCoinFxId;*/
 

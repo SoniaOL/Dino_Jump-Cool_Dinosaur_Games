@@ -42,6 +42,7 @@ bool Player::Awake() {
 	//texturePath = "Assets/Textures/player/idle1.png";
 
 	audioPath = parameters.child("audioJump").attribute("path").as_string();
+	audioPathSlide = parameters.child("audioSlide").attribute("path").as_string();
 
 	//L02: DONE 5: Get Player parameters from XML
 	position.x = parameters.child("play").attribute("x").as_int();
@@ -70,6 +71,7 @@ bool Player::Awake() {
 bool Player::Start() {
 
 	audio = app->audio->LoadFx(audioPath);
+	audioSlide = app->audio->LoadFx(audioPathSlide);
 
 	return true;
 }
@@ -223,6 +225,7 @@ bool Player::Update()
 		if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
 			if (slideCounter != 2)
 			{
+				app->audio->PlayFx(audioSlide);
 				slideSlow = true;
 				Left = true;
 				timeS = 0;
@@ -249,6 +252,7 @@ bool Player::Update()
 		if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
 			if (slideCounter != 2)
 			{
+				app->audio->PlayFx(audioSlide);
 				slideSlow = true;
 				Right = true;
 				timeS = 0;

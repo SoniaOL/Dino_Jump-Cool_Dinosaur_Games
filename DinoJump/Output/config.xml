@@ -38,6 +38,7 @@
       <Meta x="229" y="719" texturepath="Assets/Textures/MetaRed.png " />
 	  <audio path="Assets/Audio/Music/Background.ogg"/>	
 	  <audioJump path="Assets/Audio/Fx/bitJump.ogg"/>	
+	  <audioSlide path="Assets/Audio/Fx/Slide.ogg"/>	
 		
     </player>
     <!--item x="159" y="1700" texturepath="Assets/Textures/goldCoin.png"/>
