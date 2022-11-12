@@ -141,6 +141,15 @@ bool Player::Update()
 		lava = false;
 	}
 
+	if (position.y < lavaPosY) {
+		dieCount = 0;
+		LOG("DIECOUNT: %d", dieCount);
+	}
+	else {
+		dieCount = 1;
+		LOG("DIECOUNT: %d", dieCount);
+	}
+
 	// L07 DONE 5: Add physics to the player - updated player position using physics
 
 	currentAnimation = &idleAnim;
@@ -201,19 +210,22 @@ bool Player::Update()
 	}
 
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		vel = b2Vec2(0, -10);
-	}
+	if (GodMode) 
+	{
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+			vel = b2Vec2(0, -10);
+		}
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP) {
-		vel = b2Vec2(0, 0);
-	}
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP) {
+			vel = b2Vec2(0, 0);
+		}
 
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		vel = b2Vec2(0, 10);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP) {
-		vel = b2Vec2(0, 0);
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			vel = b2Vec2(0, 10);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP) {
+			vel = b2Vec2(0, 0);
+		}
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
@@ -378,18 +390,19 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		camg = true;
 		break;
 	case ColliderType::LAVA:
-		die = true;
-		audiob = true; 
+		if (!GodMode)
+		{
+			die = true;
+			audiob = true;
+		}
 		break;
 	case ColliderType::LAVADETECT:
 		lava = false;
 		break;
 	case ColliderType::CAMGDETECT:
-		LOG("CAMGDETECT");
 		camg = false;
 		break;
 	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
 		break;
 	}
 }

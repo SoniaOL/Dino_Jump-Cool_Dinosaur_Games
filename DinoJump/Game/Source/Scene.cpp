@@ -88,17 +88,34 @@ bool Scene::Update(float dt)
 {
 	bool ret = true;
 
-	if (player->die || player->Meta) {
-		LOG("META");
-		app->scene->player->LAV->body->SetLinearVelocity(b2Vec2(0 ,0));
-		app->scene->player->camg = false;
-		app->scene->player->lava = false;
+	if (player->die) {
+		player->LAV->body->SetLinearVelocity(b2Vec2(0 ,0));
+		player->camg = false;
+		player->lava = false; 
+		player->GodMode = false;
+		countGod = 0;
 		app->entityManager->active = false;
 		app->map->active = false;
 		app->sceneIntro->On = false;
 		app->sceneIntro->active = true;
-		this->active = false;
 		app->physics->debug = false;
+		this->active = false;
+	}
+
+	if (player->Meta) {
+		player->LAV->body->SetLinearVelocity(b2Vec2(0, 0));
+		player->camg = false;
+		player->lava = false;
+		player->GodMode = false;
+		countGod = 0;
+		app->entityManager->active = false;
+		app->map->active = false;
+		app->sceneIntro->On = false;
+		app->sceneIntro->active = true;
+		app->physics->debug = false;
+		app->sceneIntro->reset = true;
+		app->SaveGameRequest();
+		this->active = false;
 	}
 
 	if (col)
@@ -279,12 +296,35 @@ bool Scene::Update(float dt)
 	
 	}
 
-	
-
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		player->GodMode = false;
+		countGod = 0;
+		app->sceneIntro->reset = true;
 		app->SaveGameRequest();
-		app->sceneIntro->reset = false;
+	}
+
+	if ((app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) || (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)) {
+		player->LAV->body->SetLinearVelocity(b2Vec2(0, 0));
+		player->camg = false;
+		player->lava = false;
+		player->GodMode = false;
+		countGod = 0;
+		app->entityManager->active = false;
+		app->map->active = false;
+		app->sceneIntro->On = false;
+		app->sceneIntro->active = true;
+		app->physics->debug = false;
+		app->sceneIntro->reset = true;
+		app->SaveGameRequest();
+		this->active = false;
+	}
+	
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+		if (player->dieCount != 1) {
+			app->SaveGameRequest();
+			app->sceneIntro->reset = false;
+		}
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
@@ -303,6 +343,29 @@ bool Scene::Update(float dt)
 		case 1:
 			app->physics->debug = false;
 			count = 0;
+			break;
+		default:
+			break;
+		}
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+
+		switch (countGod)
+		{
+		case 0:
+			player->GodMode = true;
+			countGod++;
+			break;
+		case 1:
+
+			player->GodMode = false;
+			countGod = 0;
+
+			if (player->dieCount == 1) {
+				player->die = true;
+				player->audiob = true;
+			}
 			break;
 		default:
 			break;

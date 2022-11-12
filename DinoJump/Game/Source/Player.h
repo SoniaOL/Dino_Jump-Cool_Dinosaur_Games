@@ -64,6 +64,8 @@ public:
 	int DetectPosX = 0;
 	int DetectPosY = 0;
 
+	int dieCount = 0;
+
 	PhysBody* CAM;
 	PhysBody* CAMG;
 	PhysBody* LAVDetect;
@@ -78,6 +80,7 @@ public:
 	bool audiow = true; 
 	bool Right = false;
 	bool Left = false;
+	bool GodMode = false;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;

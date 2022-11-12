@@ -40,6 +40,7 @@ public:
 	Player* player;
 	bool col = true;
 	int count = 0;
+	int countGod = 0;
 
 private:
 	SDL_Texture* img;

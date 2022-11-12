@@ -92,7 +92,6 @@ bool SceneIntro::Update(float dt)
 
 	if (!app->scene->player->die) {
 		app->render->DrawTexture(img, 0, 900, &dinoI);
-
 	}
 
 	if (app->scene->player->Meta) {
@@ -105,16 +104,7 @@ bool SceneIntro::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
-			app->scene->player->die = false;
 			app->scene->player->Meta = false;
-			this->active = false;
-			app->scene->active = true;
-			app->entityManager->active = true;
-			app->map->active = true;
-			On = true;
-			reset = true;
-
-			app->SaveGameRequest();
 		}
 	}
 
