@@ -10,6 +10,7 @@
 #include "Physics.h"
 #include "ModuleFadeToBlack.h"
 #include "SceneIntro.h"
+#include "sceneLogo.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -29,6 +30,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	//L07 DONE 2: Add Physics module
 	physics = new Physics();
+	scenelogo = new sceneLogo(); 
 	sceneIntro = new SceneIntro(true);
 	scene = new Scene();
 	entityManager = new EntityManager();
@@ -41,6 +43,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(scenelogo); 
 	AddModule(sceneIntro);
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);

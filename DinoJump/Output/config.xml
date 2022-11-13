@@ -20,6 +20,11 @@
     <music volume="128"/>
     <fx volume="128"/>
   </audio>
+
+  <sceneLogo>
+	  <imglogo texturepath ="Assets/Textures/Logo.png"/>	
+		
+  </sceneLogo>
 	
   <sceneIntro>
 	  <imgintro texturepath ="Assets/Textures/dinoInicio.png"/>
