@@ -1,4 +1,4 @@
-# DinoJump_AlbertoHidalgoGarcia_SoniaOjedaLanz-
+# Dino_Jump-Cool_Dinosaur_Games
 
 # Game name: 
 
