@@ -1,4 +1,3 @@
-
 #include "App.h"
 #include "Render.h"
 #include "Textures.h"
@@ -38,8 +37,7 @@ void Map::Draw()
         return;
 
     /*
-    // L04: DONE 6: Iterate all tilesets and draw all their 
-    // images in 0,0 (you should have only one tileset for now)
+     L04: DONE 6: Iterate all tilesets and draw all their images in 0,0 (you should have only one tileset for now)
 
     ListItem<TileSet*>* tileset;
     tileset = mapData.tilesets.start;
@@ -80,6 +78,93 @@ void Map::Draw()
                 }
             }
         }
+
+        if (jump) 
+        {
+            if (mapLayerItem->data->properties.GetProperty("Jump") != NULL && mapLayerItem->data->properties.GetProperty("Jump")->value) {
+                LOG("Coll");
+                
+                for (int x = 0; x < mapLayerItem->data->width; x++)
+                {
+                    for (int y = 0; y < mapLayerItem->data->height; y++)
+                    {
+                            // L05: DONE 9: Complete the draw function
+                            int gid = mapLayerItem->data->Get(x, y);
+
+                            //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+                            TileSet* tileset = GetTilesetFromTileId(gid);
+
+                            if (tileset->texture == NULL) {
+
+                                SDL_Rect r = tileset->GetTileRect(gid);
+                                iPoint pos = MapToWorld(x, y);
+
+                                PhysBody* p = app->physics->CreateRectangle(pos.x + (18/2), pos.y + (18 / 2), 18, 18, bodyType::STATIC);
+                                p->ctype = ColliderType::PLATFORM;
+                            }
+                    }
+                }
+                jump = false;
+            }
+        }
+
+        if (wall)
+        {
+            if (mapLayerItem->data->properties.GetProperty("Wall") != NULL && mapLayerItem->data->properties.GetProperty("Wall")->value) {
+                LOG("Wall");
+
+                for (int x = 0; x < mapLayerItem->data->width; x++)
+                {
+                    for (int y = 0; y < mapLayerItem->data->height; y++)
+                    {
+                        // L05: DONE 9: Complete the draw function
+                        int gid = mapLayerItem->data->Get(x, y);
+
+                        //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+                        TileSet* tileset = GetTilesetFromTileId(gid);
+
+                        if (tileset->texture == NULL) {
+
+                            SDL_Rect r = tileset->GetTileRect(gid);
+                            iPoint pos = MapToWorld(x, y);
+
+                            PhysBody* p = app->physics->CreateRectangle(pos.x + (18 / 2), pos.y + (18 / 2), 18, 18, bodyType::STATIC);
+                            p->ctype = ColliderType::UNKNOWN;
+                        }
+                    }
+                }
+                wall = false;
+            }
+        }
+            if (block)
+            {
+                if (mapLayerItem->data->properties.GetProperty("Block") != NULL && mapLayerItem->data->properties.GetProperty("Block")->value) {
+                    LOG("Block");
+
+                    for (int x = 0; x < mapLayerItem->data->width; x++)
+                    {
+                        for (int y = 0; y < mapLayerItem->data->height; y++)
+                        {
+                            // L05: DONE 9: Complete the draw function
+                            int gid = mapLayerItem->data->Get(x, y);
+
+                            //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+                            TileSet* tileset = GetTilesetFromTileId(gid);
+
+                            if (tileset->texture == NULL) {
+
+                                SDL_Rect r = tileset->GetTileRect(gid);
+                                iPoint pos = MapToWorld(x, y);
+
+                                PhysBody* p = app->physics->CreateRectangle(pos.x + (18 / 2), pos.y + (18 / 2), 18, 18, bodyType::STATIC);
+                                p->ctype = ColliderType::UNKNOWN;
+                            }
+                        }
+                    }
+                    block = false;
+                }
+            }
+        
         mapLayerItem = mapLayerItem->next;
 
     }

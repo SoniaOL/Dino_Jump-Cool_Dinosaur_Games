@@ -152,6 +152,9 @@ public:
 
 	// L04: DONE 1: Declare a variable data of the struct MapData
 	MapData mapData;
+	bool jump = true;
+	bool wall = true;
+	bool block = true;
 
 private:
 

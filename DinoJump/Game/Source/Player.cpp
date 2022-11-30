@@ -143,11 +143,9 @@ bool Player::Update()
 
 	if (position.y < lavaPosY) {
 		dieCount = 0;
-		LOG("DIECOUNT: %d", dieCount);
 	}
 	else {
 		dieCount = 1;
-		LOG("DIECOUNT: %d", dieCount);
 	}
 
 	// L07 DONE 5: Add physics to the player - updated player position using physics

@@ -2596,7 +2596,7 @@
    <tile gid="135"/>
   </data>
  </layer>
- <layer id="3" name="Jump" width="25" height="100">
+ <layer id="3" name="Jump" width="25" height="100" visible="0">
   <properties>
    <property name="Jump" type="bool" value="true"/>
   </properties>
@@ -5103,7 +5103,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Wall" width="25" height="100">
+ <layer id="4" name="Wall" width="25" height="100" visible="0">
   <properties>
    <property name="Wall" type="bool" value="true"/>
   </properties>
@@ -7611,6 +7611,9 @@
   </data>
  </layer>
  <layer id="5" name="Block" width="25" height="100">
+  <properties>
+   <property name="Block" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
