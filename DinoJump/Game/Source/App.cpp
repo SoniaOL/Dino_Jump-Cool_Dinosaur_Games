@@ -11,6 +11,7 @@
 #include "ModuleFadeToBlack.h"
 #include "SceneIntro.h"
 #include "sceneLogo.h"
+#include "Pathfinding.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -30,6 +31,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	//L07 DONE 2: Add Physics module
 	physics = new Physics();
+	pathfinding = new PathFinding();
 	scenelogo = new sceneLogo(); 
 	sceneIntro = new SceneIntro(true);
 	scene = new Scene();
@@ -47,6 +49,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneIntro);
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);
+	AddModule(pathfinding);
 	AddModule(map);
 	AddModule(scene);
 	AddModule(entityManager);

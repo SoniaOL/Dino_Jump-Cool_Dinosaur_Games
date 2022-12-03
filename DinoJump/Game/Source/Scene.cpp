@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "SceneIntro.h"
 #include "Physics.h"
+#include "PathFinding.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -58,8 +59,20 @@ bool Scene::Start()
 	
 	
 	// L03: DONE: Load map
-	app->map->Load();
+	// L03: DONE: Load map
+	bool retLoad = app->map->Load();
 
+	// L12 Create walkability map
+	if (retLoad) {
+		int w, h;
+		uchar* data = NULL;
+
+		bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		if (retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+
+	}
 
 	// L04: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
@@ -390,6 +403,42 @@ bool Scene::Update(float dt)
 		// Draw map
 		app->map->Draw();
 	}
+
+	// L08: DONE 3: Test World to map method
+	int mouseX, mouseY;
+	app->input->GetMousePosition(mouseX, mouseY);
+	iPoint mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x - app->map->mapData.tileWidth / 2,
+		mouseY - app->render->camera.y - app->map->mapData.tileHeight / 2);
+
+	//Convert again the tile coordinates to world coordinates to render the texture of the tile
+	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
+	app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);
+
+
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (originSelected == true)
+		{
+			app->pathfinding->CreatePath(origin, mouseTile);
+			originSelected = false;
+		}
+		else
+		{
+			origin = mouseTile;
+			originSelected = true;
+			app->pathfinding->ClearLastPath();
+		}
+	}
+
+	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
+	}
+
+	// L12: Debug pathfinding
+	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
 
 	return ret;
 }

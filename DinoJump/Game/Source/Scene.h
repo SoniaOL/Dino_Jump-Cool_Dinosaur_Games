@@ -41,6 +41,9 @@ public:
 	bool col = true;
 	int count = 0;
 	int countGod = 0;
+	SDL_Texture* mouseTileTex = nullptr;
+	bool originSelected = false;
+	iPoint origin;
 
 private:
 	SDL_Texture* img;

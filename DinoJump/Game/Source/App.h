@@ -23,6 +23,7 @@ class Physics;
 class SceneIntro;
 class sceneLogo; 
 class ModuleFadeToBlack;
+class PathFinding;
 
 class App
 {
@@ -97,6 +98,7 @@ public:
 	SceneIntro* sceneIntro;
 	ModuleFadeToBlack* fade;
 	sceneLogo* scenelogo; 
+	PathFinding* pathfinding;
 
 private:
 
