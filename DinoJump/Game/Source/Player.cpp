@@ -394,6 +394,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			audiob = true;
 		}
 		break;
+	case ColliderType::ENEMY:
+		if (!GodMode)
+		{
+			die = true;
+			audiob = true;
+		}
+		break;
 	case ColliderType::LAVADETECT:
 		lava = false;
 		break;

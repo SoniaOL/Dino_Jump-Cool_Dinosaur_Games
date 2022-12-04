@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\FlyEnemy.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -111,10 +112,12 @@
     <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\sceneLogo.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
+    <ClCompile Include="Source\WalkEnemy.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\FlyEnemy.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
@@ -131,6 +134,7 @@
     <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\sceneLogo.h" />
     <ClInclude Include="Source\Textures.h" />
+    <ClInclude Include="Source\WalkEnemy.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />
     <ClInclude Include="Source\List.h" />

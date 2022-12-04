@@ -38,6 +38,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager();
 	fade = new ModuleFadeToBlack();
 	map = new Map();
+	//flyEnemy = new FlyEnemy();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -52,6 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(map);
 	AddModule(scene);
+	//AddModule(flyEnemy);
 	AddModule(entityManager);
 	AddModule(fade);
 

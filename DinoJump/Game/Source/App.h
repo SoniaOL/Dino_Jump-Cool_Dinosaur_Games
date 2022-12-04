@@ -24,6 +24,7 @@ class SceneIntro;
 class sceneLogo; 
 class ModuleFadeToBlack;
 class PathFinding;
+//class FlyEnemy;
 
 class App
 {
@@ -99,6 +100,7 @@ public:
 	ModuleFadeToBlack* fade;
 	sceneLogo* scenelogo; 
 	PathFinding* pathfinding;
+	//FlyEnemy* flyEnemy; 
 
 private:
 

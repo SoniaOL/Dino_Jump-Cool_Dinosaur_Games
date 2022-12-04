@@ -1,0 +1,81 @@
+#include "FlyEnemy.h"
+#include "App.h"
+#include "Textures.h"
+#include "Audio.h"
+#include "Input.h"
+#include "Render.h" 
+#include "Scene.h"
+#include "Log.h"
+#include "Point.h"
+#include "Physics.h"
+#include "SceneIntro.h"
+#include "EntityManager.h"
+#include "Map.h"
+
+FlyEnemy::FlyEnemy() : Entity(EntityType::FLYENEMY)
+{
+	name.Create("Enemies");
+
+	flyAnim.PushBack({ 9,30,37,33 });
+	flyAnim.PushBack({ 51,30,37,33 });
+	flyAnim.PushBack({ 95,30,37,33 });
+	flyAnim.PushBack({ 140,30,37,33 });
+	flyAnim.PushBack({ 184,30,37,33 });
+	flyAnim.PushBack({ 227,30,37,33 });
+	flyAnim.PushBack({ 271,30,37,33 });
+	flyAnim.speed = 0.2f;
+
+}
+
+FlyEnemy::~FlyEnemy() {
+
+}
+
+bool FlyEnemy::Awake() {
+
+	position.x = parameters.child("fly").attribute("x").as_int();
+	position.y = parameters.child("fly").attribute("y").as_int();
+	texturePath = parameters.child("fly").attribute("texturepath").as_string();
+
+	return true;
+}
+
+bool FlyEnemy::Start() {
+
+	texture = app->tex->Load(texturePath);
+	pbody = app->physics->CreateCircle(position.x + (7), position.y + (10), 12, bodyType::KINEMATIC);
+
+	pbody->listener = this;
+
+	pbody->ctype = ColliderType::ENEMY;
+
+	pbody->GetPosition(FlyPosX, FlyPosY);
+	return true;
+}
+
+bool FlyEnemy::Update()
+{
+	currentAnimation = &flyAnim;
+
+	SDL_Rect fly = currentAnimation->GetCurrentFrame();
+
+	currentAnimation->Update();
+
+	//position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+
+	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &fly, flip);
+
+	return true;
+}
+
+bool FlyEnemy::CleanUp()
+{
+	return true;
+}
+
+// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
+void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
+
+
+}

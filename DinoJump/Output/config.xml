@@ -46,6 +46,12 @@
 	  <audioSlide path="Assets/Audio/Fx/Slide.ogg"/>	
 		
     </player>
+
+	<enemies>
+	   <fly x ="341" y="1346" texturepath="Assets/Textures/fly.png"/>
+	   <walk x ="193" y="1075" texturepath="Assets/Textures/WalkEnemy.png"/>
+	</enemies> 
+	  
     <!--item x="159" y="1700" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>

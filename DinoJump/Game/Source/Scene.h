@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "FlyEnemy.h"
+#include "WalkEnemy.h"
 
 struct SDL_Texture;
 
@@ -38,6 +40,8 @@ public:
 
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+	FlyEnemy* fly;
+	WalkEnemy* walk;
 	bool col = true;
 	int count = 0;
 	int countGod = 0;

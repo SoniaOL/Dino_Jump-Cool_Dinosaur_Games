@@ -43,6 +43,12 @@ bool Scene::Awake(pugi::xml_node& config)
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
 
+	fly = (FlyEnemy*)app->entityManager->CreateEntity(EntityType::FLYENEMY); 
+	fly->parameters = config.child("enemies"); 
+
+	walk = (WalkEnemy*)app->entityManager->CreateEntity(EntityType::WALKENEMY);
+	walk->parameters = config.child("enemies");
+
 
 	audioPath = config.child("player").child("audio").attribute("path").as_string();
 	/*audio = app->audio->LoadFx(audioPath);*/

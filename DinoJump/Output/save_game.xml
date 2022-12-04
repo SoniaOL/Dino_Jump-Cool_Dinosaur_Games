@@ -4,8 +4,10 @@
 	<window />
 	<textures />
 	<audio />
+	<sceneLogo />
 	<sceneIntro />
 	<:anonymous />
+	<pathfinding />
 	<map />
 	<scene />
 	<entitymanager>

@@ -24,6 +24,8 @@
     <ClCompile Include="Source\ModuleFadeToBlack.cpp" />
     <ClCompile Include="Source\sceneLogo.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
+    <ClCompile Include="Source\FlyEnemy.cpp" />
+    <ClCompile Include="Source\WalkEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -74,6 +76,8 @@
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
     <ClInclude Include="Source\sceneLogo.h" />
     <ClInclude Include="Source\Pathfinding.h" />
+    <ClInclude Include="Source\FlyEnemy.h" />
+    <ClInclude Include="Source\WalkEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
