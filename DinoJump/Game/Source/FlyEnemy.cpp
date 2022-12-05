@@ -11,6 +11,7 @@
 #include "SceneIntro.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "PathFinding.h"
 
 FlyEnemy::FlyEnemy() : Entity(EntityType::FLYENEMY)
 {
@@ -47,7 +48,11 @@ bool FlyEnemy::Start() {
 
 	pbody->listener = this;
 
-	pbody->ctype = ColliderType::ENEMY;
+	pbody->ctype = ColliderType::LAVA;
+
+	sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 60, 60, bodyType::KINEMATIC);
+	sensor->listener = this;
+	sensor->ctype = ColliderType::UNKNOWN;
 
 	pbody->GetPosition(FlyPosX, FlyPosY);
 	return true;
@@ -55,6 +60,9 @@ bool FlyEnemy::Start() {
 
 bool FlyEnemy::Update()
 {
+	app->scene->player->pbody->GetPosition(p.x, p.y);
+	pbody->GetPosition(e.x, e.y);
+
 	currentAnimation = &flyAnim;
 
 	SDL_Rect fly = currentAnimation->GetCurrentFrame();
@@ -77,5 +85,12 @@ bool FlyEnemy::CleanUp()
 // L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 
+	switch (physB->ctype)
+	{
+	case ColliderType::PLAYER:
+		LOG("DETECTED");
+		app->pathfinding->CreatePath(e, p);
+		break;
+	}
 
 }

@@ -11,6 +11,7 @@
 #include "SceneIntro.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "PathFinding.h"
 
 WalkEnemy::WalkEnemy() : Entity(EntityType::WALKENEMY)
 {
@@ -47,16 +48,23 @@ bool WalkEnemy::Awake() {
 
 bool WalkEnemy::Start() {
 
-	pbody = app->physics->CreateCircle(position.x + (8 * 2), position.y + (8 * 2), 8, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x + (8 * 2), position.y + (8 * 2), 8, bodyType::KINEMATIC);
 	texture = app->tex->Load(texturePath);
 	pbody->listener = this;
-
 	pbody->ctype = ColliderType::ENEMY;
+
+	sensor = app->physics->CreateRectangleSensor(position.x + (8 * 2), position.y + (8 * 2), 60, 60, bodyType::KINEMATIC);
+	sensor->listener = this; 
+	sensor->ctype = ColliderType::UNKNOWN;
+
 	return true;
 }
 
 bool WalkEnemy::Update()
 {
+	app->scene->player->pbody->GetPosition(p.x, p.y);
+	pbody->GetPosition(e.x, e.y);
+
 	currentAnimation = &idleAnimEnemy;
 
 	SDL_Rect walk = currentAnimation->GetCurrentFrame();
@@ -79,5 +87,11 @@ bool WalkEnemy::CleanUp()
 // L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 void WalkEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 
-
+	switch (physB->ctype)
+	{
+	case ColliderType::PLAYER:
+		LOG("DETECTED");
+		app->pathfinding->CreatePath(e, p);
+		break;
+	}
 }

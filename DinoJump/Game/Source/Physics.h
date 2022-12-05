@@ -35,6 +35,7 @@ enum class ColliderType {
 	CAMGDETECT,
 	TOP,
 	ENEMY,
+	DETECTED,
 	UNKNOWN
 	// ..
 };

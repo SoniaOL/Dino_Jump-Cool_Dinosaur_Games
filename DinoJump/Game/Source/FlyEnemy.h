@@ -32,8 +32,12 @@ public:
 
 public:
 	PhysBody* pbody;
+	PhysBody* sensor;
 	int FlyPosY = 0;
 	int FlyPosX = 0;
+
+	iPoint p;
+	iPoint e;
 
 private:
 	SDL_Texture* texture;
