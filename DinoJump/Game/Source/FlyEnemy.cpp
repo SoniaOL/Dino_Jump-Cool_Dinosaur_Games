@@ -90,7 +90,34 @@ void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYER:
 		LOG("DETECTED");
 		app->pathfinding->CreatePath(e, p);
+		Follow();
 		break;
 	}
+}
 
+void FlyEnemy::Follow() 
+{
+
+	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+
+		if (e.y < pos.y) {
+			pbody->body->SetLinearVelocity({0, 1});
+		}
+
+		if (e.x < pos.x) {
+			pbody->body->SetLinearVelocity({ 1, 0 });
+		}
+
+		if (e.y > pos.y) {
+			pbody->body->SetLinearVelocity({ 0, -1 });
+		}
+
+		if (e.x > pos.x) {
+			pbody->body->SetLinearVelocity({ -1, 0 });
+		}
+	}
 }

@@ -421,27 +421,27 @@ bool Scene::Update(float dt)
 	app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);
 
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (originSelected == true)
-		{
-			app->pathfinding->CreatePath(origin, mouseTile);
-			originSelected = false;
-		}
-		else
-		{
-			origin = mouseTile;
-			originSelected = true;
-			app->pathfinding->ClearLastPath();
-		}
-	}
+	//if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	//{
+	//	if (originSelected == true)
+	//	{
+	//		app->pathfinding->CreatePath(origin, mouseTile);
+	//		originSelected = false;
+	//	}
+	//	else
+	//	{
+	//		origin = mouseTile;
+	//		originSelected = true;
+	//		app->pathfinding->ClearLastPath();
+	//	}
+	//}
 
-	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+	/*const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 	for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 		app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
-	}
+	}*/
 
 	// L12: Debug pathfinding
 	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
