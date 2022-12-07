@@ -50,14 +50,16 @@ bool FlyEnemy::Start() {
 
 	pbody->ctype = ColliderType::LAVA;
 
-	sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 60, 60, bodyType::KINEMATIC);
+	sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 80, 80, bodyType::KINEMATIC);
 	sensor->listener = this;
-	sensor->ctype = ColliderType::UNKNOWN;
+	sensor->ctype = ColliderType::SENSOR;
 
 	pbody->GetPosition(FlyPosX, FlyPosY);
 
 	pathTileTex = app->tex->Load("Assets/Maps/MapMetadata.png");
 
+	alive = true; 
+    dead = true; 
 	return true;
 }
 
@@ -77,24 +79,39 @@ bool FlyEnemy::Update()
 
 	currentAnimation->Update();
 
-	//position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
-	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 
-	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &fly, flip);
-	
+	if (alive == true) {
+		app->render->DrawTexture(texture, position.x - 19, position.y - 19 , &fly, flip);
+	}
+
 	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 	for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 		SDL_Rect rect = { 0,0,36,18 };
+		
 		app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
+		
 	}
 
+	if (dead == true) {
+		if (e.y + 12 >= app->scene->player->lavaPosY) {
+			LOG("ELIMINATE");
+			alive = false;
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			sensor->body->GetWorld()->DestroyBody(sensor->body);
+			dead = false; 
+		}
+	}
 	return true;
 }
 
 bool FlyEnemy::CleanUp()
 {
+
+
 	return true;
 }
 
@@ -108,7 +125,13 @@ void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->pathfinding->CreatePath(enemy, player);
 		Follow();
 		break;
-	}
+/*	case ColliderType::LAVA:
+		LOG("ELIMINATE");
+		alive = false;
+		CleanUp();
+		break;
+	*/}
+
 }
 
 void FlyEnemy::EndContact(PhysBody* physA, PhysBody* physB) {
@@ -132,18 +155,22 @@ void FlyEnemy::Follow()
 
 		if (e.y < pos.y) {
 			pbody->body->SetLinearVelocity({0, 1});
+			sensor->body->SetLinearVelocity({0, 1});
 		}
 
 		if (e.x < pos.x) {
 			pbody->body->SetLinearVelocity({ 1, 0 });
+			sensor->body->SetLinearVelocity({ 1, 0 });
 		}
 
 		if (e.y > pos.y) {
 			pbody->body->SetLinearVelocity({ 0, -1 });
+			sensor->body->SetLinearVelocity({ 0, -1 });
 		}
 
 		if (e.x > pos.x) {
 			pbody->body->SetLinearVelocity({ -1, 0 });
+			sensor->body->SetLinearVelocity({ -1, 0 });
 		}
 	}
 }

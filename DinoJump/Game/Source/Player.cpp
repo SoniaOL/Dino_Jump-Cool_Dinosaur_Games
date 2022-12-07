@@ -11,6 +11,7 @@
 #include "SceneIntro.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "PathFinding.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
