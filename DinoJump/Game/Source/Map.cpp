@@ -54,12 +54,15 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
                 int i = (y * layer->width) + x;
 
                 int tileId = layer->Get(x, y);
-                TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
+                //TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
 
-                if (tileset != NULL)
-                {
-                    map[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
-                }
+                //if (tileset != NULL)
+                //{
+                    if(tileId == 327)
+                        map[i] = 1;
+                    else 
+                        map[i] = 0;
+                //}
             }
         }
 
@@ -138,7 +141,7 @@ void Map::Draw()
                             //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
                             TileSet* tileset = GetTilesetFromTileId(gid);
 
-                            if (tileset->texture == NULL) {
+                            if (tileset->texture != NULL && gid == 327) {
 
                                 SDL_Rect r = tileset->GetTileRect(gid);
                                 iPoint pos = MapToWorld(x, y);
@@ -167,7 +170,7 @@ void Map::Draw()
                         //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
                         TileSet* tileset = GetTilesetFromTileId(gid);
 
-                        if (tileset->texture == NULL) {
+                        if (tileset->texture != NULL && gid == 325) {
 
                             SDL_Rect r = tileset->GetTileRect(gid);
                             iPoint pos = MapToWorld(x, y);
@@ -195,7 +198,7 @@ void Map::Draw()
                             //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
                             TileSet* tileset = GetTilesetFromTileId(gid);
 
-                            if (tileset->texture == NULL) {
+                            if (tileset->texture != NULL && gid == 325) {
 
                                 SDL_Rect r = tileset->GetTileRect(gid);
                                 iPoint pos = MapToWorld(x, y);

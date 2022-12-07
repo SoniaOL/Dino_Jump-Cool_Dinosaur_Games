@@ -182,8 +182,8 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	LOG("Walk destianation: %d", IsWalkable(destination));
 
 	// L12: TODO 1: if origin or destination are not walkable, return -1
-	//if (IsWalkable(origin) && IsWalkable(destination))
-	//{
+	if (IsWalkable(origin) && IsWalkable(destination))
+	{
 		// L12: TODO 2: Create two lists: open, close
 		PathList open;
 		PathList closed;
@@ -255,7 +255,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 			++iterations;
 		}
-	//}
+	}
 
 	return ret;
 }

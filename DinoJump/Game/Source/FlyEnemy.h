@@ -41,8 +41,12 @@ public:
 	iPoint p;
 	iPoint e;
 
+	iPoint player;
+	iPoint enemy;
+
 private:
 	SDL_Texture* texture;
+	SDL_Texture* pathTileTex;
 	const char* texturePath;
 
 	Animation* currentAnimation = nullptr;

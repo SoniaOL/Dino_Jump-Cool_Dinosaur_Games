@@ -55,6 +55,9 @@ bool FlyEnemy::Start() {
 	sensor->ctype = ColliderType::UNKNOWN;
 
 	pbody->GetPosition(FlyPosX, FlyPosY);
+
+	pathTileTex = app->tex->Load("Assets/Maps/MapMetadata.png");
+
 	return true;
 }
 
@@ -62,6 +65,11 @@ bool FlyEnemy::Update()
 {
 	app->scene->player->pbody->GetPosition(p.x, p.y);
 	pbody->GetPosition(e.x, e.y);
+
+	
+	enemy = app->map->MapToWorld(e.x, e.y);
+
+	player = app->map->MapToWorld(p.x, p.y);
 
 	currentAnimation = &flyAnim;
 
@@ -73,6 +81,14 @@ bool FlyEnemy::Update()
 	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 
 	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &fly, flip);
+	
+	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		SDL_Rect rect = { 0,0,36,18 };
+		app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
+	}
 
 	return true;
 }
@@ -89,7 +105,7 @@ void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		LOG("DETECTED");
-		app->pathfinding->CreatePath(e, p);
+		app->pathfinding->CreatePath(enemy, player);
 		Follow();
 		break;
 	}
