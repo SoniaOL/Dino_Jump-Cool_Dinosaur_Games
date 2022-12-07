@@ -44,6 +44,9 @@ public:
 	iPoint player;
 	iPoint enemy;
 
+	bool alive; 
+	bool dead; 
+
 private:
 	SDL_Texture* texture;
 	SDL_Texture* pathTileTex;

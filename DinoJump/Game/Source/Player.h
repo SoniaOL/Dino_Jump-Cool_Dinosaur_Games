@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "SDL/include/SDL.h"
 #include "Physics.h"
+#include "FlyEnemy.h"
 //#include "Item.h"
 
 struct SDL_Texture;
@@ -84,6 +85,8 @@ public:
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
+
+	FlyEnemy* fly; 
 
 private:
 
