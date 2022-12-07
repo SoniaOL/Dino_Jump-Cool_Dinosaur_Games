@@ -50,7 +50,7 @@ bool FlyEnemy::Start() {
 
 	pbody->ctype = ColliderType::LAVA;
 
-	sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 60, 60, bodyType::KINEMATIC);
+	sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 80, 80, bodyType::KINEMATIC);
 	sensor->listener = this;
 	sensor->ctype = ColliderType::SENSOR;
 
@@ -79,11 +79,13 @@ bool FlyEnemy::Update()
 
 	currentAnimation->Update();
 
-	//position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
-	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+
 	if (alive == true) {
-		app->render->DrawTexture(texture, position.x - 12, position.y - 11, &fly, flip);
+		app->render->DrawTexture(texture, position.x - 19, position.y - 19 , &fly, flip);
 	}
+
 	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 	for (uint i = 0; i < path->Count(); ++i)
 	{
@@ -143,18 +145,22 @@ void FlyEnemy::Follow()
 
 		if (e.y < pos.y) {
 			pbody->body->SetLinearVelocity({0, 1});
+			sensor->body->SetLinearVelocity({0, 1});
 		}
 
 		if (e.x < pos.x) {
 			pbody->body->SetLinearVelocity({ 1, 0 });
+			sensor->body->SetLinearVelocity({ 1, 0 });
 		}
 
 		if (e.y > pos.y) {
 			pbody->body->SetLinearVelocity({ 0, -1 });
+			sensor->body->SetLinearVelocity({ 0, -1 });
 		}
 
 		if (e.x > pos.x) {
 			pbody->body->SetLinearVelocity({ -1, 0 });
+			sensor->body->SetLinearVelocity({ -1, 0 });
 		}
 	}
 }
