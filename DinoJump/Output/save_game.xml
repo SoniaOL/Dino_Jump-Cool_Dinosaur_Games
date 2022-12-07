@@ -17,6 +17,7 @@
 		<CAM x="37" y="1412" />
 		<CAMG x="37" y="1785" />
 		<CAMGDETECT x="37" y="1462" />
+		<FLYENEMY x="348" y="1356" />
 		<camera x="0" y="-900" />
 	</entitymanager>
 	<:anonymous />

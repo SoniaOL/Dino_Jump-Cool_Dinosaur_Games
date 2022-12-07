@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "SDL/include/SDL.h"
 #include "Physics.h"
+
 //#include "Item.h"
 
 struct SDL_Texture;
@@ -42,6 +43,8 @@ public:
 
 	iPoint p;
 	iPoint e;
+
+	iPoint pos;
 
 	iPoint player;
 	iPoint enemy;

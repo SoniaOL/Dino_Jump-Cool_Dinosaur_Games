@@ -44,7 +44,11 @@ bool FlyEnemy::Awake() {
 bool FlyEnemy::Start() {
 
 	texture = app->tex->Load(texturePath);
-	pbody = app->physics->CreateCircle(position.x + (7), position.y + (10), 12, bodyType::DYNAMIC);
+
+	pos.x = position.x + (7);
+	pos.y = position.y + (10);
+
+	pbody = app->physics->CreateCircle(pos.x, pos.y, 12, bodyType::DYNAMIC);
 	pbody->body->SetGravityScale(0);
 
 	pbody->listener = this;
