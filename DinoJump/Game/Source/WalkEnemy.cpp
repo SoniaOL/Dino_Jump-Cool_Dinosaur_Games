@@ -48,7 +48,10 @@ bool WalkEnemy::Awake() {
 
 bool WalkEnemy::Start() {
 
-	pbody = app->physics->CreateCircle(position.x + (8 * 2), position.y + (8 * 2), 8, bodyType::DYNAMIC);
+	LOG("POS X: %d", position.x + (8 * 2));
+	LOG("POS Y: %d", position.y + (8 * 2));
+	
+	pbody = app->physics->CreateCircle(228, 1057, 8, bodyType::DYNAMIC);
 	texture = app->tex->Load(texturePath);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::LAVA;
