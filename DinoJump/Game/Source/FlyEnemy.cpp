@@ -111,6 +111,16 @@ void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
+void FlyEnemy::EndContact(PhysBody* physA, PhysBody* physB) {
+
+	LOG("END!");
+
+	switch (physB->ctype)
+	{
+		
+	}
+}
+
 void FlyEnemy::Follow() 
 {
 
