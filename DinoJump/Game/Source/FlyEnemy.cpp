@@ -67,9 +67,9 @@ bool FlyEnemy::Update()
 	pbody->GetPosition(e.x, e.y);
 
 	
-	enemy = app->map->MapToWorld(e.x, e.y);
+	enemy = app->map->WorldToMap(e.x, e.y);
 
-	player = app->map->MapToWorld(p.x, p.y);
+	player = app->map->WorldToMap(p.x, p.y);
 
 	currentAnimation = &flyAnim;
 
