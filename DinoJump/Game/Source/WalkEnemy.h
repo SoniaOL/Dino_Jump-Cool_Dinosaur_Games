@@ -26,6 +26,8 @@ public:
 
 	bool CleanUp();
 
+	void Follow();
+
 	// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
@@ -33,14 +35,21 @@ public:
 public:
 	PhysBody* pbody;
 	PhysBody* sensor;
-	int FlyPosY = 0;
-	int FlyPosX = 0;
+	int WalkPosY = 0;
+	int WalkPosX = 0;
 	iPoint p;
 	iPoint e;
+
+	iPoint player;
+	iPoint enemy;
+
+	bool alive;
+	bool dead;
 
 private:
 	SDL_Texture* texture;
 	const char* texturePath;
+	SDL_Texture* pathTileTex;
 
 	Animation* currentAnimation = nullptr;
 	Animation idleAnimEnemy;

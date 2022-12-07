@@ -49,7 +49,7 @@
 
 	<enemies>
 	   <fly x ="341" y="1346" texturepath="Assets/Textures/fly.png"/>
-	   <walk x ="193" y="1075" texturepath="Assets/Textures/WalkEnemy.png"/>
+	   <walk x ="212" y="1041" texturepath="Assets/Textures/WalkEnemy.png"/>
 	</enemies> 
 	  
     <!--item x="159" y="1700" texturepath="Assets/Textures/goldCoin.png"/>

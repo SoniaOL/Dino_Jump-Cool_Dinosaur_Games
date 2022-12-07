@@ -48,14 +48,22 @@ bool WalkEnemy::Awake() {
 
 bool WalkEnemy::Start() {
 
-	pbody = app->physics->CreateCircle(position.x + (8 * 2), position.y + (8 * 2), 8, bodyType::KINEMATIC);
+	pbody = app->physics->CreateCircle(position.x + (8 * 2), position.y + (8 * 2), 8, bodyType::DYNAMIC);
 	texture = app->tex->Load(texturePath);
 	pbody->listener = this;
-	pbody->ctype = ColliderType::ENEMY;
+	pbody->ctype = ColliderType::LAVA;
 
 	sensor = app->physics->CreateRectangleSensor(position.x + (8 * 2), position.y + (8 * 2), 60, 60, bodyType::KINEMATIC);
 	sensor->listener = this; 
-	sensor->ctype = ColliderType::UNKNOWN;
+	sensor->ctype = ColliderType::SENSOR;
+
+	pbody->GetPosition(WalkPosX, WalkPosY);
+
+	pathTileTex = app->tex->Load("Assets/Maps/MapMetadata.png");
+
+	alive = true;
+	dead = true;
+	return true;
 
 	return true;
 }
@@ -64,6 +72,10 @@ bool WalkEnemy::Update()
 {
 	app->scene->player->pbody->GetPosition(p.x, p.y);
 	pbody->GetPosition(e.x, e.y);
+
+	enemy = app->map->WorldToMap(e.x, e.y);
+
+	player = app->map->WorldToMap(p.x, p.y);
 
 	currentAnimation = &idleAnimEnemy;
 
@@ -74,7 +86,33 @@ bool WalkEnemy::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 
-	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &walk, flip);
+	if (alive == true) {
+		app->render->DrawTexture(texture, position.x - 12, position.y - 11, &walk, flip);
+	}
+
+	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		SDL_Rect rect = { 0,0,36,18 };
+
+		app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
+
+	}
+
+	if (dead == true) {
+		if (e.y + 12 >= app->scene->player->lavaPosY) {
+			LOG("ELIMINATE");
+			alive = false;
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			sensor->body->GetWorld()->DestroyBody(sensor->body);
+			dead = false;
+		}
+	}
+
+	b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
+
+	sensor->body->SetTransform(vec, 0);
 
 	return true;
 }
@@ -91,7 +129,37 @@ void WalkEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		LOG("DETECTED");
-		app->pathfinding->CreatePath(e, p);
+		app->pathfinding->CreatePath(enemy, player);
+		Follow();
 		break;
 	}
 }
+
+void WalkEnemy::Follow()
+{
+	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+
+		float32 speed = 1.5f;
+
+		if (e.y < pos.y) {
+			pbody->body->SetLinearVelocity({ 0, speed });
+		}
+
+		if (e.x < pos.x) {
+			pbody->body->SetLinearVelocity({ speed, 0 });
+		}
+
+		if (e.y > pos.y) {
+			pbody->body->SetLinearVelocity({ 0, -speed });
+		}
+
+		if (e.x > pos.x) {
+			pbody->body->SetLinearVelocity({ -speed, 0 });
+		}
+	}
+}
+
