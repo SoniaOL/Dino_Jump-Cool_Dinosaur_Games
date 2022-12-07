@@ -44,13 +44,14 @@ bool FlyEnemy::Awake() {
 bool FlyEnemy::Start() {
 
 	texture = app->tex->Load(texturePath);
-	pbody = app->physics->CreateCircle(position.x + (7), position.y + (10), 12, bodyType::KINEMATIC);
+	pbody = app->physics->CreateCircle(position.x + (7), position.y + (10), 12, bodyType::DYNAMIC);
+	pbody->body->SetGravityScale(0);
 
 	pbody->listener = this;
 
 	pbody->ctype = ColliderType::LAVA;
 
-	sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 80, 80, bodyType::KINEMATIC);
+	sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 200, 200, bodyType::KINEMATIC);
 	sensor->listener = this;
 	sensor->ctype = ColliderType::SENSOR;
 
@@ -105,6 +106,11 @@ bool FlyEnemy::Update()
 			dead = false; 
 		}
 	}
+
+	b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
+
+	sensor->body->SetTransform(vec, 0);
+
 	return true;
 }
 
@@ -140,37 +146,37 @@ void FlyEnemy::EndContact(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
-		
+		case ColliderType::PLAYER:
+			pbody->body->SetLinearVelocity({ 0, 0 });
+			sensor->body->SetLinearVelocity({ 0, 0 });
+			break;
 	}
 }
 
 void FlyEnemy::Follow() 
 {
-
 	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
 	for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 
+		float32 speed = 1.5f;
+
 		if (e.y < pos.y) {
-			pbody->body->SetLinearVelocity({0, 1});
-			sensor->body->SetLinearVelocity({0, 1});
+			pbody->body->SetLinearVelocity({0, speed });
 		}
 
 		if (e.x < pos.x) {
-			pbody->body->SetLinearVelocity({ 1, 0 });
-			sensor->body->SetLinearVelocity({ 1, 0 });
+			pbody->body->SetLinearVelocity({ speed, 0 });
 		}
 
 		if (e.y > pos.y) {
-			pbody->body->SetLinearVelocity({ 0, -1 });
-			sensor->body->SetLinearVelocity({ 0, -1 });
+			pbody->body->SetLinearVelocity({ 0, -speed });
 		}
 
 		if (e.x > pos.x) {
-			pbody->body->SetLinearVelocity({ -1, 0 });
-			sensor->body->SetLinearVelocity({ -1, 0 });
+			pbody->body->SetLinearVelocity({ -speed, 0 });
 		}
 	}
 }
