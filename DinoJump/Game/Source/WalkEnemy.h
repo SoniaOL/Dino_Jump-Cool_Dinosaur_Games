@@ -45,6 +45,7 @@ public:
 
 	bool alive;
 	bool dead;
+	bool isDead = false;
 
 private:
 	SDL_Texture* texture;

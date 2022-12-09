@@ -73,49 +73,53 @@ bool WalkEnemy::Start() {
 
 bool WalkEnemy::Update()
 {
-	app->scene->player->pbody->GetPosition(p.x, p.y);
-	pbody->GetPosition(e.x, e.y);
-
-	enemy = app->map->WorldToMap(e.x, e.y);
-
-	player = app->map->WorldToMap(p.x, p.y);
-
-	currentAnimation = &idleAnimEnemy;
-
-	SDL_Rect walk = currentAnimation->GetCurrentFrame();
-
-	currentAnimation->Update();
-
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
-
-	if (alive == true) {
-		app->render->DrawTexture(texture, position.x - 12, position.y - 11, &walk, flip);
-	}
-
-	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-	for (uint i = 0; i < path->Count(); ++i)
+	if (!isDead)
 	{
-		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		SDL_Rect rect = { 0,0,36,18 };
+		app->scene->player->pbody->GetPosition(p.x, p.y);
+		pbody->GetPosition(e.x, e.y);
 
-		app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
+		enemy = app->map->WorldToMap(e.x, e.y);
 
-	}
+		player = app->map->WorldToMap(p.x, p.y);
 
-	if (dead == true) {
-		if (e.y + 12 >= app->scene->player->lavaPosY) {
-			LOG("ELIMINATE");
-			alive = false;
-			pbody->body->GetWorld()->DestroyBody(pbody->body);
-			sensor->body->GetWorld()->DestroyBody(sensor->body);
-			dead = false;
+		currentAnimation = &idleAnimEnemy;
+
+		SDL_Rect walk = currentAnimation->GetCurrentFrame();
+
+		currentAnimation->Update();
+
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+
+		if (alive == true) {
+			app->render->DrawTexture(texture, position.x - 12, position.y - 11, &walk, flip);
 		}
+
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			SDL_Rect rect = { 0,0,36,18 };
+
+			app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
+
+		}
+
+		if (dead == true) {
+			if (e.y + 12 >= app->scene->player->lavaPosY) {
+				LOG("ELIMINATE");
+				alive = false;
+				pbody->body->GetWorld()->DestroyBody(pbody->body);
+				sensor->body->GetWorld()->DestroyBody(sensor->body);
+				dead = false;
+				isDead = true;
+			}
+		}
+
+		b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
+
+		sensor->body->SetTransform(vec, 0);
 	}
-
-	b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
-
-	sensor->body->SetTransform(vec, 0);
 
 	return true;
 }
@@ -131,7 +135,6 @@ void WalkEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
-		LOG("DETECTED");
 		app->pathfinding->CreatePath(enemy, player);
 		Follow();
 		break;

@@ -73,51 +73,64 @@ bool FlyEnemy::Start() {
 
 bool FlyEnemy::Update()
 {
-	app->scene->player->pbody->GetPosition(p.x, p.y);
-	pbody->GetPosition(e.x, e.y);
-
-	
-	enemy = app->map->WorldToMap(e.x, e.y);
-
-	player = app->map->WorldToMap(p.x, p.y);
-
-	currentAnimation = &flyAnim;
-
-	SDL_Rect fly = currentAnimation->GetCurrentFrame();
-
-	currentAnimation->Update();
-
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
-
-	if (alive == true) {
-		app->render->DrawTexture(texture, position.x - 19, position.y - 19 , &fly, flip);
-	}
-
-	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-	for (uint i = 0; i < path->Count(); ++i)
+	if (!isDead)
 	{
-		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		SDL_Rect rect = { 0,0,36,18 };
-		
-		app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
-		
-	}
+		app->scene->player->pbody->GetPosition(p.x, p.y);
+		pbody->GetPosition(e.x, e.y);
 
-	if (dead == true) {
-		if (e.y + 12 >= app->scene->player->lavaPosY) {
+
+		enemy = app->map->WorldToMap(e.x, e.y);
+
+		player = app->map->WorldToMap(p.x, p.y);
+
+		currentAnimation = &flyAnim;
+
+		SDL_Rect fly = currentAnimation->GetCurrentFrame();
+
+		currentAnimation->Update();
+
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+
+		if (alive == true) {
+			app->render->DrawTexture(texture, position.x - 19, position.y - 19, &fly, flip);
+		}
+
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			SDL_Rect rect = { 0,0,36,18 };
+
+			app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
+
+		}
+
+		if (dead == true) {
+			if (e.y + 12 >= app->scene->player->lavaPosY) {
+				alive = false;
+				pbody->body->GetWorld()->DestroyBody(pbody->body);
+				sensor->body->GetWorld()->DestroyBody(sensor->body);
+				dead = false;
+				isDead = true;
+			}
+		}
+
+		if (kill) {
 			alive = false;
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
-			dead = false; 
+			Kill->body->GetWorld()->DestroyBody(Kill->body);
+			kill = false;
+			isDead = true;
 		}
+
+		b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
+		b2Vec2 vec2 = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y - 0.2) };
+
+		sensor->body->SetTransform(vec, 0);
+		Kill->body->SetTransform(vec2, 0);
 	}
-
-	b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
-	b2Vec2 vec2 = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y - 0.2) };
-
-	sensor->body->SetTransform(vec, 0);
-	Kill->body->SetTransform(vec2, 0);
 
 	return true;
 }
@@ -134,6 +147,7 @@ void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
+
 	case ColliderType::PLAYER:
 		app->pathfinding->CreatePath(enemy, player);
 		Follow();
