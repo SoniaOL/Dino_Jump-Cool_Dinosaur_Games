@@ -185,6 +185,11 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	PosY = data.child("FLYENEMY").attribute("y").as_int();
 
 	app->scene->fly->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+		
+	PosX = data.child("WALKENEMY").attribute("x").as_int();
+	PosY = data.child("WALKENEMY").attribute("y").as_int();
+
+	app->scene->walk->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
 	return true;
 }
@@ -200,6 +205,7 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 	pugi::xml_node camg = data.append_child("CAMG");
 	pugi::xml_node camgD = data.append_child("CAMGDETECT");
 	pugi::xml_node flyEnemy = data.append_child("FLYENEMY");
+	pugi::xml_node walkEnemy = data.append_child("WALKENEMY");
 
 
 	if (!app->sceneIntro->reset) {
@@ -223,7 +229,10 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		camgD.append_attribute("y") = app->scene->player->camPosY + 50;
 		
 		flyEnemy.append_attribute("x") = app->scene->fly->position.x;
-		flyEnemy.append_attribute("y") = app->scene->fly->position.y;
+		flyEnemy.append_attribute("y") = app->scene->fly->position.y;		
+		
+		walkEnemy.append_attribute("x") = app->scene->walk->position.x;
+		walkEnemy.append_attribute("y") = app->scene->walk->position.y;
 	}
 
 	if (app->sceneIntro->reset) {
@@ -247,6 +256,9 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 
 		flyEnemy.append_attribute("x") = 348;
 		flyEnemy.append_attribute("y") = 1356;
+
+		walkEnemy.append_attribute("x") = 228;
+		walkEnemy.append_attribute("y") = 1057;
 
 		app->render->SaveState(data);
 		app->render->LoadState(data);

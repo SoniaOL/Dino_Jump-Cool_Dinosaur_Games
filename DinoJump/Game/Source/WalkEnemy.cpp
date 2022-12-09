@@ -62,6 +62,9 @@ bool WalkEnemy::Update()
 		pbody->listener = this;
 		pbody->ctype = ColliderType::LAVA;
 
+		LOG("PosX: %d", position.x + (8 * 2));
+		LOG("PosY: %d", position.y + (8 * 2));
+
 		sensor = app->physics->CreateRectangleSensor(position.x + (8 * 2), position.y + (8 * 2), 60, 60, bodyType::KINEMATIC);
 		sensor->listener = this;
 		sensor->ctype = ColliderType::SENSOR;
