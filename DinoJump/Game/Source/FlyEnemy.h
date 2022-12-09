@@ -38,6 +38,7 @@ public:
 public:
 	PhysBody* pbody;
 	PhysBody* sensor;
+	PhysBody* Kill;
 	int FlyPosY = 0;
 	int FlyPosX = 0;
 

@@ -178,9 +178,6 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	int ret = -1;
 	int iterations = 0;
 
-	LOG("Walk origin: %d", IsWalkable(origin));
-	LOG("Walk destianation: %d", IsWalkable(destination));
-
 	// L12: TODO 1: if origin or destination are not walkable, return -1
 	if (IsWalkable(origin) && IsWalkable(destination))
 	{
@@ -202,7 +199,6 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			// L12: TODO 4: If we just added the destination, we are done!
 			if (node->data.pos == destination)
 			{
-				LOG("DESTINATION");
 
 				lastPath.Clear();
 
@@ -218,7 +214,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 				lastPath.Flip();
 				ret = lastPath.Count();
-				LOG("Created path of %d steps in %d iterations", ret, iterations);
+				//LOG("Created path of %d steps in %d iterations", ret, iterations);
 				break;
 			}
 

@@ -57,7 +57,10 @@ bool FlyEnemy::Start() {
 
 	sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 200, 200, bodyType::KINEMATIC);
 	sensor->listener = this;
-	sensor->ctype = ColliderType::SENSOR;
+	sensor->ctype = ColliderType::SENSOR;	
+	
+	Kill = app->physics->CreateRectangleSensor(position.x, position.y, 15, 30, bodyType::KINEMATIC);
+	Kill->ctype = ColliderType::KILL;
 
 	pbody->GetPosition(FlyPosX, FlyPosY);
 
@@ -103,7 +106,6 @@ bool FlyEnemy::Update()
 
 	if (dead == true) {
 		if (e.y + 12 >= app->scene->player->lavaPosY) {
-			LOG("ELIMINATE");
 			alive = false;
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
@@ -112,8 +114,10 @@ bool FlyEnemy::Update()
 	}
 
 	b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
+	b2Vec2 vec2 = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y - 0.2) };
 
 	sensor->body->SetTransform(vec, 0);
+	Kill->body->SetTransform(vec2, 0);
 
 	return true;
 }
@@ -131,7 +135,6 @@ void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
-		LOG("DETECTED");
 		app->pathfinding->CreatePath(enemy, player);
 		Follow();
 		break;
@@ -145,8 +148,6 @@ void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 }
 
 void FlyEnemy::EndContact(PhysBody* physA, PhysBody* physB) {
-
-	LOG("END!");
 
 	switch (physB->ctype)
 	{

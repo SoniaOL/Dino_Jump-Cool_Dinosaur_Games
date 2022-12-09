@@ -402,6 +402,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			audiob = true;
 		}
 		break;
+	case ColliderType::KILL:
+		LOG("KILL");
+		app->scene->fly->alive = false;
+		app->scene->fly->pbody->body->GetWorld()->DestroyBody(app->scene->fly->pbody->body);
+		app->scene->fly->sensor->body->GetWorld()->DestroyBody(app->scene->fly->sensor->body);
+		app->scene->fly->Kill->body->GetWorld()->DestroyBody(app->scene->fly->Kill->body);
+		break;
 	case ColliderType::LAVADETECT:
 		lava = false;
 		break;
