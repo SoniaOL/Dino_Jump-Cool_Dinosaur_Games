@@ -185,9 +185,28 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	PosY = data.child("FLYENEMY").attribute("y").as_int();
 
 	app->scene->fly->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-		
+	
+	if (flyLive == 0) 
+	{
+		if (app->scene->fly->isDead) 
+		{
+			app->scene->fly->col = true;
+		}
+	}
+
+	if (walkLive == 0)
+	{
+		if (app->scene->walk->isDead)
+		{
+			app->scene->walk->col = true;
+		}
+	}
+
 	PosX = data.child("WALKENEMY").attribute("x").as_int();
 	PosY = data.child("WALKENEMY").attribute("y").as_int();
+
+	app->scene->fly->position.x = PosX;
+	app->scene->fly->position.y = PosY;
 
 	app->scene->walk->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
@@ -233,6 +252,22 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		
 		walkEnemy.append_attribute("x") = app->scene->walk->position.x;
 		walkEnemy.append_attribute("y") = app->scene->walk->position.y;
+
+		if (!app->scene->fly->isDead) {
+			flyLive = 0;
+		}
+		
+		if (app->scene->fly->isDead) {
+			flyLive = 1;
+		}
+
+		if (!app->scene->walk->isDead) {
+			walkLive = 0;
+		}
+
+		if (app->scene->walk->isDead) {
+			walkLive = 1;
+		}
 	}
 
 	if (app->sceneIntro->reset) {
@@ -256,6 +291,22 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 
 		flyEnemy.append_attribute("x") = 348;
 		flyEnemy.append_attribute("y") = 1356;
+
+		if (!app->scene->fly->isDead) {
+			flyLive = 0;
+		}
+
+		if (app->scene->fly->isDead) {
+			flyLive = 1;
+		}
+
+		if (!app->scene->walk->isDead) {
+			walkLive = 0;
+		}
+
+		if (app->scene->walk->isDead) {
+			walkLive = 1;
+		}
 
 		walkEnemy.append_attribute("x") = 228;
 		walkEnemy.append_attribute("y") = 1057;

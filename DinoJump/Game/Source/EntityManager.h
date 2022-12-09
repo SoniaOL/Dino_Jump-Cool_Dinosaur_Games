@@ -43,6 +43,8 @@ public:
 
 	float PosX;
 	float PosY;
+	int flyLive = 0;
+	int walkLive = 0;
 };
 
 #endif // __ENTITYMANAGER_H__
