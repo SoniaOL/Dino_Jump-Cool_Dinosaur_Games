@@ -34,7 +34,9 @@ public:
 
 public:
 	PhysBody* pbody;
-	PhysBody* sensor;
+	PhysBody* sensor; 
+	PhysBody* Kill;
+
 	int WalkPosY = 0;
 	int WalkPosX = 0;
 	iPoint p;
@@ -44,7 +46,8 @@ public:
 	iPoint enemy;
 
 	bool alive;
-	bool dead;
+	bool kill = false;
+	bool col = true;
 	bool isDead = false;
 
 private:

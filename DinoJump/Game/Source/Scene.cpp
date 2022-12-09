@@ -139,7 +139,6 @@ bool Scene::Update(float dt)
 
 	if (col)
 	{
-
 		app->audio->PlayMusic(audioPath);
 		// L07 DONE 3: Create colliders
 		// Later you can create a function here to load and create the colliders from the map
@@ -335,6 +334,15 @@ bool Scene::Update(float dt)
 		app->sceneIntro->active = true;
 		app->physics->debug = false;
 		app->sceneIntro->reset = true;
+
+		if (!app->scene->fly->kill) {
+			app->scene->fly->CleanUp();
+		}		
+		if (!app->scene->walk->kill) {
+			app->scene->walk->CleanUp();
+		}
+		app->scene->fly->col = true;
+		app->scene->walk->col = true;
 		app->SaveGameRequest();
 		this->active = false;
 	}

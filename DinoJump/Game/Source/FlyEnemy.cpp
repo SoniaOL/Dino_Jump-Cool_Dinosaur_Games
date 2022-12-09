@@ -48,31 +48,55 @@ bool FlyEnemy::Start() {
 	pos.x = position.x + (7);
 	pos.y = position.y + (10);
 
-	pbody = app->physics->CreateCircle(pos.x, pos.y, 12, bodyType::DYNAMIC);
-	pbody->body->SetGravityScale(0);
+	//pbody = app->physics->CreateCircle(pos.x, pos.y, 12, bodyType::DYNAMIC);
+	//pbody->body->SetGravityScale(0);
 
-	pbody->listener = this;
+	//pbody->listener = this;
 
-	pbody->ctype = ColliderType::LAVA;
+	//pbody->ctype = ColliderType::LAVA;
 
-	sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 200, 200, bodyType::KINEMATIC);
-	sensor->listener = this;
-	sensor->ctype = ColliderType::SENSOR;	
-	
-	Kill = app->physics->CreateRectangleSensor(position.x, position.y, 15, 30, bodyType::KINEMATIC);
-	Kill->ctype = ColliderType::KILL;
+	//sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 200, 200, bodyType::KINEMATIC);
+	//sensor->listener = this;
+	//sensor->ctype = ColliderType::SENSOR;	
+	//
+	//Kill = app->physics->CreateRectangleSensor(position.x, position.y, 15, 30, bodyType::KINEMATIC);
+	//Kill->ctype = ColliderType::KILL;
 
-	pbody->GetPosition(FlyPosX, FlyPosY);
+	//pbody->GetPosition(FlyPosX, FlyPosY);
 
 	pathTileTex = app->tex->Load("Assets/Maps/MapMetadata.png");
 
-	alive = true; 
-    dead = true; 
+	/*alive = true; */
+
 	return true;
 }
 
 bool FlyEnemy::Update()
 {
+	if (col) 
+	{
+		pbody = app->physics->CreateCircle(pos.x, pos.y, 12, bodyType::DYNAMIC);
+		pbody->body->SetGravityScale(0);
+		pbody->listener = this;
+
+		pbody->ctype = ColliderType::LAVA;
+
+		sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 200, 200, bodyType::KINEMATIC);
+		sensor->listener = this;
+		sensor->ctype = ColliderType::SENSOR;
+
+		Kill = app->physics->CreateRectangleSensor(position.x, position.y, 15, 30, bodyType::KINEMATIC);
+		Kill->ctype = ColliderType::KILLFLY;
+
+		pbody->GetPosition(FlyPosX, FlyPosY);
+
+		alive = true;
+		kill = false;
+		isDead = false;
+
+		col = false;
+	}
+
 	if (!isDead)
 	{
 		app->scene->player->pbody->GetPosition(p.x, p.y);
@@ -106,27 +130,26 @@ bool FlyEnemy::Update()
 
 		}
 
-		if (dead == true) {
-			if (e.y + 12 >= app->scene->player->lavaPosY) {
+		if (e.y + 12 >= app->scene->player->lavaPosY) 
+		{
 				alive = false;
 				pbody->body->GetWorld()->DestroyBody(pbody->body);
 				sensor->body->GetWorld()->DestroyBody(sensor->body);
-				dead = false;
+				Kill->body->GetWorld()->DestroyBody(Kill->body);
 				isDead = true;
-			}
 		}
 
-		if (kill) {
+		if (kill) 
+		{
 			alive = false;
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
 			Kill->body->GetWorld()->DestroyBody(Kill->body);
-			kill = false;
 			isDead = true;
 		}
 
 		b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
-		b2Vec2 vec2 = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y - 0.2) };
+		b2Vec2 vec2 = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y - 0.25) };
 
 		sensor->body->SetTransform(vec, 0);
 		Kill->body->SetTransform(vec2, 0);
@@ -137,8 +160,9 @@ bool FlyEnemy::Update()
 
 bool FlyEnemy::CleanUp()
 {
-
-
+	pbody->body->GetWorld()->DestroyBody(pbody->body);
+	sensor->body->GetWorld()->DestroyBody(sensor->body);
+	Kill->body->GetWorld()->DestroyBody(Kill->body);
 	return true;
 }
 

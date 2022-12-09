@@ -39,6 +39,7 @@ public:
 	PhysBody* pbody;
 	PhysBody* sensor;
 	PhysBody* Kill;
+
 	int FlyPosY = 0;
 	int FlyPosX = 0;
 
@@ -51,9 +52,9 @@ public:
 	iPoint enemy;
 
 	bool alive; 
-	bool dead; 
 	bool kill = false;
 	bool isDead = false;
+	bool col = true;
 
 private:
 	SDL_Texture* texture;

@@ -46,33 +46,38 @@ bool WalkEnemy::Awake() {
 	return true;
 }
 
-bool WalkEnemy::Start() {
-
-	LOG("POS X: %d", position.x + (8 * 2));
-	LOG("POS Y: %d", position.y + (8 * 2));
-	
-	pbody = app->physics->CreateCircle(228, 1057, 8, bodyType::DYNAMIC);
+bool WalkEnemy::Start() 
+{
 	texture = app->tex->Load(texturePath);
-	pbody->listener = this;
-	pbody->ctype = ColliderType::LAVA;
-
-	sensor = app->physics->CreateRectangleSensor(position.x + (8 * 2), position.y + (8 * 2), 60, 60, bodyType::KINEMATIC);
-	sensor->listener = this; 
-	sensor->ctype = ColliderType::SENSOR;
-
-	pbody->GetPosition(WalkPosX, WalkPosY);
-
 	pathTileTex = app->tex->Load("Assets/Maps/MapMetadata.png");
-
-	alive = true;
-	dead = true;
-	return true;
 
 	return true;
 }
 
 bool WalkEnemy::Update()
 {
+	if (col)
+	{
+		pbody = app->physics->CreateCircle(228, 1057, 8, bodyType::DYNAMIC);
+		pbody->listener = this;
+		pbody->ctype = ColliderType::LAVA;
+
+		sensor = app->physics->CreateRectangleSensor(position.x + (8 * 2), position.y + (8 * 2), 60, 60, bodyType::KINEMATIC);
+		sensor->listener = this;
+		sensor->ctype = ColliderType::SENSOR;
+
+		Kill = app->physics->CreateRectangleSensor(position.x, position.y, 15, 30, bodyType::KINEMATIC);
+		Kill->ctype = ColliderType::KILLWALK;
+
+		pbody->GetPosition(WalkPosX, WalkPosY);
+
+		alive = true;
+		isDead = false;
+		kill = false;
+
+		col = false;
+	}
+
 	if (!isDead)
 	{
 		app->scene->player->pbody->GetPosition(p.x, p.y);
@@ -105,20 +110,29 @@ bool WalkEnemy::Update()
 
 		}
 
-		if (dead == true) {
-			if (e.y + 12 >= app->scene->player->lavaPosY) {
-				LOG("ELIMINATE");
-				alive = false;
-				pbody->body->GetWorld()->DestroyBody(pbody->body);
-				sensor->body->GetWorld()->DestroyBody(sensor->body);
-				dead = false;
-				isDead = true;
-			}
+		if (e.y + 12 >= app->scene->player->lavaPosY)
+		{
+			alive = false;
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			sensor->body->GetWorld()->DestroyBody(sensor->body);
+			Kill->body->GetWorld()->DestroyBody(Kill->body);
+			isDead = true;
+		}
+
+		if (kill)
+		{
+			alive = false;
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			sensor->body->GetWorld()->DestroyBody(sensor->body);
+			Kill->body->GetWorld()->DestroyBody(Kill->body);
+			isDead = true;
 		}
 
 		b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
+		b2Vec2 vec2 = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y - 0.25) };
 
 		sensor->body->SetTransform(vec, 0);
+		Kill->body->SetTransform(vec2, 0);
 	}
 
 	return true;
@@ -126,6 +140,10 @@ bool WalkEnemy::Update()
 
 bool WalkEnemy::CleanUp()
 {
+	pbody->body->GetWorld()->DestroyBody(pbody->body);
+	sensor->body->GetWorld()->DestroyBody(sensor->body);
+	Kill->body->GetWorld()->DestroyBody(Kill->body);
+
 	return true;
 }
 
