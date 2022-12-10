@@ -78,6 +78,14 @@ bool Scene::Start()
 
 		RELEASE_ARRAY(data);
 
+		int wW, hW;
+		uchar* dataW = NULL;
+
+		bool retWalkMapW = app->map->CreateWalkabilityMap2(wW, hW, &dataW);
+		if (retWalkMapW) app->pathfinding2->SetMap(wW, hW, dataW);
+
+		RELEASE_ARRAY(dataW);
+
 	}
 
 	// L04: DONE 7: Set the window title with map/tileset info

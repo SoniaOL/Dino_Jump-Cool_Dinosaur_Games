@@ -148,6 +148,35 @@ bool FlyEnemy::Update()
 			isDead = true;
 		}
 
+		if (follow) {
+			app->pathfinding->CreatePath(enemy, player);
+
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+
+				float32 speed = 1.5f;
+
+				if (e.y < pos.y) {
+					pbody->body->SetLinearVelocity({ 0, speed });
+				}
+
+				if (e.x < pos.x) {
+					pbody->body->SetLinearVelocity({ speed, 0 });
+				}
+
+				if (e.y > pos.y) {
+					pbody->body->SetLinearVelocity({ 0, -speed });
+				}
+
+				if (e.x > pos.x) {
+					pbody->body->SetLinearVelocity({ -speed, 0 });
+				}
+			}
+		}
+
 		b2Vec2 vec = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y) };
 		b2Vec2 vec2 = { (float32)PIXEL_TO_METERS(position.x), (float32)PIXEL_TO_METERS(position.y - 0.25) };
 
@@ -173,8 +202,9 @@ void FlyEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 
 	case ColliderType::PLAYER:
-		app->pathfinding->CreatePath(enemy, player);
-		Follow();
+		//app->pathfinding->CreatePath(enemy, player);
+		follow = true;
+		//Follow();
 		break;
 /*	case ColliderType::LAVA:
 		LOG("ELIMINATE");
@@ -190,8 +220,10 @@ void FlyEnemy::EndContact(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 		case ColliderType::PLAYER:
+			follow = false;
 			pbody->body->SetLinearVelocity({ 0, 0 });
 			sensor->body->SetLinearVelocity({ 0, 0 });
+			Kill->body->SetLinearVelocity({ 0, 0 });
 			break;
 	}
 }

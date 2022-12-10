@@ -12,6 +12,7 @@
 #include "SceneIntro.h"
 #include "sceneLogo.h"
 #include "Pathfinding.h"
+#include "Pathfinding 2.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -32,6 +33,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//L07 DONE 2: Add Physics module
 	physics = new Physics();
 	pathfinding = new PathFinding();
+	pathfinding2 = new PathFinding();
 	scenelogo = new sceneLogo(); 
 	sceneIntro = new SceneIntro(true);
 	scene = new Scene();
@@ -51,6 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);
 	AddModule(pathfinding);
+	AddModule(pathfinding2);
 	AddModule(map);
 	AddModule(scene);
 	//AddModule(flyEnemy);

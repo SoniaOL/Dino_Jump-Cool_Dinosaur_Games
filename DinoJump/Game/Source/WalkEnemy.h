@@ -31,6 +31,8 @@ public:
 	// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	void EndContact(PhysBody* physA, PhysBody* physB);
+
 
 public:
 	PhysBody* pbody;
@@ -49,6 +51,7 @@ public:
 	bool kill = false;
 	bool col = true;
 	bool isDead = false;
+	bool follow = false;
 
 private:
 	SDL_Texture* texture;
