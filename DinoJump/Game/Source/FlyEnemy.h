@@ -56,11 +56,9 @@ public:
 	bool kill = false;
 	bool isDead = false;
 	bool col = true;
-<<<<<<< HEAD
+
 	bool deadanim = false;
-=======
 	bool follow = false;
->>>>>>> 1b2623ba7238db4e8458cd0a0b792e73a94b3a3e
 
 private:
 	SDL_Texture* texture;
