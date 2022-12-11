@@ -100,6 +100,7 @@ public:
 	ModuleFadeToBlack* fade;
 	sceneLogo* scenelogo; 
 	PathFinding* pathfinding;
+	PathFinding* pathfinding2;
 	//FlyEnemy* flyEnemy; 
 
 private:

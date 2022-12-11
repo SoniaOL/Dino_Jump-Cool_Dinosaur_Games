@@ -76,6 +76,51 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
     return ret;
 }
+bool Map::CreateWalkabilityMap2(int& width, int& height, uchar** buffer) const
+{
+    bool ret = false;
+    ListItem<MapLayer*>* item;
+    item = mapData.maplayers.start;
+
+    for (item = mapData.maplayers.start; item != NULL; item = item->next)
+    {
+        MapLayer* layer = item->data;
+
+        if (!layer->properties.GetProperty("NavigationWalk")->value)
+            continue;
+
+        uchar* map = new uchar[layer->width * layer->height];
+        memset(map, 1, layer->width * layer->height);
+
+        for (int y = 0; y < mapData.height; ++y)
+        {
+            for (int x = 0; x < mapData.width; ++x)
+            {
+                int i = (y * layer->width) + x;
+
+                int tileId = layer->Get(x, y);
+                //TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
+
+                //if (tileset != NULL)
+                //{
+                    if(tileId == 327)
+                        map[i] = 1;
+                    else 
+                        map[i] = 0;
+                //}
+            }
+        }
+
+        *buffer = map;
+        width = mapData.width;
+        height = mapData.height;
+        ret = true;
+
+        break;
+    }
+
+    return ret;
+}
 
 void Map::Draw()
 {
