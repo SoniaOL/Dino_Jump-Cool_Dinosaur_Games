@@ -94,6 +94,8 @@ public:
 	// Debug mode
 	bool debug;
 
+	float fps = 60.0f;
+
 private:
 
 	// Box2D World

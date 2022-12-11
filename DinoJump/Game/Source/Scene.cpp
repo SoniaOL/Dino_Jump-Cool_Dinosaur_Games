@@ -407,6 +407,19 @@ bool Scene::Update(float dt)
 		}
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+
+		change = !change;
+
+		if (change) {
+			app->physics->fps = 30.0f;
+		}
+		else {
+			app->physics->fps = 60.0f;
+		}
+
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera.y += 1;
 

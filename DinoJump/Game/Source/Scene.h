@@ -47,6 +47,7 @@ public:
 	int countGod = 0;
 	SDL_Texture* mouseTileTex = nullptr;
 	bool originSelected = false;
+	bool change = false;
 	iPoint origin;
 
 private:
