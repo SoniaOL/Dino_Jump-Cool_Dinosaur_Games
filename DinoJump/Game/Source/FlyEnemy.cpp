@@ -26,6 +26,15 @@ FlyEnemy::FlyEnemy() : Entity(EntityType::FLYENEMY)
 	flyAnim.PushBack({ 271,30,37,33 });
 	flyAnim.speed = 0.2f;
 
+	deathAnim.PushBack({ 10,84,33,91 });
+	deathAnim.PushBack({ 54,84,33,91 });
+	deathAnim.PushBack({ 98,84,33,91 });
+	deathAnim.PushBack({ 142,84,33,91 });
+	deathAnim.PushBack({ 186,84,33,91 });
+	deathAnim.PushBack({ 229,84,33,91 });
+	deathAnim.speed = 0.2f; 
+
+
 }
 
 FlyEnemy::~FlyEnemy() {
@@ -65,7 +74,7 @@ bool FlyEnemy::Start() {
 	//pbody->GetPosition(FlyPosX, FlyPosY);
 
 	pathTileTex = app->tex->Load("Assets/Maps/MapMetadata.png");
-
+	
 	/*alive = true; */
 
 	return true;
@@ -95,6 +104,16 @@ bool FlyEnemy::Update()
 		isDead = false;
 
 		col = false;
+	}
+
+	if (deadanim == true) {
+		if (cont < 6) {
+			currentAnimation = &deathAnim;
+			SDL_Rect die = currentAnimation->GetCurrentFrame();
+			currentAnimation->Update();
+			app->render->DrawTexture(texture, position.x - 19, position.y - 19, &die, flip);
+		}
+		cont++; 
 	}
 
 	if (!isDead)
@@ -130,12 +149,15 @@ bool FlyEnemy::Update()
 
 		}
 
-		if (e.y + 12 >= app->scene->player->lavaPosY) 
+		if (e.y + 12 >= app->scene->player->lavaPosY)  
 		{
 				alive = false;
 				pbody->body->GetWorld()->DestroyBody(pbody->body);
 				sensor->body->GetWorld()->DestroyBody(sensor->body);
 				Kill->body->GetWorld()->DestroyBody(Kill->body);
+
+				deadanim = true; 
+				
 				isDead = true;
 		}
 

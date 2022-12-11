@@ -29,7 +29,7 @@ WalkEnemy::WalkEnemy() : Entity(EntityType::WALKENEMY)
 	movingAnimEnemy.PushBack({ 168,0,24,24 });
 	movingAnimEnemy.PushBack({ 192,0,24,24 });
 	movingAnimEnemy.PushBack({ 216,0,24,24 });
-	movingAnimEnemy.speed = 0.1f;
+	movingAnimEnemy.speed = 0.5f;
 
 }
 
