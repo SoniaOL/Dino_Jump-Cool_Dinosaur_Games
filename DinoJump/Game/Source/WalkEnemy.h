@@ -52,6 +52,7 @@ public:
 	bool col = true;
 	bool isDead = false;
 	bool follow = false;
+	bool deadanim = false; 
 
 private:
 	SDL_Texture* texture;
@@ -61,6 +62,7 @@ private:
 	Animation* currentAnimation = nullptr;
 	Animation idleAnimEnemy;
 	Animation movingAnimEnemy;
+	Animation deathAnimEnemy;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
