@@ -63,7 +63,7 @@ bool WalkEnemy::Update()
 		pbody = app->physics->CreateCircle(228, 1057, 7.5, bodyType::DYNAMIC);
 		pbody->listener = this;
 		pbody->ctype = ColliderType::LAVA;
-		pbody->body->SetGravityScale(15.0f);
+		pbody->body->SetGravityScale(20.0f);
 
 		LOG("PosX: %d", position.x + (8 * 2));
 		LOG("PosY: %d", position.y + (8 * 2));
@@ -118,7 +118,7 @@ bool WalkEnemy::Update()
 			app->render->DrawTexture(texture, position.x - 12, position.y - 11, &walk, flip);
 		}
 
-		const DynArray<iPoint>* path = app->pathfinding2->GetLastPath();
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
@@ -147,9 +147,9 @@ bool WalkEnemy::Update()
 		}
 
 		if (follow) {
-			app->pathfinding2->CreatePath(enemy, player);
+			app->pathfinding->CreatePath(enemy, player);
 
-			const DynArray<iPoint>* path = app->pathfinding2->GetLastPath();
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
 			for (uint i = 0; i < path->Count(); ++i)
 			{
@@ -165,7 +165,7 @@ bool WalkEnemy::Update()
 				}*/
 
 				if (e.x < pos.x) {
-					pbody->body->SetLinearVelocity({ speed, 0 });
+					pbody->body->SetLinearVelocity({ speed, 5.0f });
 				}
 
 				//if (e.y > pos.y) {
@@ -174,7 +174,7 @@ bool WalkEnemy::Update()
 				//}
 
 				if (e.x > pos.x) {
-					pbody->body->SetLinearVelocity({ -speed, 0 });
+					pbody->body->SetLinearVelocity({ -speed, 5.0f });
 				}
 			}
 		}
@@ -206,7 +206,10 @@ void WalkEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		//app->pathfinding2->CreatePath(enemy, player);
-		follow = true;
+		if (app->pathfinding->IsWalkable(player) && app->pathfinding->IsWalkable(enemy))
+		{
+			follow = true;
+		}
 		//Follow();
 		break;
 	}
@@ -227,7 +230,7 @@ void WalkEnemy::EndContact(PhysBody* physA, PhysBody* physB) {
 
 void WalkEnemy::Follow()
 {
-	const DynArray<iPoint>* path = app->pathfinding2->GetLastPath();
+	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
 	for (uint i = 0; i < path->Count(); ++i)
 	{

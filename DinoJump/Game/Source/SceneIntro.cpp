@@ -112,6 +112,7 @@ bool SceneIntro::Update(float dt)
 		app->render->DrawTexture(img, 0, 900, &dinoI);
 	   
 	}*/
+
 	if (app->scene->player->die) {
 		app->render->camera.y = -900; 
 		app->render->DrawTexture(death, 0, 900 , &dinoD);
@@ -144,6 +145,13 @@ bool SceneIntro::Update(float dt)
 			app->entityManager->active = true;
 			app->map->active = true;
 			On = true;
+			if (app->scene->fly->isDead) {
+				app->scene->fly->col = true;
+
+			}
+			if (app->scene->walk->isDead) {
+				app->scene->walk->col = true;
+			}
 			app->LoadGameRequest();
 		}
 	}

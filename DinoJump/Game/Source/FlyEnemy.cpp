@@ -171,6 +171,7 @@ bool FlyEnemy::Update()
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
 			Kill->body->GetWorld()->DestroyBody(Kill->body);
+			app->render->name;
 			deadanim = true;
 			isDead = true;
 		}

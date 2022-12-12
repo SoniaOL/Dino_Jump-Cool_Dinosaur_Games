@@ -381,6 +381,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::META:
 		Meta = true;
 		audiow = true; 
+		app->scene->fly->kill = true;
+		app->scene->fly->deadanim = true;
+		app->scene->walk->kill = true;
 		break;
 	case ColliderType::CAM:
 		lava = true;

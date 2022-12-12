@@ -181,19 +181,35 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 
 	app->scene->player->CAMGDetect->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
-	PosX = data.child("FLYENEMY").attribute("x").as_int();
-	PosY = data.child("FLYENEMY").attribute("y").as_int();
-
-	app->scene->fly->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-	
-	if (flyLive == 0) 
+	if (!app->scene->fly->isDead) 
 	{
-		if (app->scene->fly->isDead) 
+
+		PosX = data.child("FLYENEMY").attribute("x").as_int();
+		PosY = data.child("FLYENEMY").attribute("y").as_int();
+
+		app->scene->fly->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+	}
+
+	if (flyLive == 0)
+	{
+		if (app->scene->fly->isDead)
 		{
 			app->scene->fly->col = true;
 		}
 	}
 
+	if (!app->scene->walk->isDead) {
+
+
+		PosX = data.child("WALKENEMY").attribute("x").as_int();
+		PosY = data.child("WALKENEMY").attribute("y").as_int();
+
+		app->scene->fly->position.x = PosX;
+		app->scene->fly->position.y = PosY;
+
+		app->scene->walk->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+	}
+	
 	if (walkLive == 0)
 	{
 		if (app->scene->walk->isDead)
@@ -201,14 +217,6 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 			app->scene->walk->col = true;
 		}
 	}
-
-	PosX = data.child("WALKENEMY").attribute("x").as_int();
-	PosY = data.child("WALKENEMY").attribute("y").as_int();
-
-	app->scene->fly->position.x = PosX;
-	app->scene->fly->position.y = PosY;
-
-	app->scene->walk->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
 	return true;
 }
