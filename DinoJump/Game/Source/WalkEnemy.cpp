@@ -190,10 +190,11 @@ bool WalkEnemy::Update()
 
 bool WalkEnemy::CleanUp()
 {
-	pbody->body->GetWorld()->DestroyBody(pbody->body);
-	sensor->body->GetWorld()->DestroyBody(sensor->body);
-	Kill->body->GetWorld()->DestroyBody(Kill->body);
-
+	if (isDead) {
+		pbody->body->GetWorld()->DestroyBody(pbody->body);
+		sensor->body->GetWorld()->DestroyBody(sensor->body);
+		Kill->body->GetWorld()->DestroyBody(Kill->body);
+	}
 	return true;
 }
 
