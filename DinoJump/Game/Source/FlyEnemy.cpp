@@ -105,6 +105,10 @@ bool FlyEnemy::Update()
 
 		deadanim = false;
 		col = false;
+
+		currentAnimation = &deathAnim;
+		currentAnimation->Reset();
+		 
 	}
 
 	if (deadanim == true) {
