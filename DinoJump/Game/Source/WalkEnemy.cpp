@@ -31,6 +31,11 @@ WalkEnemy::WalkEnemy() : Entity(EntityType::WALKENEMY)
 	movingAnimEnemy.PushBack({ 216,0,24,24 });
 	movingAnimEnemy.speed = 0.2f;
 
+	deathAnimEnemy.PushBack({ 264,0,24,24 });
+	deathAnimEnemy.PushBack({ 288,0,24,24 });
+	deathAnimEnemy.PushBack({ 312,0,24,24 });
+	deathAnimEnemy.speed = 0.1f; 
+
 }
 
 WalkEnemy::~WalkEnemy() {
@@ -84,6 +89,16 @@ bool WalkEnemy::Update()
 		col = false;
 	}
 
+	if (deadanim == true) {
+
+		if (currentAnimation->current_frame < 5) {
+			currentAnimation = &deathAnimEnemy;
+			SDL_Rect die = currentAnimation->GetCurrentFrame();
+			currentAnimation->Update();
+			app->render->DrawTexture(texture, position.x - 19, position.y - 19, &die, flip);
+		}
+	}
+
 	if (!isDead)
 	{
 		app->scene->player->pbody->GetPosition(p.x, p.y);
@@ -135,6 +150,7 @@ bool WalkEnemy::Update()
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
 			Kill->body->GetWorld()->DestroyBody(Kill->body);
 			isDead = true;
+			deadanim = true; 
 		}
 
 		if (kill)
@@ -144,6 +160,7 @@ bool WalkEnemy::Update()
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
 			Kill->body->GetWorld()->DestroyBody(Kill->body);
 			isDead = true;
+			deadanim = true; 
 		}
 
 		if (follow) {
