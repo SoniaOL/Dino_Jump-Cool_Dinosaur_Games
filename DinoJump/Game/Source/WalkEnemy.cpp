@@ -29,7 +29,7 @@ WalkEnemy::WalkEnemy() : Entity(EntityType::WALKENEMY)
 	movingAnimEnemy.PushBack({ 168,0,24,24 });
 	movingAnimEnemy.PushBack({ 192,0,24,24 });
 	movingAnimEnemy.PushBack({ 216,0,24,24 });
-	movingAnimEnemy.speed = 0.5f;
+	movingAnimEnemy.speed = 0.2f;
 
 }
 
@@ -50,6 +50,8 @@ bool WalkEnemy::Start()
 {
 	texture = app->tex->Load(texturePath);
 	pathTileTex = app->tex->Load("Assets/Maps/MapMetadata.png");
+
+	currentAnimation = &idleAnimEnemy;
 
 	return true;
 }
@@ -90,9 +92,21 @@ bool WalkEnemy::Update()
 
 		player = app->map->WorldToMap(p.x, p.y);
 
+		SDL_Rect walk = currentAnimation->GetCurrentFrame();
+
 		currentAnimation = &idleAnimEnemy;
 
-		SDL_Rect walk = currentAnimation->GetCurrentFrame();
+		if (pbody->body->GetLinearVelocity().x <= -0.1f) {
+
+			flip = SDL_FLIP_HORIZONTAL;
+			currentAnimation = &movingAnimEnemy;
+		}
+
+		if (pbody->body->GetLinearVelocity().x >= 0.1f) {
+
+			flip = SDL_FLIP_NONE;
+			currentAnimation = &movingAnimEnemy;
+		}
 
 		currentAnimation->Update();
 
@@ -211,12 +225,13 @@ void WalkEnemy::EndContact(PhysBody* physA, PhysBody* physB) {
 
 void WalkEnemy::Follow()
 {
-
 	const DynArray<iPoint>* path = app->pathfinding2->GetLastPath();
 
 	for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+
+		
 
 		LOG("e.y: %d", e.y);
 		LOG("pos.y: %d", pos.y);
@@ -229,6 +244,7 @@ void WalkEnemy::Follow()
 
 		if (e.x < pos.x) {
 			pbody->body->SetLinearVelocity({ speed, 0 });
+	
 		}
 
 		if (e.y > pos.y) {
@@ -238,6 +254,7 @@ void WalkEnemy::Follow()
 
 		if (e.x > pos.x) {
 			pbody->body->SetLinearVelocity({ -speed, 0 });
+	
 		}
 	}
 }

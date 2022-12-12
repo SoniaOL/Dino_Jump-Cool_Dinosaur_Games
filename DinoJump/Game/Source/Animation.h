@@ -11,10 +11,13 @@ public:
 	SDL_Rect frames[MAX_FRAMES];
 
 private:
+	
+
+public:
+
 	float current_frame = 0.0f;
 	int last_frame = 0;
 
-public:
 
 	void PushBack(const SDL_Rect& rect)
 	{

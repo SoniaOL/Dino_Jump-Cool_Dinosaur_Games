@@ -64,6 +64,8 @@ private:
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
+	SDL_Rect walk;
+
 };
 
 #endif // __WALKENEMY_H__

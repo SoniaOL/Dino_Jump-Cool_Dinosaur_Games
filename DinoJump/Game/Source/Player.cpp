@@ -404,6 +404,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::KILLFLY:
 		app->scene->fly->kill = true;
+		app->scene->fly->deadanim = true; 
 		break;	
 	case ColliderType::KILLWALK:
 		app->scene->walk->kill = true;

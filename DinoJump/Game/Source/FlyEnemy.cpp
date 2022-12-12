@@ -107,13 +107,14 @@ bool FlyEnemy::Update()
 	}
 
 	if (deadanim == true) {
-		if (cont < 6) {
+
+		if (currentAnimation->current_frame < 5) {
 			currentAnimation = &deathAnim;
 			SDL_Rect die = currentAnimation->GetCurrentFrame();
 			currentAnimation->Update();
 			app->render->DrawTexture(texture, position.x - 19, position.y - 19, &die, flip);
 		}
-		cont++; 
+		
 	}
 
 	if (!isDead)
