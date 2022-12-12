@@ -384,6 +384,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->scene->fly->kill = true;
 		app->scene->fly->deadanim = true;
 		app->scene->walk->kill = true;
+		app->scene->walk->deadanim = true;
 		break;
 	case ColliderType::CAM:
 		lava = true;
@@ -411,6 +412,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;	
 	case ColliderType::KILLWALK:
 		app->scene->walk->kill = true;
+		app->scene->walk->deadanim = true;
 		break;
 	case ColliderType::LAVADETECT:
 		lava = false;

@@ -54,6 +54,9 @@ public:
 	bool follow = false;
 	bool deadanim = false; 
 
+	const char* audioPath;
+	int audio;
+
 private:
 	SDL_Texture* texture;
 	const char* texturePath;

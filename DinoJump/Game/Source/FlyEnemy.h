@@ -65,6 +65,8 @@ private:
 	SDL_Texture* pathTileTex;
 	const char* texturePath;
 	const char* deathPath;
+	const char* audioPath;
+	int audio;
 
 	Animation* currentAnimation = nullptr;
 	Animation flyAnim;

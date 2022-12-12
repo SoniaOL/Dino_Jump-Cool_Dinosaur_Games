@@ -46,6 +46,7 @@ bool FlyEnemy::Awake() {
 	position.x = parameters.child("fly").attribute("x").as_int();
 	position.y = parameters.child("fly").attribute("y").as_int();
 	texturePath = parameters.child("fly").attribute("texturepath").as_string();
+	audioPath = parameters.child("audio").attribute("flyhurt").as_string(); 
 
 	return true;
 }
@@ -53,6 +54,7 @@ bool FlyEnemy::Awake() {
 bool FlyEnemy::Start() {
 
 	texture = app->tex->Load(texturePath);
+	audio = app->audio->LoadFx(audioPath);
 
 	pos.x = position.x + (7);
 	pos.y = position.y + (10);
@@ -159,7 +161,7 @@ bool FlyEnemy::Update()
 				pbody->body->GetWorld()->DestroyBody(pbody->body);
 				sensor->body->GetWorld()->DestroyBody(sensor->body);
 				Kill->body->GetWorld()->DestroyBody(Kill->body);
-
+				app->audio->PlayFx(audio);
 				deadanim = true; 
 				
 				isDead = true;
@@ -171,6 +173,7 @@ bool FlyEnemy::Update()
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
 			Kill->body->GetWorld()->DestroyBody(Kill->body);
+			app->audio->PlayFx(audio);
 			app->render->name;
 			deadanim = true;
 			isDead = true;

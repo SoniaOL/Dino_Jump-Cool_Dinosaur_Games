@@ -31,9 +31,9 @@ WalkEnemy::WalkEnemy() : Entity(EntityType::WALKENEMY)
 	movingAnimEnemy.PushBack({ 216,0,24,24 });
 	movingAnimEnemy.speed = 0.2f;
 
-	deathAnimEnemy.PushBack({ 264,0,24,24 });
-	deathAnimEnemy.PushBack({ 288,0,24,24 });
-	deathAnimEnemy.PushBack({ 312,0,24,24 });
+	deathAnimEnemy.PushBack({ 336,0,24,24 });
+	deathAnimEnemy.PushBack({ 360,0,24,24 });
+	deathAnimEnemy.PushBack({ 384,0,24,24 });
 	deathAnimEnemy.speed = 0.1f; 
 
 }
@@ -47,6 +47,7 @@ bool WalkEnemy::Awake() {
 	position.x = parameters.child("walk").attribute("x").as_int();
 	position.y = parameters.child("walk").attribute("y").as_int();
 	texturePath = parameters.child("walk").attribute("texturepath").as_string();
+	audioPath = parameters.child("audio").attribute("walkhurt").as_string();
 
 	return true;
 }
@@ -55,6 +56,7 @@ bool WalkEnemy::Start()
 {
 	texture = app->tex->Load(texturePath);
 	pathTileTex = app->tex->Load("Assets/Maps/MapMetadata.png");
+	audio = app->audio->LoadFx(audioPath);
 
 	currentAnimation = &idleAnimEnemy;
 
@@ -87,11 +89,14 @@ bool WalkEnemy::Update()
 		kill = false;
 
 		col = false;
+		deadanim = false;
+		currentAnimation = &deathAnimEnemy;
+		currentAnimation->Reset();
 	}
 
 	if (deadanim == true) {
 
-		if (currentAnimation->current_frame < 5) {
+		if (currentAnimation->current_frame < 2) {
 			currentAnimation = &deathAnimEnemy;
 			SDL_Rect die = currentAnimation->GetCurrentFrame();
 			currentAnimation->Update();
@@ -149,6 +154,7 @@ bool WalkEnemy::Update()
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
 			Kill->body->GetWorld()->DestroyBody(Kill->body);
+			app->audio->PlayFx(audio);
 			isDead = true;
 			deadanim = true; 
 		}
@@ -159,6 +165,7 @@ bool WalkEnemy::Update()
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
 			Kill->body->GetWorld()->DestroyBody(Kill->body);
+			app->audio->PlayFx(audio);
 			isDead = true;
 			deadanim = true; 
 		}
