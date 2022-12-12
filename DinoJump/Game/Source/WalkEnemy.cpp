@@ -63,6 +63,7 @@ bool WalkEnemy::Update()
 		pbody = app->physics->CreateCircle(228, 1057, 8, bodyType::DYNAMIC);
 		pbody->listener = this;
 		pbody->ctype = ColliderType::LAVA;
+		pbody->body->SetGravityScale(20.0f);
 
 		LOG("PosX: %d", position.x + (8 * 2));
 		LOG("PosY: %d", position.y + (8 * 2));
@@ -159,18 +160,18 @@ bool WalkEnemy::Update()
 
 				float32 speed = 1.5f;
 
-				if (e.y < pos.y) {
+				/*if (e.y < pos.y) {
 					pbody->body->SetLinearVelocity({ 0, speed });
-				}
+				}*/
 
 				if (e.x < pos.x) {
 					pbody->body->SetLinearVelocity({ speed, 0 });
 				}
 
-				if (e.y > pos.y) {
-					//pbody->body->ApplyForce({0, -4}, {(float32)position.x, (float32)position.y}, true);
-					pbody->body->SetLinearVelocity({ 0, -speed });
-				}
+				//if (e.y > pos.y) {
+				//	//pbody->body->ApplyForce({0, -4}, {(float32)position.x, (float32)position.y}, true);
+				//	pbody->body->SetLinearVelocity({ 0, -speed });
+				//}
 
 				if (e.x > pos.x) {
 					pbody->body->SetLinearVelocity({ -speed, 0 });
@@ -231,7 +232,7 @@ void WalkEnemy::Follow()
 	for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		iPoint epos = app->map->MapToWorld(e.x, e.y);
+		iPoint epos = app->map->MapToWorld(e.x, e.y + 4);
 		
 
 		LOG("e.y: %d", epos.y);
