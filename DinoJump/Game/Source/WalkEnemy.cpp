@@ -60,15 +60,15 @@ bool WalkEnemy::Update()
 {
 	if (col)
 	{
-		pbody = app->physics->CreateCircle(228, 1057, 8, bodyType::DYNAMIC);
+		pbody = app->physics->CreateCircle(228, 1057, 7.5, bodyType::DYNAMIC);
 		pbody->listener = this;
 		pbody->ctype = ColliderType::LAVA;
-		pbody->body->SetGravityScale(20.0f);
+		pbody->body->SetGravityScale(15.0f);
 
 		LOG("PosX: %d", position.x + (8 * 2));
 		LOG("PosY: %d", position.y + (8 * 2));
 
-		sensor = app->physics->CreateRectangleSensor(position.x + (8 * 2), position.y + (8 * 2), 300, 300, bodyType::KINEMATIC);
+		sensor = app->physics->CreateRectangleSensor(position.x + (8 * 2), position.y + (8 * 2), 250, 100, bodyType::KINEMATIC);
 		sensor->listener = this;
 		sensor->ctype = ColliderType::SENSOR;
 
