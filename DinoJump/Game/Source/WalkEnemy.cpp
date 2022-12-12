@@ -190,7 +190,7 @@ bool WalkEnemy::Update()
 
 bool WalkEnemy::CleanUp()
 {
-	if (isDead) {
+	if (!isDead) {
 		pbody->body->GetWorld()->DestroyBody(pbody->body);
 		sensor->body->GetWorld()->DestroyBody(sensor->body);
 		Kill->body->GetWorld()->DestroyBody(Kill->body);
@@ -231,29 +231,29 @@ void WalkEnemy::Follow()
 	for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-
+		iPoint epos = app->map->MapToWorld(e.x, e.y);
 		
 
-		LOG("e.y: %d", e.y);
+		LOG("e.y: %d", epos.y);
 		LOG("pos.y: %d", pos.y);
 
 		float32 speed = 1.5f;
 
-		if (e.y < pos.y) {
+		if (epos.y < pos.y) {
 			pbody->body->SetLinearVelocity({ 0, speed });
 		}
 
-		if (e.x < pos.x) {
+		if (epos.x < pos.x) {
 			pbody->body->SetLinearVelocity({ speed, 0 });
 	
 		}
 
-		if (e.y > pos.y) {
+		if (epos.y > pos.y) {
 			//pbody->body->ApplyForce({0, -4}, {(float32)position.x, (float32)position.y}, true);
 			pbody->body->SetLinearVelocity({ 0, -speed });
 		}
 
-		if (e.x > pos.x) {
+		if (epos.x > pos.x) {
 			pbody->body->SetLinearVelocity({ -speed, 0 });
 	
 		}

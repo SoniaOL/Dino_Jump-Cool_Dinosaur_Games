@@ -103,6 +103,7 @@ bool FlyEnemy::Update()
 		kill = false;
 		isDead = false;
 
+		deadanim = false;
 		col = false;
 	}
 
@@ -114,14 +115,12 @@ bool FlyEnemy::Update()
 			currentAnimation->Update();
 			app->render->DrawTexture(texture, position.x - 19, position.y - 19, &die, flip);
 		}
-		
 	}
 
 	if (!isDead)
 	{
 		app->scene->player->pbody->GetPosition(p.x, p.y);
 		pbody->GetPosition(e.x, e.y);
-
 
 		enemy = app->map->WorldToMap(e.x, e.y);
 
@@ -168,6 +167,7 @@ bool FlyEnemy::Update()
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);
 			Kill->body->GetWorld()->DestroyBody(Kill->body);
+			deadanim = true;
 			isDead = true;
 		}
 
@@ -212,7 +212,7 @@ bool FlyEnemy::Update()
 
 bool FlyEnemy::CleanUp()
 {
-	if (isDead) 
+	if (!isDead) 
 	{
 		pbody->body->GetWorld()->DestroyBody(pbody->body);
 		sensor->body->GetWorld()->DestroyBody(sensor->body);
