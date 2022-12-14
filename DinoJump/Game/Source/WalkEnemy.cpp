@@ -138,14 +138,17 @@ bool WalkEnemy::Update()
 			app->render->DrawTexture(texture, position.x - 12, position.y - 11, &walk, flip);
 		}
 
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-		for (uint i = 0; i < path->Count(); ++i)
+		if (app->physics->debug)
 		{
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+			for (uint i = 0; i < path->Count(); ++i)
+			{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 			SDL_Rect rect = { 0,0,36,18 };
 
 			app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
 
+			}
 		}
 
 		if (e.y + 12 >= app->scene->player->lavaPosY)
@@ -175,12 +178,10 @@ bool WalkEnemy::Update()
 
 			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
-			for (uint i = 0; i < path->Count(); ++i)
+			if (path->At(1) != nullptr)
 			{
-				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			iPoint pos = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 
-				LOG("e.y: %d", e.y);
-				LOG("pos.y: %d", pos.y);
 
 				float32 speed = 1.5f;
 

@@ -86,7 +86,7 @@ bool FlyEnemy::Update()
 {
 	if (col) 
 	{
-		pbody = app->physics->CreateCircle(pos.x, pos.y, 12, bodyType::DYNAMIC);
+		pbody = app->physics->CreateCircle(pos.x, pos.y, 9, bodyType::DYNAMIC);
 		pbody->body->SetGravityScale(0);
 		pbody->listener = this;
 
@@ -145,14 +145,17 @@ bool FlyEnemy::Update()
 			app->render->DrawTexture(texture, position.x - 19, position.y - 19, &fly, flip);
 		}
 
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-		for (uint i = 0; i < path->Count(); ++i)
+		if (app->physics->debug)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			SDL_Rect rect = { 0,0,36,18 };
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				SDL_Rect rect = { 0,0,18,18 };
 
-			app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
+				app->render->DrawTexture(pathTileTex, pos.x, pos.y, &rect);
 
+			}
 		}
 
 		if (e.y + 12 >= app->scene->player->lavaPosY)  
@@ -180,30 +183,35 @@ bool FlyEnemy::Update()
 		}
 
 		if (follow) {
+
 			app->pathfinding->CreatePath(enemy, player);
 
 			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
-			for (uint i = 0; i < path->Count(); ++i)
+			if (path->At(1) != nullptr)
 			{
-				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				iPoint pos = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 
-				float32 speed = 1.5f;
+				float32 speed = 0.1f;
 
 				if (e.y < pos.y) {
-					pbody->body->SetLinearVelocity({ 0, speed });
+					pbody->body->ApplyForceToCenter({ 0, speed }, true);
+					LOG("POS Y -");
 				}
 
 				if (e.x < pos.x) {
-					pbody->body->SetLinearVelocity({ speed, 0 });
+					pbody->body->ApplyForceToCenter({ speed, 0 }, true);
+					LOG("POS X +");
 				}
 
 				if (e.y > pos.y) {
-					pbody->body->SetLinearVelocity({ 0, -speed });
+					pbody->body->ApplyForceToCenter({ 0, -speed }, true);
+					LOG("POS Y +");
 				}
 
 				if (e.x > pos.x) {
-					pbody->body->SetLinearVelocity({ -speed, 0 });
+					pbody->body->ApplyForceToCenter({ -speed, 0 }, true);
+					LOG("POS X -");
 				}
 			}
 		}

@@ -5109,7 +5109,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="Navigation" width="25" height="100" visible="0">
+ <layer id="6" name="Navigation" width="25" height="100">
   <properties>
    <property name="Navigation" type="bool" value="true"/>
    <property name="NavigationWalk" type="bool" value="false"/>
@@ -7004,23 +7004,21 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
-   <tile gid="327"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="327"/>
    <tile gid="327"/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="327"/>
+   <tile gid="327"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7037,32 +7035,9 @@
    <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
    <tile/>
-   <tile/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
-   <tile gid="327"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7079,13 +7054,13 @@
    <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
-   <tile/>
-   <tile/>
    <tile gid="327"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
    <tile/>
@@ -7104,7 +7079,7 @@
    <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
-   <tile/>
+   <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
    <tile/>
@@ -7129,7 +7104,32 @@
    <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
+   <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
    <tile gid="327"/>
@@ -12636,7 +12636,7 @@
   </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1"/>
- <layer id="8" name="NavigationWalk" width="25" height="100">
+ <layer id="8" name="NavigationWalk" width="25" height="100" visible="0">
   <properties>
    <property name="Navigation" type="bool" value="false"/>
    <property name="NavigationWalk" type="bool" value="true"/>
