@@ -140,7 +140,7 @@ bool WalkEnemy::Update()
 
 		if (app->physics->debug)
 		{
-			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+			const DynArray<iPoint>* path = app->pathfinding2->GetLastPath();
 			for (uint i = 0; i < path->Count(); ++i)
 			{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
@@ -174,22 +174,23 @@ bool WalkEnemy::Update()
 		}
 
 		if (follow) {
-			app->pathfinding->CreatePath(enemy, player);
+			app->pathfinding2->CreatePath(enemy, player);
 
-			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+			const DynArray<iPoint>* path = app->pathfinding2->GetLastPath();
 
 			if (path->At(1) != nullptr)
 			{
 			iPoint pos = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 
 
-				float32 speed = 1.0f;
+				float32 speed = 0.6f;
 
 				/*if (e.y < pos.y) {
 					pbody->body->SetLinearVelocity({ 0, speed });
 				}*/
 
 				if (e.x < pos.x) {
+					LOG("-");
 					pbody->body->SetLinearVelocity({ speed, 5.0f });
 				}
 
@@ -199,6 +200,7 @@ bool WalkEnemy::Update()
 				//}
 
 				if (e.x > pos.x) {
+					LOG("+");
 					pbody->body->SetLinearVelocity({ -speed, 5.0f });
 				}
 			}
@@ -231,7 +233,7 @@ void WalkEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		//app->pathfinding2->CreatePath(enemy, player);
-		if (app->pathfinding->IsWalkable(player) && app->pathfinding->IsWalkable(enemy))
+		if (app->pathfinding2->IsWalkable(player) && app->pathfinding2->IsWalkable(enemy))
 		{
 			follow = true;
 		}
