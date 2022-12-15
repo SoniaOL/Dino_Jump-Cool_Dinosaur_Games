@@ -317,7 +317,7 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		}
 
 		walkEnemy.append_attribute("x") = 228;
-		walkEnemy.append_attribute("y") = 1057;
+		walkEnemy.append_attribute("y") = 1090;
 
 		app->render->SaveState(data);
 		app->render->LoadState(data);

@@ -67,7 +67,7 @@ bool WalkEnemy::Update()
 {
 	if (col)
 	{
-		pbody = app->physics->CreateCircle(228, 1057, 7.5, bodyType::DYNAMIC);
+		pbody = app->physics->CreateCircle(position.x, position.y, 7.5, bodyType::DYNAMIC);
 		pbody->listener = this;
 		pbody->ctype = ColliderType::ENEMY;
 		pbody->body->SetGravityScale(20.0f);
