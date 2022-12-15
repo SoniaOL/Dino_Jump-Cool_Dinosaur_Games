@@ -69,7 +69,7 @@ bool WalkEnemy::Update()
 	{
 		pbody = app->physics->CreateCircle(228, 1057, 7.5, bodyType::DYNAMIC);
 		pbody->listener = this;
-		pbody->ctype = ColliderType::LAVA;
+		pbody->ctype = ColliderType::ENEMY;
 		pbody->body->SetGravityScale(20.0f);
 
 		LOG("PosX: %d", position.x + (8 * 2));
@@ -79,7 +79,7 @@ bool WalkEnemy::Update()
 		sensor->listener = this;
 		sensor->ctype = ColliderType::SENSOR;
 
-		Kill = app->physics->CreateRectangleSensor(position.x, position.y, 10, 30, bodyType::KINEMATIC);
+		Kill = app->physics->CreateRectangleSensor(position.x, position.y + (20), 10, 20, bodyType::KINEMATIC);
 		Kill->ctype = ColliderType::KILLWALK;
 
 		pbody->GetPosition(WalkPosX, WalkPosY);

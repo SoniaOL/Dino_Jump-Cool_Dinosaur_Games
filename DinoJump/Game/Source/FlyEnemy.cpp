@@ -90,7 +90,7 @@ bool FlyEnemy::Update()
 		pbody->body->SetGravityScale(0);
 		pbody->listener = this;
 
-		pbody->ctype = ColliderType::LAVA;
+		pbody->ctype = ColliderType::ENEMY;
 
 		sensor = app->physics->CreateRectangleSensor(position.x + (7), position.y + (7), 200, 200, bodyType::KINEMATIC);
 		sensor->listener = this;

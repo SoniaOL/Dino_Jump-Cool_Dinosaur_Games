@@ -395,16 +395,22 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::LAVA:
 		if (!GodMode)
 		{
-			die = true;
-			audiob = true;
+			if (app->scene->player->die == false) {
+				die = true;
+				audiob = true;
+				LOG("Audio Lava");
+			}
 		}
 		break;
 	case ColliderType::ENEMY:
 		if (!GodMode)
 		{
-			die = true;
-			audiob = true;
+			if (app->scene->player->die == false) {
+				die = true;
+				audiob = true;
+			}
 		}
+		LOG("Audio Enemy"); 
 		break;
 	case ColliderType::KILLFLY:
 		app->scene->fly->kill = true;
