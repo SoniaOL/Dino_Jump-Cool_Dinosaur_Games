@@ -192,10 +192,10 @@ bool FlyEnemy::Update()
 			{
 				iPoint pos = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 
-				float32 speed = 0.1f;
+				float32 speed = 0.05;
 
 				if (e.y < pos.y) {
-					pbody->body->ApplyForceToCenter({ 0, speed }, true);
+					pbody->body->SetLinearVelocity({ 0, speed * 20 });
 					LOG("POS Y -");
 				}
 
