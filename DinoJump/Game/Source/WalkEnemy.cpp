@@ -183,7 +183,7 @@ bool WalkEnemy::Update()
 			iPoint pos = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 
 
-				float32 speed = 1.5f;
+				float32 speed = 1.0f;
 
 				/*if (e.y < pos.y) {
 					pbody->body->SetLinearVelocity({ 0, speed });
@@ -241,7 +241,6 @@ void WalkEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 }
 
 void WalkEnemy::EndContact(PhysBody* physA, PhysBody* physB) {
-
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
