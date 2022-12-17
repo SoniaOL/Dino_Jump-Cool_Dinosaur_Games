@@ -122,6 +122,12 @@ bool Scene::Update(float dt)
 		player->GodMode = false;
 		countGod = 0;
 		app->entityManager->active = false;
+		if (app->scene->fly->isDead) {
+			app->scene->fly->col = true;
+		}
+		if (app->scene->walk->isDead) {
+			app->scene->walk->col = true;
+		}
 		app->map->active = false;
 		app->sceneIntro->On = false;
 		app->sceneIntro->active = true;
@@ -136,6 +142,12 @@ bool Scene::Update(float dt)
 		player->GodMode = false;
 		countGod = 0;
 		app->entityManager->active = false;
+		if (app->scene->fly->isDead) {
+			app->scene->fly->col = true;
+		}
+		if (app->scene->walk->isDead) {
+			app->scene->walk->col = true;
+		}
 		app->map->active = false;
 		app->sceneIntro->On = false;
 		app->sceneIntro->active = true;
