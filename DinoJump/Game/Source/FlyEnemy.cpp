@@ -196,22 +196,22 @@ bool FlyEnemy::Update()
 
 				if (e.y < pos.y) {
 					pbody->body->SetLinearVelocity({ 0, speed * 20 });
-					LOG("POS Y -");
+					//LOG("POS Y -");
 				}
 
 				if (e.x < pos.x) {
 					pbody->body->ApplyForceToCenter({ speed, 0 }, true);
-					LOG("POS X +");
+					//LOG("POS X +");
 				}
 
 				if (e.y > pos.y) {
 					pbody->body->ApplyForceToCenter({ 0, -speed }, true);
-					LOG("POS Y +");
+					//LOG("POS Y +");
 				}
 
 				if (e.x > pos.x) {
 					pbody->body->ApplyForceToCenter({ -speed, 0 }, true);
-					LOG("POS X -");
+					//LOG("POS X -");
 				}
 			}
 		}

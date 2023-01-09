@@ -190,7 +190,7 @@ bool WalkEnemy::Update()
 				}*/
 
 				if (e.x < pos.x) {
-					LOG("-");
+					//LOG("-");
 					pbody->body->SetLinearVelocity({ speed, 5.0f });
 				}
 
@@ -200,7 +200,7 @@ bool WalkEnemy::Update()
 				//}
 
 				if (e.x > pos.x) {
-					LOG("+");
+					//LOG("+");
 					pbody->body->SetLinearVelocity({ -speed, 5.0f });
 				}
 			}

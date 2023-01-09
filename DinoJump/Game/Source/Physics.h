@@ -28,6 +28,7 @@ enum class ColliderType {
 	ITEM,
 	PLATFORM, 
 	META,
+	CHECK,
 	CAM,
 	CAMG,
 	LAVA,
