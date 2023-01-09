@@ -7,6 +7,10 @@
 
 #include "SDL/include/SDL.h"
 
+#include "SDL_ttf/include/SDL_ttf.h"
+
+#define MAX_ACTIVE_TEXT 100
+
 class Render : public Module
 {
 public:
@@ -46,6 +50,12 @@ public:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
 
+	// Render text
+	bool TextDraw(const char* words, int x, int y, int red, int green, int blue, int alpha, int size);
+
+	// ttf cleanup
+	void ttfQuit();
+
 	int cameraX = 0;
 	int cameraY = -900;
 
@@ -55,6 +65,11 @@ public:
 	SDL_Rect camera;
 	SDL_Rect viewport;
 	SDL_Color background;
+
+	// Rendering text
+	SDL_Surface* ttf_surface = nullptr;
+	SDL_Texture* ttf_texture = nullptr;
+	TTF_Font* ttf_font = nullptr;
 };
 
 #endif // __RENDER_H__
