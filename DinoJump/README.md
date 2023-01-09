@@ -27,6 +27,7 @@ During this adventure, our protagonist will be able to use his skills such as do
  - F6 -> Load the previous state.
  - F9 -> View colliders.
  - F10 -> God Mode.
+ - F11 -> Limit 30/60 fps.
 	
 
 ## Developers
