@@ -70,9 +70,6 @@ bool sceneLogo::Update(float dt)
 // Called each loop iteration
 bool sceneLogo::PostUpdate()
 {
-
-	app->render->TextDraw("Quokka Games Studios", 125, 270, 255, 157, 0, 255, 20);
-
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

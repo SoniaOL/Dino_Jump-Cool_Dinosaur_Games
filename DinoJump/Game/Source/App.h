@@ -24,6 +24,7 @@ class SceneIntro;
 class sceneLogo; 
 class ModuleFadeToBlack;
 class PathFinding;
+class GuiManager;
 //class FlyEnemy;
 
 class App
@@ -101,6 +102,7 @@ public:
 	sceneLogo* scenelogo; 
 	PathFinding* pathfinding;
 	PathFinding* pathfinding2;
+	GuiManager* guiManager;
 	//FlyEnemy* flyEnemy; 
 
 private:

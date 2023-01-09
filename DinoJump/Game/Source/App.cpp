@@ -13,6 +13,7 @@
 #include "sceneLogo.h"
 #include "Pathfinding.h"
 #include "Pathfinding 2.h"
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -40,6 +41,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager();
 	fade = new ModuleFadeToBlack();
 	map = new Map();
+	guiManager = new GuiManager();
 	//flyEnemy = new FlyEnemy();
 
 	// Ordered for awake / Start / Update
@@ -59,6 +61,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//AddModule(flyEnemy);
 	AddModule(entityManager);
 	AddModule(fade);
+	AddModule(guiManager);
 
 	// Render last to swap buffer
 	AddModule(render);

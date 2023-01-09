@@ -267,7 +267,7 @@ bool Render::TextDraw(const char* text, int x, int y, int red, int green, int bl
 {
 	bool ret = true;
 
-	ttf_font = TTF_OpenFont("Assets/font_tetris.ttf", size);
+	ttf_font = TTF_OpenFont("Assets/F1.ttf", size);
 	if (!ttf_font)
 	{
 		LOG("Cannot open font. TTF_OpenFont error: %s", TTF_GetError());

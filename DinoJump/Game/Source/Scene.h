@@ -7,6 +7,7 @@
 #include "FlyEnemy.h"
 #include "WalkEnemy.h"
 
+
 struct SDL_Texture;
 
 class Scene : public Module
@@ -55,6 +56,8 @@ private:
 
 	const char* audioPath;
 	int audio; 
+
+
 
 };
 

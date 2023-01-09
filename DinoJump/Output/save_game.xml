@@ -23,6 +23,7 @@
 		<camera x="0" y="-900" />
 	</entitymanager>
 	<:anonymous />
+	<guiManager />
 	<renderer>
 		<camera x="0" y="-900" />
 	</renderer>

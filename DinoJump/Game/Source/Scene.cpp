@@ -11,6 +11,7 @@
 #include "Physics.h"
 #include "PathFinding.h"
 
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -97,6 +98,8 @@ bool Scene::Start()
 		app->map->mapData.tilesets.Count());
 
 	app->win->SetTitle(title.GetString());
+
+	
 
 
 	this->active = false;

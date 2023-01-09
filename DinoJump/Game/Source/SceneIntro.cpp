@@ -12,6 +12,7 @@
 #include "Scene.h"
 #include "Defs.h"
 #include "Log.h"
+#include "GuiManager.h"
 
 SceneIntro::SceneIntro(bool startEnabled) : Module()
 {
@@ -63,6 +64,11 @@ bool SceneIntro::Start()
 	win = app->tex->Load(winpath); 
 	audiolose = app->audio->LoadFx(audioPathlose);
 	audiowin = app->audio->LoadFx(audioPathwin);
+
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { 170,700,100,20 }, this);
+	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Button 2", { (int)w / 2 - 50,(int)h / 2,100,20 }, this);
 
 	return true;
 }
@@ -158,12 +164,16 @@ bool SceneIntro::Update(float dt)
 		}
 	}
 
+	app->guiManager->Draw();
+
 	return ret;
 }
 
 // Called each loop iteration
 bool SceneIntro::PostUpdate()
 {
+
+	app->render->TextDraw("START", 170, 300, 255, 157, 0, 255, 25);
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "Animation.h"
+#include "GuiButton.h"
 
 
 struct SDL_Texture;
@@ -65,6 +66,8 @@ private:
 	int audiowin;
 	//bool audiob = true; 
 
+	GuiButton* button1;
+	GuiButton* button2;
 	
 
 	
