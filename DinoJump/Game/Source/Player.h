@@ -72,11 +72,13 @@ public:
 	PhysBody* LAVDetect;
 	PhysBody* LAV;
 	PhysBody* META;
+	PhysBody* CHECK;
 	PhysBody* CAMGDetect;
 	PhysBody* TOP;
 
 	bool col = true;
 	bool die = false;
+	int DieCounter = 0;
 	bool audiob = true;
 	bool audiow = true; 
 	bool Right = false;

@@ -410,8 +410,10 @@ bool Scene::Update(float dt)
 			countGod = 0;
 
 			if (player->dieCount == 1) {
-				player->die = true;
+				player->DieCounter++;
 				player->audiob = true;
+				app->LoadGameRequest();
+				app->sceneIntro->reset = false;
 			}
 			break;
 		default:

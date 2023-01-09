@@ -125,6 +125,10 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		META->ctype = ColliderType::META;
 
+		CHECK = app->physics->CreateRectangleSensor(229, 900, 50, 90, STATIC);
+		// L07 DONE 7: Assign collider type
+		CHECK->ctype = ColliderType::CHECK;
+
 		if (init)
 		{
 			app->sceneIntro->reset = true;
@@ -135,6 +139,11 @@ bool Player::Update()
 		}
 
 		col = false;
+	}
+
+	if (DieCounter >= 3) 
+	{
+		die = true;
 	}
 
 	//CAMERA TOP
@@ -386,6 +395,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->scene->walk->kill = true;
 		app->scene->walk->deadanim = true;
 		break;
+	case ColliderType::CHECK:
+		app->SaveGameRequest();
+		app->sceneIntro->reset = false;
+		LOG("Check");
+		break;
 	case ColliderType::CAM:
 		lava = true;
 		break;
@@ -396,9 +410,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (!GodMode)
 		{
 			if (app->scene->player->die == false) {
-				die = true;
+				DieCounter++;
 				audiob = true;
-				LOG("Audio Lava");
+				app->LoadGameRequest();
+				app->sceneIntro->reset = false;
 			}
 		}
 		break;
@@ -406,11 +421,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (!GodMode)
 		{
 			if (app->scene->player->die == false) {
-				die = true;
+				DieCounter++;
 				audiob = true;
+				app->LoadGameRequest();
+				app->sceneIntro->reset = false;
 			}
 		}
-		LOG("Audio Enemy"); 
 		break;
 	case ColliderType::KILLFLY:
 		app->scene->fly->kill = true;
