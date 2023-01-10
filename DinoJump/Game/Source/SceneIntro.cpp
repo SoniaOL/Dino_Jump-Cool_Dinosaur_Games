@@ -67,8 +67,9 @@ bool SceneIntro::Start()
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
-	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { 170,700,100,20 }, this);
-	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Button 2", { (int)w / 2 - 50,(int)h / 2,100,20 }, this);
+	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (int)w/2 - 85/2,700,85,20 }, this);
+	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { (int)w / 2 - 125/2,(int)730,125,20 }, this);
+	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { (int)w / 2 - 70,(int)h / 3,100,20 }, this);
 
 	return true;
 }
@@ -173,7 +174,7 @@ bool SceneIntro::Update(float dt)
 bool SceneIntro::PostUpdate()
 {
 
-	app->render->TextDraw("START", 170, 300, 255, 157, 0, 255, 25);
+	/*app->render->TextDraw("START", 170, 300, 255, 157, 0, 255, 25);*/
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
