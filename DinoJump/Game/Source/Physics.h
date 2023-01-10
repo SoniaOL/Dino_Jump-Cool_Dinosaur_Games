@@ -40,6 +40,7 @@ enum class ColliderType {
 	SENSOR,
 	KILLFLY,
 	KILLWALK,
+	LIFE,
 	UNKNOWN
 	// ..
 };
