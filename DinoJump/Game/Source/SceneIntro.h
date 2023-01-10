@@ -13,7 +13,7 @@ class SceneIntro : public Module
 {
 public:
 
-	SceneIntro(bool startEnabled);
+	SceneIntro();
 
 	// Destructor
 	virtual ~SceneIntro();

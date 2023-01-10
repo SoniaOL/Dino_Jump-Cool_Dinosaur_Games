@@ -58,10 +58,12 @@ bool sceneLogo::Update(float dt)
 
 	app->render->DrawTexture(img, 0, 900);
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE)) {
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 
-		app->sceneIntro->active = active;
-		app->scenelogo->active = false;
+		/*app->sceneIntro->active = active;
+		app->scenelogo->active = false;*/
+
+		app->fade->FadeToBlack(this, (Module*)app->sceneIntro, 90);
 	}
 	
 	return ret;
@@ -81,6 +83,7 @@ bool sceneLogo::PostUpdate()
 // Called before quitting
 bool sceneLogo::CleanUp()
 {
+	app->tex->UnLoad(img); 
 	LOG("Freeing scene");
 
 	return true;

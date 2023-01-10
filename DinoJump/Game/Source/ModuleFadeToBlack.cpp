@@ -9,7 +9,7 @@
 
 ModuleFadeToBlack::ModuleFadeToBlack() : Module()
 {
-	
+	name.Create("FadeToBlack"); 
 }
 
 ModuleFadeToBlack::~ModuleFadeToBlack()
@@ -17,22 +17,30 @@ ModuleFadeToBlack::~ModuleFadeToBlack()
 
 }
 
-bool ModuleFadeToBlack::Start(pugi::xml_node& config)
-{
-	LOG("Preparing Fade Screen");
+bool ModuleFadeToBlack::Awake(pugi::xml_node& config) {
 
+	bool ret = true; 
 	width = config.child("resolution").attribute("width").as_int(); //get from config 
 	height = config.child("resolution").attribute("height").as_int();; //get from config 
 	scale = config.child("resolution").attribute("scale").as_int();; //get from config 
 
-	screenRect = { 0, 0, width * scale, height * scale };
+	//screenRect = { 0, 0, width * scale, height * scale };
+	
+	screenRect = { 0, 0,app->win->GetWidth() * app->win->GetScale(), app->win->GetHeight() * app->win->GetScale() };
+
+	return ret; 
+}
+
+bool ModuleFadeToBlack::Start()
+{
+	LOG("Preparing Fade Screen");
 
 	// Enable blending mode for transparency
 	SDL_SetRenderDrawBlendMode(app->render->renderer, SDL_BLENDMODE_BLEND);
 	return true;
 }
 
-bool ModuleFadeToBlack::Update()
+bool ModuleFadeToBlack::Update(float dt)
 {
 	bool ret = true; 
 	// Exit this function if we are not performing a fade
@@ -43,7 +51,7 @@ bool ModuleFadeToBlack::Update()
 		++frameCount;
 		if (frameCount >= maxFadeFrames)
 		{
-			// TODO 1: Enable / disable the modules received when FadeToBlacks() gets called
+			
 			moduleToDisable->Disable();
 			moduleToEnable->Enable();
 
@@ -88,7 +96,6 @@ bool ModuleFadeToBlack::FadeToBlack(Module* moduleToDisable, Module* moduleToEna
 		frameCount = 0;
 		maxFadeFrames = frames;
 
-		// TODO 1: We need to keep track of the modules received in FadeToBlack(...)
 		this->moduleToDisable = moduleToDisable;
 		this->moduleToEnable = moduleToEnable;
 

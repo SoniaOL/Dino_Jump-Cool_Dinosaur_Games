@@ -14,7 +14,7 @@
 #include "Log.h"
 #include "GuiManager.h"
 
-SceneIntro::SceneIntro(bool startEnabled) : Module()
+SceneIntro::SceneIntro() : Module()
 {
 	name.Create("sceneIntro");
 
@@ -193,7 +193,8 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button 1 click");
-	
+		
+		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 		break;
 	case 2:
 		LOG("Button 2 click");

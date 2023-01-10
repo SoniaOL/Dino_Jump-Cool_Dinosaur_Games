@@ -96,7 +96,16 @@ void Window::GetWindowSize(uint& width, uint& height) const
 	height = this->height;
 }
 
-uint Window::GetScale() const
+int Window::GetScale() const
 {
 	return scale;
+}
+
+int Window::GetWidth() const
+{
+	return width;
+}
+int Window::GetHeight() const
+{
+	return height;
 }

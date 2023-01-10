@@ -36,7 +36,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding();
 	pathfinding2 = new PathFinding();
 	scenelogo = new sceneLogo(); 
-	sceneIntro = new SceneIntro(true);
+	sceneIntro = new SceneIntro();
 	scene = new Scene();
 	entityManager = new EntityManager();
 	fade = new ModuleFadeToBlack();
