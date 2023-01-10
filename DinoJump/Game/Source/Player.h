@@ -9,6 +9,8 @@
 #include "FlyEnemy.h"
 //#include "Item.h"
 
+#include <vector>
+
 struct SDL_Texture;
 
 class Player : public Entity
@@ -75,6 +77,11 @@ public:
 	PhysBody* CHECK;
 	PhysBody* CAMGDetect;
 	PhysBody* TOP;
+	PhysBody* Life1;
+	PhysBody* Life2;
+	PhysBody* Life3;
+
+	std::vector<PhysBody*> LIFES{};
 
 	bool col = true;
 	bool die = false;

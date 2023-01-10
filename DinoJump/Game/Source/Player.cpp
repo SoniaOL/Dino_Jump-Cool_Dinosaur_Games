@@ -129,6 +129,22 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		CHECK->ctype = ColliderType::CHECK;
 
+
+		Life1 = app->physics->CreateRectangleSensor(229, 1200, 20, 20, STATIC);
+		Life1->ctype = ColliderType::LIFE;
+
+		LIFES.push_back(Life1);
+
+		Life2 = app->physics->CreateRectangleSensor(229, 1100, 20, 20, STATIC);
+		Life2->ctype = ColliderType::LIFE;
+
+		LIFES.push_back(Life2);
+
+		Life3 = app->physics->CreateRectangleSensor(229, 1400, 20, 20, STATIC);
+		Life3->ctype = ColliderType::LIFE;
+
+		LIFES.push_back(Life3);
+
 		if (init)
 		{
 			app->sceneIntro->reset = true;
@@ -441,6 +457,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::CAMGDETECT:
 		camg = false;
+		break;
+	case ColliderType::LIFE:
+		//if(LIFES.at(0)->body->GetPosition().x)
+		LOG("LIFE");
 		break;
 	case ColliderType::UNKNOWN:
 		break;
