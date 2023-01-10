@@ -45,7 +45,7 @@ public:
 		bounds(bounds),
 		text(text)
 	{
-		color.r = 255; color.g = 255; color.b = 255;
+		color.r = 83; color.g = 193; color.b = 39;
 		texture = NULL;
 	}
 

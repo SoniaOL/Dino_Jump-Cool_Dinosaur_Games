@@ -68,8 +68,8 @@ bool SceneIntro::Start()
 	uint w, h;
 	app->win->GetWindowSize(w, h);
 	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (int)w/2 - 85/2,700,85,20 }, this);
-	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { (int)w / 2 - 125/2,(int)730,125,20 }, this);
-	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { (int)w / 2 - 70,(int)h / 3,100,20 }, this);
+	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { (int)w / 2 - 125/2,730,125,20 }, this);
+	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { (int)w / 2 - 125/2,760,125,20 }, this);
 
 	return true;
 }
@@ -167,6 +167,7 @@ bool SceneIntro::Update(float dt)
 
 	app->guiManager->Draw();
 
+
 	return ret;
 }
 
@@ -181,6 +182,25 @@ bool SceneIntro::PostUpdate()
 		ret = false;
 
 	return ret;
+}
+
+bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
+{
+	// L15: DONE 5: Implement the OnGuiMouseClickEvent method
+	LOG("Event by %d ", control->id);
+
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button 1 click");
+	
+		break;
+	case 2:
+		LOG("Button 2 click");
+		break;
+	}
+
+	return true;
 }
 
 // Called before quitting
