@@ -132,7 +132,7 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		CHECK->ctype = ColliderType::CHECK;
 
-		lifeP1 = app->physics->CreateRectangleSensor(229, 1200, 20, 20, STATIC);
+		lifeP1 = app->physics->CreateRectangleSensor(229, 1300, 20, 20, STATIC);
 		lifeP1->ctype = ColliderType::LIFE;
 
 		/*life1 = life();
@@ -142,8 +142,8 @@ bool Player::Update()
 
 		//LIFES.emplace_back(life1);
 
-		lifeP2 = app->physics->CreateRectangleSensor(229, 1100, 20, 20, STATIC);
-		lifeP2->ctype = ColliderType::LIFE;
+		/*lifeP2 = app->physics->CreateRectangleSensor(229, 1100, 20, 20, STATIC);
+		lifeP2->ctype = ColliderType::LIFE;*/
 
 		//life2 = life();
 		//life2.Life = app->physics->CreateRectangleSensor(229, 1100, 20, 20, STATIC);
@@ -174,7 +174,9 @@ bool Player::Update()
 		col = false;
 	}
 
-	if (DieCounter >= 3) 
+	LOG("DieCounter: %d", DieCounter);
+
+	if (DieCounter <= 0) 
 	{
 		die = true;
 		audiob = true;
@@ -394,7 +396,15 @@ bool Player::Update()
 	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &dino, flip);
 	app->render->DrawTexture(textureLava, lavaPosX - 35, lavaPosY - 5);
 	app->render->DrawTexture(textureMeta, 130, 643);
-	app->render->DrawTexture(textureHearth, 37, 800, &gui); 
+
+	if (lifeP1->body->IsActive() == true)
+	{
+		app->render->DrawTexture(textureHearth, 220, 1295, &gui);
+	}
+	if (lifeP3->body->IsActive() == true)
+	{
+		app->render->DrawTexture(textureHearth, 220, 1395, &gui);
+	}
 
 	time++;
 	timeS++;
@@ -408,17 +418,18 @@ bool Player::CleanUp()
 }
 
 // L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
-void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
+void Player::OnCollision(PhysBody* physA, PhysBody* physB) 
+{
 
 	// L07 DONE 7: Detect the type of collision
 
 	switch (physB->ctype)
 	{
-	//case ColliderType::ITEM:
-	//	LOG("Collision ITEM");
-	//	app->audio->PlayFx(pickCoinFxId);
-	//	item->CleanUp(); 
-	//	break;
+		//case ColliderType::ITEM:
+		//	LOG("Collision ITEM");
+		//	app->audio->PlayFx(pickCoinFxId);
+		//	item->CleanUp(); 
+		//	break;
 	case ColliderType::PLATFORM:
 		jump = true;
 		isjumping = false;
@@ -430,7 +441,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::META:
 		Meta = true;
-		audiow = true; 
+		audiow = true;
 		app->scene->fly->kill = true;
 		app->scene->fly->deadanim = true;
 		app->scene->walk->kill = true;
@@ -451,7 +462,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (!GodMode)
 		{
 			if (app->scene->player->die == false) {
-				DieCounter++;
+				DieCounter--;
 				/*audiob = true;*/
 				app->LoadGameRequest();
 				app->sceneIntro->reset = false;
@@ -462,8 +473,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (!GodMode)
 		{
 			if (app->scene->player->die == false) {
-				DieCounter++;
-			/*	audiob = true;*/
+				DieCounter--;
+				/*	audiob = true;*/
 				app->LoadGameRequest();
 				app->sceneIntro->reset = false;
 			}
@@ -471,8 +482,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::KILLFLY:
 		app->scene->fly->kill = true;
-		app->scene->fly->deadanim = true; 
-		break;	
+		app->scene->fly->deadanim = true;
+		break;
 	case ColliderType::KILLWALK:
 		app->scene->walk->kill = true;
 		app->scene->walk->deadanim = true;
@@ -484,42 +495,51 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		camg = false;
 		break;
 	case ColliderType::LIFE:
-		if (physB == lifeP1) {
+
+		if (physB->body->IsActive() == true)
+		{
+			DieCounter++;
+		}
+		physB->body->SetActive(false);
+
+		/*if (physB == lifeP1) 
+		{*/
 			/*lifeP1->~PhysBody();
 			lifeP1->body->GetWorld()->DestroyBody(lifeP1->body);
 			physB->body->GetWorld()->DestroyBody(physB->body);
 			physB->~PhysBody();*/
-			lifeP1->body->SetActive(false);
+		/*	lifeP1->body->SetActive(false);
 			LOG("LIFE1");
-		}
-		if (physB == lifeP2) {
-			/*lifeP2->~PhysBody();
-			lifeP2->body->GetWorld()->DestroyBody(lifeP2->body);
-			physB->body->GetWorld()->DestroyBody(physB->body);
-			physB->~PhysBody();*/
-			lifeP2->body->SetActive(false);
-			LOG("LIFE2");
-		}
-		if (physB == lifeP3) {
-			/*lifeP3->~PhysBody();
-			lifeP3->body->GetWorld()->DestroyBody(lifeP3->body);
-			physB->body->GetWorld()->DestroyBody(physB->body);
-			physB->~PhysBody();*/
-			lifeP3->body->SetActive(false);
-			LOG("LIFE3");
-		}
-		/*physB->body->GetWorld()->DestroyBody(physB->body);
-		if (LIFES.at(0).Life->body == physB->body) {
-			LIFES.at(0).Life->body->GetWorld()->DestroyBody(LIFES.at(0).Life->body);
-		}
-		if (LIFES.at(1).Life->body == physB->body) {
-			LIFES.at(1).Life->body->GetWorld()->DestroyBody(LIFES.at(1).Life->body);
-		}
-		if (LIFES.at(2).Life->body == physB->body) {
-			LIFES.at(2).Life->body->GetWorld()->DestroyBody(LIFES.at(2).Life->body);
 		}*/
-		break;
+			//if (physB == lifeP2) {
+			//	/*lifeP2->~PhysBody();
+			//	lifeP2->body->GetWorld()->DestroyBody(lifeP2->body);
+			//	physB->body->GetWorld()->DestroyBody(physB->body);
+			//	physB->~PhysBody();*/
+			//	lifeP2->body->SetActive(false);
+			//	LOG("LIFE2");
+			//}
+			/*if (physB == lifeP3) 
+			{*/
+				/*lifeP3->~PhysBody();
+				lifeP3->body->GetWorld()->DestroyBody(lifeP3->body);
+				physB->body->GetWorld()->DestroyBody(physB->body);
+				physB->~PhysBody();*/
+			/*	lifeP3->body->SetActive(false);
+				LOG("LIFE3");
+			}*/
+			/*physB->body->GetWorld()->DestroyBody(physB->body);
+			if (LIFES.at(0).Life->body == physB->body) {
+				LIFES.at(0).Life->body->GetWorld()->DestroyBody(LIFES.at(0).Life->body);
+			}
+			if (LIFES.at(1).Life->body == physB->body) {
+				LIFES.at(1).Life->body->GetWorld()->DestroyBody(LIFES.at(1).Life->body);
+			}
+			if (LIFES.at(2).Life->body == physB->body) {
+				LIFES.at(2).Life->body->GetWorld()->DestroyBody(LIFES.at(2).Life->body);
+			}*/
+			break;
 	case ColliderType::UNKNOWN:
 		break;
-	}
+		}
 }

@@ -151,7 +151,7 @@ bool SceneIntro::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
 			app->scene->player->die = false;
-			app->scene->player->DieCounter = 0;
+			app->scene->player->DieCounter = 3;
 			app->scene->player->Meta = false;
 			this->active = false;
 			app->scene->active = true;
