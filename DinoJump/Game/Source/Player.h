@@ -13,6 +13,14 @@
 
 struct SDL_Texture;
 
+class life
+{
+public:
+	int id; 
+	// Convert geometry to pixels to draw w/ SDL
+	PhysBody* Life;
+};
+
 class Player : public Entity
 {
 public:
@@ -77,11 +85,12 @@ public:
 	PhysBody* CHECK;
 	PhysBody* CAMGDetect;
 	PhysBody* TOP;
-	PhysBody* Life1;
-	PhysBody* Life2;
-	PhysBody* Life3;
 
-	std::vector<PhysBody*> LIFES{};
+	life life1{};
+	life life2{};
+	life life3{};
+
+	std::vector<life> LIFES{};
 
 	bool col = true;
 	bool die = false;

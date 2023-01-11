@@ -129,21 +129,26 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		CHECK->ctype = ColliderType::CHECK;
 
+		life1 = life();
+		life1.Life = app->physics->CreateRectangleSensor(229, 1200, 20, 20, STATIC);
+		life1.Life->ctype = ColliderType::LIFE;
+		life1.id = 0;
 
-		Life1 = app->physics->CreateRectangleSensor(229, 1200, 20, 20, STATIC);
-		Life1->ctype = ColliderType::LIFE;
+		LIFES.emplace_back(life1);
 
-		LIFES.push_back(Life1);
+		life2 = life();
+		life2.Life = app->physics->CreateRectangleSensor(229, 1100, 20, 20, STATIC);
+		life2.Life->ctype = ColliderType::LIFE;
+		life2.id = 1;
 
-		Life2 = app->physics->CreateRectangleSensor(229, 1100, 20, 20, STATIC);
-		Life2->ctype = ColliderType::LIFE;
+		LIFES.emplace_back(life2);
 
-		LIFES.push_back(Life2);
+		life3 = life();
+		life3.Life = app->physics->CreateRectangleSensor(229, 1400, 20, 20, STATIC);
+		life3.Life->ctype = ColliderType::LIFE;
+		life3.id = 2;
 
-		Life3 = app->physics->CreateRectangleSensor(229, 1400, 20, 20, STATIC);
-		Life3->ctype = ColliderType::LIFE;
-
-		LIFES.push_back(Life3);
+		LIFES.emplace_back(life3);
 
 		if (init)
 		{
@@ -459,7 +464,16 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		camg = false;
 		break;
 	case ColliderType::LIFE:
-		//if(LIFES.at(0)->body->GetPosition().x)
+		physB->body->GetWorld()->DestroyBody(physB->body);
+		/*if (LIFES.at(0)->Life->body == physB->body) {
+
+		}
+		if (LIFES.at(1)->Life->body == physB->body) {
+
+		}
+		if (LIFES.at(2)->Life->body == physB->body) {
+
+		}*/
 		LOG("LIFE");
 		break;
 	case ColliderType::UNKNOWN:
