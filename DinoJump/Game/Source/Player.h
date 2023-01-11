@@ -98,7 +98,7 @@ public:
 
 	bool col = true;
 	bool die = false;
-	int DieCounter = 0;
+	int DieCounter = 3;
 	bool audiob = true;
 	bool audiow = true; 
 	bool Right = false;

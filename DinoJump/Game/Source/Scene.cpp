@@ -161,7 +161,7 @@ bool Scene::Update(float dt)
 	if (col)
 	{
 		app->scene->player->die = false;
-		app->scene->player->DieCounter = 0;
+		app->scene->player->DieCounter = 3;
 		app->scene->player->Meta = false;
 		app->entityManager->active = true;
 		app->map->active = true;
@@ -252,7 +252,7 @@ bool Scene::Update(float dt)
 			countGod = 0;
 
 			if (player->dieCount == 1) {
-				player->DieCounter++;
+				player->DieCounter--;
 				player->audiob = true;
 				app->LoadGameRequest();
 				app->sceneIntro->reset = false;
