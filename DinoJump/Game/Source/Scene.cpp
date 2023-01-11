@@ -63,8 +63,7 @@ bool Scene::Start()
 
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-	
-	
+
 	// L03: DONE: Load map
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load();
@@ -99,10 +98,6 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 
-	
-
-
-	this->active = false;
 
 	return true;
 }
@@ -162,6 +157,16 @@ bool Scene::Update(float dt)
 
 	if (col)
 	{
+		app->scene->player->die = false;
+		app->scene->player->DieCounter = 0;
+		app->scene->player->Meta = false;
+		app->entityManager->active = true;
+		app->map->active = true;
+		app->sceneIntro->On = true;
+		app->sceneIntro->reset = true;
+
+		app->SaveGameRequest();
+
 		app->audio->PlayMusic(audioPath);
 
 	

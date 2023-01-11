@@ -228,11 +228,12 @@ bool FlyEnemy::Update()
 
 bool FlyEnemy::CleanUp()
 {
-	if (!isDead) 
-	{
-		pbody->body->GetWorld()->DestroyBody(pbody->body);
-		sensor->body->GetWorld()->DestroyBody(sensor->body);
-		Kill->body->GetWorld()->DestroyBody(Kill->body);
+	if (app->sceneIntro->active == false) {
+		if (isDead == false) {
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			sensor->body->GetWorld()->DestroyBody(sensor->body);
+			Kill->body->GetWorld()->DestroyBody(Kill->body);
+		}
 	}
 	return true;
 }

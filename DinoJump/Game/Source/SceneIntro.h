@@ -38,6 +38,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+
+
 public:
 
 	bool On = false;
@@ -70,6 +72,10 @@ private:
 
 	GuiButton* button1;
 	GuiButton* button2;
+	GuiButton* button3;
+	GuiButton* button4;
+
+	bool exit = true; 
 	
 
 	

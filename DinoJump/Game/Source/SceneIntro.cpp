@@ -49,6 +49,7 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 
 	app->entityManager->active = false;
 	app->map->active = false;
+	app->scene->active = false;
 
 	return ret;
 }
@@ -69,7 +70,8 @@ bool SceneIntro::Start()
 	app->win->GetWindowSize(w, h);
 	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (int)w/2 - 85/2,700,85,20 }, this);
 	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { (int)w / 2 - 125/2,730,125,20 }, this);
-	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { (int)w / 2 - 125/2,760,125,20 }, this);
+	button3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { (int)w / 2 - 125/2,760,125,20 }, this);
+	button4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit", { (int)w / 2 - 60/2,790,60,20 }, this);
 
 	return true;
 }
@@ -176,10 +178,10 @@ bool SceneIntro::PostUpdate()
 {
 
 	/*app->render->TextDraw("START", 170, 300, 255, 157, 0, 255, 25);*/
-	bool ret = true;
+	bool ret = exit;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	//if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	//	ret = false;
 
 	return ret;
 }
@@ -193,12 +195,21 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button 1 click");
-		
+
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+
 		break;
 	case 2:
 		LOG("Button 2 click");
 		break;
+	case 3:
+		LOG("Button 3 click");
+		break;
+	case 4:
+		LOG("Button 4 click");
+		exit = false; 
+		break;
+
 	}
 
 	return true;
@@ -207,6 +218,10 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 // Called before quitting
 bool SceneIntro::CleanUp()
 {
+	app->tex->UnLoad(img);
+	app->tex->UnLoad(death);
+	app->tex->UnLoad(win);
+
 	LOG("Freeing scene");
 
 	return true;
