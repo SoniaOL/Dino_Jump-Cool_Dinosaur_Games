@@ -39,7 +39,8 @@
       <CAM x="37" y="1412" />
 	  <CAMG x="37" y="1820" />	
       <LAVDetect x="37" y="1812" />
-      <LAV x="37" y="1842" texturepath="Assets/Textures/Lava.png " />
+      <gui x="37" y="800" texturepath="Assets/Textures/GUI.png " />
+	  <LAV x="37" y="1842" texturepath="Assets/Textures/Lava.png " />
       <Meta x="229" y="719" texturepath="Assets/Textures/MetaRed.png " />
 	  <audio path="Assets/Audio/Music/Background.ogg"/>	
 	  <audioJump path="Assets/Audio/Fx/bitJump.ogg"/>	

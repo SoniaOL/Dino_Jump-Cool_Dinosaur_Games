@@ -66,6 +66,8 @@ bool Player::Awake() {
 
 	texturePathMeta = parameters.child("Meta").attribute("texturepath").as_string();
 
+	texturePathHearth = parameters.child("gui").attribute("texturepath").as_string();
+
 	return true;
 }
 
@@ -86,6 +88,7 @@ bool Player::Update()
 		texture = app->tex->Load(texturePath);
 		textureLava = app->tex->Load(texturePathLava); 
 		textureMeta = app->tex->Load(texturePathMeta);
+		textureHearth = app->tex->Load(texturePathHearth); 
 
 		// L07 DONE 5: Add physics to the player - initialize physics body
 		pbody = app->physics->CreateCircle(position.x + (8 * 2), position.y + (8 * 2), 8, bodyType::DYNAMIC);
@@ -381,9 +384,16 @@ bool Player::Update()
 	DetectPosX = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.x);
 	DetectPosY = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.y);
 
+	SDL_Rect gui;
+	gui.x = 64; 
+	gui.y = 64; 
+	gui.w = 8; 
+	gui.h = 9; 
+
 	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &dino, flip);
 	app->render->DrawTexture(textureLava, lavaPosX - 35, lavaPosY - 5);
 	app->render->DrawTexture(textureMeta, 130, 643);
+	app->render->DrawTexture(textureHearth, 37, 800, &gui); 
 
 	time++;
 	timeS++;

@@ -122,6 +122,9 @@ private:
 	SDL_Texture* textureMeta;
 	const char* texturePathMeta;
 
+	SDL_Texture* textureHearth; 
+	const char* texturePathHearth; 
+
 
 	const char* audioPath;
 	const char* audioPathSlide;
