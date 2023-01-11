@@ -129,26 +129,35 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		CHECK->ctype = ColliderType::CHECK;
 
-		life1 = life();
+		lifeP1 = app->physics->CreateRectangleSensor(229, 1200, 20, 20, STATIC);
+		lifeP1->ctype = ColliderType::LIFE;
+
+		/*life1 = life();
 		life1.Life = app->physics->CreateRectangleSensor(229, 1200, 20, 20, STATIC);
 		life1.Life->ctype = ColliderType::LIFE;
-		life1.id = 0;
+		life1.id = 0;*/
 
-		LIFES.emplace_back(life1);
+		//LIFES.emplace_back(life1);
 
-		life2 = life();
-		life2.Life = app->physics->CreateRectangleSensor(229, 1100, 20, 20, STATIC);
-		life2.Life->ctype = ColliderType::LIFE;
-		life2.id = 1;
+		lifeP2 = app->physics->CreateRectangleSensor(229, 1100, 20, 20, STATIC);
+		lifeP2->ctype = ColliderType::LIFE;
 
-		LIFES.emplace_back(life2);
+		//life2 = life();
+		//life2.Life = app->physics->CreateRectangleSensor(229, 1100, 20, 20, STATIC);
+		//life2.Life->ctype = ColliderType::LIFE;
+		//life2.id = 1;
 
-		life3 = life();
+		//LIFES.emplace_back(life2);
+
+		lifeP3 = app->physics->CreateRectangleSensor(229, 1400, 20, 20, STATIC);
+		lifeP3->ctype = ColliderType::LIFE;
+
+		/*life3 = life();
 		life3.Life = app->physics->CreateRectangleSensor(229, 1400, 20, 20, STATIC);
 		life3.Life->ctype = ColliderType::LIFE;
-		life3.id = 2;
+		life3.id = 2;*/
 
-		LIFES.emplace_back(life3);
+		//LIFES.emplace_back(life3);
 
 		if (init)
 		{
@@ -464,17 +473,40 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		camg = false;
 		break;
 	case ColliderType::LIFE:
-		physB->body->GetWorld()->DestroyBody(physB->body);
-		/*if (LIFES.at(0)->Life->body == physB->body) {
-
+		if (physB == lifeP1) {
+			/*lifeP1->~PhysBody();
+			lifeP1->body->GetWorld()->DestroyBody(lifeP1->body);
+			physB->body->GetWorld()->DestroyBody(physB->body);
+			physB->~PhysBody();*/
+			lifeP1->body->SetActive(false);
+			LOG("LIFE1");
 		}
-		if (LIFES.at(1)->Life->body == physB->body) {
-
+		if (physB == lifeP2) {
+			/*lifeP2->~PhysBody();
+			lifeP2->body->GetWorld()->DestroyBody(lifeP2->body);
+			physB->body->GetWorld()->DestroyBody(physB->body);
+			physB->~PhysBody();*/
+			lifeP2->body->SetActive(false);
+			LOG("LIFE2");
 		}
-		if (LIFES.at(2)->Life->body == physB->body) {
-
+		if (physB == lifeP3) {
+			/*lifeP3->~PhysBody();
+			lifeP3->body->GetWorld()->DestroyBody(lifeP3->body);
+			physB->body->GetWorld()->DestroyBody(physB->body);
+			physB->~PhysBody();*/
+			lifeP3->body->SetActive(false);
+			LOG("LIFE3");
+		}
+		/*physB->body->GetWorld()->DestroyBody(physB->body);
+		if (LIFES.at(0).Life->body == physB->body) {
+			LIFES.at(0).Life->body->GetWorld()->DestroyBody(LIFES.at(0).Life->body);
+		}
+		if (LIFES.at(1).Life->body == physB->body) {
+			LIFES.at(1).Life->body->GetWorld()->DestroyBody(LIFES.at(1).Life->body);
+		}
+		if (LIFES.at(2).Life->body == physB->body) {
+			LIFES.at(2).Life->body->GetWorld()->DestroyBody(LIFES.at(2).Life->body);
 		}*/
-		LOG("LIFE");
 		break;
 	case ColliderType::UNKNOWN:
 		break;

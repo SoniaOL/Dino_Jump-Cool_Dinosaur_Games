@@ -86,6 +86,10 @@ public:
 	PhysBody* CAMGDetect;
 	PhysBody* TOP;
 
+	PhysBody* lifeP1;
+	PhysBody* lifeP2;
+	PhysBody* lifeP3;
+
 	life life1{};
 	life life2{};
 	life life3{};
