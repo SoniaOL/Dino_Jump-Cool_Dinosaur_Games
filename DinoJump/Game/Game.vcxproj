@@ -114,6 +114,7 @@
     <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\sceneLogo.cpp" />
     <ClCompile Include="Source\SceneLose.cpp" />
+    <ClCompile Include="Source\SceneWin.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\WalkEnemy.cpp" />
     <ClCompile Include="Source\Window.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\sceneLogo.h" />
     <ClInclude Include="Source\SceneLose.h" />
+    <ClInclude Include="Source\SceneWin.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\WalkEnemy.h" />
     <ClInclude Include="Source\Window.h" />

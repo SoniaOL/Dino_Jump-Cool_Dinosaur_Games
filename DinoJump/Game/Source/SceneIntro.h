@@ -50,10 +50,10 @@ public:
 private:
 	const char* imgpath;
 	const char* deathpath;
-	const char* winpath;
+	/*const char* winpath;*/
 	SDL_Texture* img; 
-	SDL_Texture* death; 
-	SDL_Texture* win; 
+	/*SDL_Texture* death; */
+	/*SDL_Texture* win; */
 
 	Animation* currentAnimation = nullptr;
 	Animation dinoIntro;
@@ -64,10 +64,10 @@ private:
 	Animation* currentAnimationwin = nullptr;
 	Animation dinoWin;
 
-	const char* audioPathwin;
+	/*const char* audioPathwin;*/
 	const char* audioPathlose;
 	/*int audiolose;*/
-	int audiowin;
+	/*int audiowin;*/
 	//bool audiob = true; 
 
 	GuiButton* button1;

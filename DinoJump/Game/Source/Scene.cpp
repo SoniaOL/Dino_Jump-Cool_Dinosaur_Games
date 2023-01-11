@@ -150,11 +150,12 @@ bool Scene::Update(float dt)
 		}
 		app->map->active = false;
 		app->sceneIntro->On = false;
-		app->sceneIntro->active = true;
+	/*	app->sceneIntro->active = true;*/
 		app->physics->debug = false;
 		app->sceneIntro->reset = true;
 		app->SaveGameRequest();
-		this->active = false;
+		/*this->active = false;*/
+		app->fade->FadeToBlack(this, (Module*)app->sceneWin, 40);
 	}
 
 	if (col)

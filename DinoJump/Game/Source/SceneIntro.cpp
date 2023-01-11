@@ -14,6 +14,7 @@
 #include "Log.h"
 #include "GuiManager.h"
 #include "SceneLose.h"
+#include "SceneWin.h"
 
 SceneIntro::SceneIntro() : Module()
 {
@@ -27,9 +28,9 @@ SceneIntro::SceneIntro() : Module()
 	//dinoDeath.PushBack({ 455,0,450,900 });
 	//dinoDeath.speed = 0.009;
 
-	dinoWin.PushBack({ 0,0,450,900 });
-	dinoWin.PushBack({ 453,0,450,900 });
-	dinoWin.speed = 0.009;
+	//dinoWin.PushBack({ 0,0,450,900 });
+	//dinoWin.PushBack({ 453,0,450,900 });
+	//dinoWin.speed = 0.009;
 }
 
 // Destructor
@@ -44,14 +45,15 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 
 	imgpath = config.child("imgintro").attribute("texturepath").as_string();
 	/*deathpath = config.child("imgintrodeath").attribute("death").as_string();*/
-	winpath = config.child("imgintrodeath").attribute("win").as_string();
-	audioPathlose = config.child("audio").attribute("pathlose").as_string(); 
-	audioPathwin = config.child("audio").attribute("pathwin").as_string(); 
+	/*winpath = config.child("imgintrodeath").attribute("win").as_string();*/
+	/*audioPathlose = config.child("audio").attribute("pathlose").as_string(); */
+	/*audioPathwin = config.child("audio").attribute("pathwin").as_string(); */
 
 	app->entityManager->active = false;
 	app->map->active = false;
 	app->scene->active = false;
 	app->sceneLose->active = false; 
+	app->sceneWin->active = false; 
 
 	return ret;
 }
@@ -64,9 +66,9 @@ bool SceneIntro::Start()
 
 	img = app->tex->Load(imgpath); 
 	/*death = app->tex->Load(deathpath); */
-	win = app->tex->Load(winpath); 
+	/*win = app->tex->Load(winpath); */
 	/*audiolose = app->audio->LoadFx(audioPathlose);*/
-	audiowin = app->audio->LoadFx(audioPathwin);
+	//audiowin = app->audio->LoadFx(audioPathwin);
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
@@ -92,32 +94,32 @@ bool SceneIntro::Update(float dt)
 	app->render->DrawTexture(img2, 0, 860);*/
 	currentAnimation = &dinoIntro; 
 	/*currentAnimationdeath = &dinoDeath; */
-	currentAnimationwin = &dinoWin; 
+	/*currentAnimationwin = &dinoWin; */
 	SDL_Rect dinoI = currentAnimation->GetCurrentFrame(); 
 	//SDL_Rect dinoD = currentAnimationdeath->GetCurrentFrame();
-	SDL_Rect dinoW = currentAnimationwin->GetCurrentFrame();
+	//SDL_Rect dinoW = currentAnimationwin->GetCurrentFrame();
 
 	currentAnimation->Update();
 	//currentAnimationdeath->Update();
-	currentAnimationwin->Update();
+	//currentAnimationwin->Update();
 
 	if (!app->scene->player->die) {
 		app->render->DrawTexture(img, 0, 900, &dinoI);
 	}
 
-	if (app->scene->player->Meta) {
-		if (app->scene->player->audiow == true) {
-			app->audio->PlayFx(audiowin);
-			app->scene->player->audiow = false;
-		}
-		app->render->camera.y = -900;
-		app->render->DrawTexture(win, 0, 900, &dinoW);
+	//if (app->scene->player->Meta) {
+	//	if (app->scene->player->audiow == true) {
+	//		app->audio->PlayFx(audiowin);
+	//		app->scene->player->audiow = false;
+	//	}
+	//	app->render->camera.y = -900;
+	//	app->render->DrawTexture(win, 0, 900, &dinoW);
 
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			app->scene->player->Meta = false;
-		}
-	}
+	//	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	//	{
+	//		app->scene->player->Meta = false;
+	//	}
+	//}
 
 	/*if (!app->scene->player->die) {
 		app->render->DrawTexture(img, 0, 900, &dinoI);
@@ -197,7 +199,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button 1 click");
-
+		app->scene->col = true; 
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 
 		break;
@@ -222,7 +224,7 @@ bool SceneIntro::CleanUp()
 {
 	app->tex->UnLoad(img);
 	//app->tex->UnLoad(death);
-	app->tex->UnLoad(win);
+	/*app->tex->UnLoad(win);*/
 
 	LOG("Freeing scene");
 
