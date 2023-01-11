@@ -14,6 +14,7 @@
 #include "Pathfinding.h"
 #include "Pathfinding 2.h"
 #include "GuiManager.h"
+#include "SceneLose.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -38,6 +39,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scenelogo = new sceneLogo(); 
 	sceneIntro = new SceneIntro();
 	scene = new Scene();
+	sceneLose = new SceneLose(); 
 	entityManager = new EntityManager();
 	fade = new ModuleFadeToBlack();
 	map = new Map();
@@ -58,6 +60,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding2);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(sceneLose); 
 	//AddModule(flyEnemy);
 	AddModule(entityManager);
 	AddModule(fade);

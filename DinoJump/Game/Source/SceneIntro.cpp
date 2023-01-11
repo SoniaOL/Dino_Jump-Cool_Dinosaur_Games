@@ -13,6 +13,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "GuiManager.h"
+#include "SceneLose.h"
 
 SceneIntro::SceneIntro() : Module()
 {
@@ -22,9 +23,9 @@ SceneIntro::SceneIntro() : Module()
 	dinoIntro.PushBack({ 450,0,450,900 });
 	dinoIntro.speed = 0.009; 
 
-	dinoDeath.PushBack({ 0,0,450,900 });
-	dinoDeath.PushBack({ 455,0,450,900 });
-	dinoDeath.speed = 0.009;
+	//dinoDeath.PushBack({ 0,0,450,900 });
+	//dinoDeath.PushBack({ 455,0,450,900 });
+	//dinoDeath.speed = 0.009;
 
 	dinoWin.PushBack({ 0,0,450,900 });
 	dinoWin.PushBack({ 453,0,450,900 });
@@ -42,7 +43,7 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	imgpath = config.child("imgintro").attribute("texturepath").as_string();
-	deathpath = config.child("imgintrodeath").attribute("death").as_string();
+	/*deathpath = config.child("imgintrodeath").attribute("death").as_string();*/
 	winpath = config.child("imgintrodeath").attribute("win").as_string();
 	audioPathlose = config.child("audio").attribute("pathlose").as_string(); 
 	audioPathwin = config.child("audio").attribute("pathwin").as_string(); 
@@ -50,6 +51,7 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 	app->entityManager->active = false;
 	app->map->active = false;
 	app->scene->active = false;
+	app->sceneLose->active = false; 
 
 	return ret;
 }
@@ -61,9 +63,9 @@ bool SceneIntro::Start()
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
 	img = app->tex->Load(imgpath); 
-	death = app->tex->Load(deathpath); 
+	/*death = app->tex->Load(deathpath); */
 	win = app->tex->Load(winpath); 
-	audiolose = app->audio->LoadFx(audioPathlose);
+	/*audiolose = app->audio->LoadFx(audioPathlose);*/
 	audiowin = app->audio->LoadFx(audioPathwin);
 
 	uint w, h;
@@ -89,14 +91,14 @@ bool SceneIntro::Update(float dt)
 	/*app->render->DrawTexture(img, 0, 860);
 	app->render->DrawTexture(img2, 0, 860);*/
 	currentAnimation = &dinoIntro; 
-	currentAnimationdeath = &dinoDeath; 
+	/*currentAnimationdeath = &dinoDeath; */
 	currentAnimationwin = &dinoWin; 
 	SDL_Rect dinoI = currentAnimation->GetCurrentFrame(); 
-	SDL_Rect dinoD = currentAnimationdeath->GetCurrentFrame();
+	//SDL_Rect dinoD = currentAnimationdeath->GetCurrentFrame();
 	SDL_Rect dinoW = currentAnimationwin->GetCurrentFrame();
 
 	currentAnimation->Update();
-	currentAnimationdeath->Update();
+	//currentAnimationdeath->Update();
 	currentAnimationwin->Update();
 
 	if (!app->scene->player->die) {
@@ -122,28 +124,28 @@ bool SceneIntro::Update(float dt)
 	   
 	}*/
 
-	if (app->scene->player->die) {
-		app->render->camera.y = -900; 
-		app->render->DrawTexture(death, 0, 900 , &dinoD);
-		if (app->scene->player->audiob == true) {
-			app->audio->PlayFx(audiolose);
-			app->scene->player->audiob = false;
-		}
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
-		{
-			app->scene->player->die = false;
-			app->scene->player->DieCounter = 0;
-			app->scene->player->Meta = false;
-			this->active = false;
-			app->scene->active = true;
-			app->entityManager->active = true;
-			app->map->active = true;
-			On = true;
-			reset = true;
+	//if (app->scene->player->die) {
+	//	app->render->camera.y = -900; 
+	//	app->render->DrawTexture(death, 0, 900 , &dinoD);
+	//	if (app->scene->player->audiob == true) {
+	//		app->audio->PlayFx(audiolose);
+	//		app->scene->player->audiob = false;
+	//	}
+	//	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+	//	{
+	//		app->scene->player->die = false;
+	//		app->scene->player->DieCounter = 0;
+	//		app->scene->player->Meta = false;
+	//		this->active = false;
+	//		app->scene->active = true;
+	//		app->entityManager->active = true;
+	//		app->map->active = true;
+	//		On = true;
+	//		reset = true;
 
-			app->SaveGameRequest();
-		}
-	}
+	//		app->SaveGameRequest();
+	//	}
+	//}
 	if (!app->scene->player->Meta)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
@@ -219,7 +221,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 bool SceneIntro::CleanUp()
 {
 	app->tex->UnLoad(img);
-	app->tex->UnLoad(death);
+	//app->tex->UnLoad(death);
 	app->tex->UnLoad(win);
 
 	LOG("Freeing scene");

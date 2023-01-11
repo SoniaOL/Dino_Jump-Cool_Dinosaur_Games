@@ -58,15 +58,15 @@ private:
 	Animation* currentAnimation = nullptr;
 	Animation dinoIntro;
 
-	Animation* currentAnimationdeath = nullptr;
-	Animation dinoDeath;
+	//Animation* currentAnimationdeath = nullptr;
+	//Animation dinoDeath;
 
 	Animation* currentAnimationwin = nullptr;
 	Animation dinoWin;
 
 	const char* audioPathwin;
 	const char* audioPathlose;
-	int audiolose;
+	/*int audiolose;*/
 	int audiowin;
 	//bool audiob = true; 
 

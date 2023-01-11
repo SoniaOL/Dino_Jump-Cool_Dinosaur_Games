@@ -177,6 +177,7 @@ bool Player::Update()
 	if (DieCounter >= 3) 
 	{
 		die = true;
+		audiob = true;
 	}
 
 	//CAMERA TOP
@@ -385,10 +386,10 @@ bool Player::Update()
 	DetectPosY = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.y);
 
 	SDL_Rect gui;
-	gui.x = 64; 
-	gui.y = 64; 
-	gui.w = 8; 
-	gui.h = 9; 
+	gui.x = 128; 
+	gui.y = 128; 
+	gui.w = 16; 
+	gui.h = 17; 
 
 	app->render->DrawTexture(texture, position.x - 12, position.y - 11, &dino, flip);
 	app->render->DrawTexture(textureLava, lavaPosX - 35, lavaPosY - 5);
@@ -451,7 +452,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		{
 			if (app->scene->player->die == false) {
 				DieCounter++;
-				audiob = true;
+				/*audiob = true;*/
 				app->LoadGameRequest();
 				app->sceneIntro->reset = false;
 			}
@@ -462,7 +463,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		{
 			if (app->scene->player->die == false) {
 				DieCounter++;
-				audiob = true;
+			/*	audiob = true;*/
 				app->LoadGameRequest();
 				app->sceneIntro->reset = false;
 			}

@@ -10,6 +10,7 @@
 #include "SceneIntro.h"
 #include "Physics.h"
 #include "PathFinding.h"
+#include "ModuleFadeToBlack.h"
 
 
 #include "Defs.h"
@@ -128,9 +129,10 @@ bool Scene::Update(float dt)
 		}
 		app->map->active = false;
 		app->sceneIntro->On = false;
-		app->sceneIntro->active = true;
+		/*app->sceneIntro->active = true;*/
 		app->physics->debug = false;
-		this->active = false;
+	/*	this->active = false;*/
+		app->fade->FadeToBlack(this, (Module*)app->sceneLose, 40);
 	}
 
 	if (player->Meta) {
@@ -346,6 +348,6 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
+	app->audio->PauseMusic(); 
 	return true;
 }
