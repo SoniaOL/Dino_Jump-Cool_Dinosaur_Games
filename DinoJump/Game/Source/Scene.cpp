@@ -170,8 +170,7 @@ bool Scene::Update(float dt)
 
 		app->SaveGameRequest();
 
-		app->audio->PlayMusic(audioPath);
-
+		app->audio->PlayMusic(audioPath, 0.0f);
 	
 		col = false;
 	}
