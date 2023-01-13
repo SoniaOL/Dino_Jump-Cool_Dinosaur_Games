@@ -73,6 +73,7 @@ bool SceneWin::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			app->scene->player->Meta = false;
+			app->scene->player->lives = true;
 			app->fade->FadeToBlack(this, (Module*)app->sceneIntro, 40);
 		}
 	}

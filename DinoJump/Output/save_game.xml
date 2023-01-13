@@ -11,6 +11,8 @@
 	<pathfinding />
 	<map />
 	<scene />
+	<sceneIntro />
+	<sceneIntro />
 	<entitymanager>
 		<player x="176" y="1745" />
 		<LAV x="37" y="1842" />
@@ -20,9 +22,14 @@
 		<CAMGDETECT x="37" y="1462" />
 		<FLYENEMY x="348" y="1356" />
 		<WALKENEMY x="228" y="1090" />
+		<Life1 x="400" y="950" />
+		<Life2 x="380" y="950" />
+		<Life3 x="360" y="950" />
+		<Life4 x="340" y="950" />
+		<Life5 x="320" y="950" />
 		<camera x="0" y="-900" />
 	</entitymanager>
-	<:anonymous />
+	<FadeToBlack />
 	<guiManager />
 	<renderer>
 		<camera x="0" y="-900" />

@@ -78,6 +78,7 @@ bool SceneLose::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			app->scene->player->die = false;
+			app->scene->player->lives = true;
 			app->scene->player->DieCounter = 3;
 			app->scene->player->Meta = false;
 			this->active = false;

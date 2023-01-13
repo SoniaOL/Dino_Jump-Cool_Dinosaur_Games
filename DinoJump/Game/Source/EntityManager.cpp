@@ -179,7 +179,32 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	PosX = data.child("CAMGDETECT").attribute("x").as_int();
 	PosY = data.child("CAMGDETECT").attribute("y").as_int();
 
-	app->scene->player->CAMGDetect->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+	app->scene->player->CAMGDetect->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
+	
+	PosX = data.child("Life1").attribute("x").as_int();
+	PosY = data.child("Life1").attribute("y").as_int();
+
+	app->scene->player->lifeT1->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+	
+	PosX = data.child("Life2").attribute("x").as_int();
+	PosY = data.child("Life2").attribute("y").as_int();
+
+	app->scene->player->lifeT2->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+	
+	PosX = data.child("Life3").attribute("x").as_int();
+	PosY = data.child("Life3").attribute("y").as_int();
+
+	app->scene->player->lifeT3->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
+	
+	PosX = data.child("Life4").attribute("x").as_int();
+	PosY = data.child("Life4").attribute("y").as_int();
+
+	app->scene->player->lifeT4->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
+	
+	PosX = data.child("Life5").attribute("x").as_int();
+	PosY = data.child("Life5").attribute("y").as_int();
+
+	app->scene->player->lifeT5->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
 	if (!app->scene->fly->isDead) 
 	{
@@ -233,6 +258,11 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 	pugi::xml_node camgD = data.append_child("CAMGDETECT");
 	pugi::xml_node flyEnemy = data.append_child("FLYENEMY");
 	pugi::xml_node walkEnemy = data.append_child("WALKENEMY");
+	pugi::xml_node Life1 = data.append_child("Life1");
+	pugi::xml_node Life2 = data.append_child("Life2");
+	pugi::xml_node Life3 = data.append_child("Life3");
+	pugi::xml_node Life4 = data.append_child("Life4");
+	pugi::xml_node Life5 = data.append_child("Life5");
 
 
 	if (!app->sceneIntro->reset) {
@@ -260,6 +290,21 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		
 		walkEnemy.append_attribute("x") = app->scene->walk->position.x;
 		walkEnemy.append_attribute("y") = app->scene->walk->position.y;
+		
+		Life1.append_attribute("x") = app->scene->player->lifeT1X;
+		Life1.append_attribute("y") = app->scene->player->lifeT1Y;
+		
+		Life2.append_attribute("x") = app->scene->player->lifeT2X;
+		Life2.append_attribute("y") = app->scene->player->lifeT2Y;
+		
+		Life3.append_attribute("x") = app->scene->player->lifeT3X;
+		Life3.append_attribute("y") = app->scene->player->lifeT3Y;
+		
+		Life4.append_attribute("x") = app->scene->player->lifeT4X;
+		Life4.append_attribute("y") = app->scene->player->lifeT4Y;
+		
+		Life5.append_attribute("x") = app->scene->player->lifeT5X;
+		Life5.append_attribute("y") = app->scene->player->lifeT5Y;
 
 		if (!app->scene->fly->isDead) {
 			flyLive = 0;
@@ -318,6 +363,21 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 
 		walkEnemy.append_attribute("x") = 228;
 		walkEnemy.append_attribute("y") = 1090;
+		
+		Life1.append_attribute("x") = 400;
+		Life1.append_attribute("y") = 950;
+		
+		Life2.append_attribute("x") = 380;
+		Life2.append_attribute("y") = 950;
+		
+		Life3.append_attribute("x") = 360;
+		Life3.append_attribute("y") = 950;
+		
+		Life4.append_attribute("x") = 340;
+		Life4.append_attribute("y") = 950;
+		
+		Life5.append_attribute("x") = 320;
+		Life5.append_attribute("y") = 950;
 
 		app->render->SaveState(data);
 		app->render->LoadState(data);

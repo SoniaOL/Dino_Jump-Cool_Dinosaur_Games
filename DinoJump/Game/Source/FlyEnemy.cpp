@@ -228,7 +228,7 @@ bool FlyEnemy::Update()
 
 bool FlyEnemy::CleanUp()
 {
-	if (app->sceneIntro->active == false) {
+	if (app->scene->player->active == false) {
 		if (isDead == false) {
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);

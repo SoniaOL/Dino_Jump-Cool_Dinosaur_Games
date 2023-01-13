@@ -90,6 +90,12 @@ public:
 	PhysBody* lifeP2;
 	PhysBody* lifeP3;
 
+	PhysBody* lifeT1;
+	PhysBody* lifeT2;
+	PhysBody* lifeT3;
+	PhysBody* lifeT4;
+	PhysBody* lifeT5;
+
 	life life1{};
 	life life2{};
 	life life3{};
@@ -104,11 +110,33 @@ public:
 	bool Right = false;
 	bool Left = false;
 	bool GodMode = false;
+	bool lives = true;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 
 	FlyEnemy* fly; 
+
+	int lifep3Y = 1458;
+	int lifep3X = 360;
+
+	int lifep1Y = 1085;
+	int lifep1X = 100;
+
+	int lifeT1Y = 950;
+	int lifeT1X = 400;
+
+	int lifeT2Y = 950;
+	int lifeT2X = 380;
+
+	int lifeT3Y = 950;
+	int lifeT3X = 360;
+	
+	int lifeT4Y = 950;
+	int lifeT4X = 340;
+	
+	int lifeT5Y = 950;
+	int lifeT5X = 320;
 
 private:
 

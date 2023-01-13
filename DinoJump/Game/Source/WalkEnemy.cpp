@@ -218,7 +218,7 @@ bool WalkEnemy::Update()
 
 bool WalkEnemy::CleanUp()
 {
-	if (app->sceneIntro->active == false) {
+	if (app->scene->player->active == false) {
 		if (isDead == false) {
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			sensor->body->GetWorld()->DestroyBody(sensor->body);

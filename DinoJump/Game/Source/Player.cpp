@@ -132,8 +132,21 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		CHECK->ctype = ColliderType::CHECK;
 
-		lifeP1 = app->physics->CreateRectangleSensor(229, 1300, 20, 20, STATIC);
-		lifeP1->ctype = ColliderType::LIFE;
+		lifeT1 = app->physics->CreateRectangleSensor(lifeT1X, lifeT1Y, 20, 20, KINEMATIC);
+		lifeT1->ctype = ColliderType::UNKNOWN;
+
+		lifeT2 = app->physics->CreateRectangleSensor(lifeT2X, lifeT2Y, 20, 20, KINEMATIC);
+		lifeT2->ctype = ColliderType::UNKNOWN;
+
+		lifeT3 = app->physics->CreateRectangleSensor(lifeT3X, lifeT3Y, 20, 20, KINEMATIC);
+		lifeT3->ctype = ColliderType::UNKNOWN;
+
+		lifeT4 = app->physics->CreateRectangleSensor(lifeT4X, lifeT4Y, 20, 20, KINEMATIC);
+		lifeT4->ctype = ColliderType::UNKNOWN;
+
+		lifeT5 = app->physics->CreateRectangleSensor(lifeT5X, lifeT5Y, 20, 20, KINEMATIC);
+		lifeT5->ctype = ColliderType::UNKNOWN;
+
 
 		/*life1 = life();
 		life1.Life = app->physics->CreateRectangleSensor(229, 1200, 20, 20, STATIC);
@@ -152,9 +165,6 @@ bool Player::Update()
 
 		//LIFES.emplace_back(life2);
 
-		lifeP3 = app->physics->CreateRectangleSensor(229, 1400, 20, 20, STATIC);
-		lifeP3->ctype = ColliderType::LIFE;
-
 		/*life3 = life();
 		life3.Life = app->physics->CreateRectangleSensor(229, 1400, 20, 20, STATIC);
 		life3.Life->ctype = ColliderType::LIFE;
@@ -172,6 +182,17 @@ bool Player::Update()
 		}
 
 		col = false;
+	}
+
+	if (lives == true) 
+	{
+		lifeP1 = app->physics->CreateRectangleSensor(lifep1X, lifep1Y, 20, 20, STATIC);
+		lifeP1->ctype = ColliderType::LIFE;
+
+		lifeP3 = app->physics->CreateRectangleSensor(lifep3X, lifep3Y, 20, 20, STATIC);
+		lifeP3->ctype = ColliderType::LIFE;
+
+		lives = false;
 	}
 
 	LOG("DieCounter: %d", DieCounter);
@@ -332,6 +353,11 @@ bool Player::Update()
 			LAVDetect->body->SetLinearVelocity(b2Vec2(0, -4.8));
 			CAMG->body->SetLinearVelocity(b2Vec2(0, -4.8));
 			CAMGDetect->body->SetLinearVelocity(b2Vec2(0, -4.8));
+			lifeT1->body->SetLinearVelocity(b2Vec2(0, -4.8));
+			lifeT2->body->SetLinearVelocity(b2Vec2(0, -4.8));
+			lifeT3->body->SetLinearVelocity(b2Vec2(0, -4.8));
+			lifeT4->body->SetLinearVelocity(b2Vec2(0, -4.8));
+			lifeT5->body->SetLinearVelocity(b2Vec2(0, -4.8));
 	}
 
 	if(!lava)
@@ -342,6 +368,11 @@ bool Player::Update()
 			LAVDetect->body->SetLinearVelocity(b2Vec2(0, 0));
 			CAMG->body->SetLinearVelocity(b2Vec2(0, 0));
 			CAMGDetect->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT1->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT2->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT3->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT4->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT5->body->SetLinearVelocity(b2Vec2(0, 0));
 		}
 	}
 
@@ -352,6 +383,11 @@ bool Player::Update()
 		LAVDetect->body->SetLinearVelocity(b2Vec2(0, 4.8));
 		CAMG->body->SetLinearVelocity(b2Vec2(0, 4.8));
 		CAMGDetect->body->SetLinearVelocity(b2Vec2(0, 4.8));
+		lifeT1->body->SetLinearVelocity(b2Vec2(0, 4.8));
+		lifeT2->body->SetLinearVelocity(b2Vec2(0, 4.8));
+		lifeT3->body->SetLinearVelocity(b2Vec2(0, 4.8));
+		lifeT4->body->SetLinearVelocity(b2Vec2(0, 4.8));
+		lifeT5->body->SetLinearVelocity(b2Vec2(0, 4.8));
 	}
 
 	if (!camg) 
@@ -362,6 +398,11 @@ bool Player::Update()
 			LAVDetect->body->SetLinearVelocity(b2Vec2(0, 0));
 			CAMG->body->SetLinearVelocity(b2Vec2(0, 0));
 			CAMGDetect->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT1->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT2->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT3->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT4->body->SetLinearVelocity(b2Vec2(0, 0));
+			lifeT5->body->SetLinearVelocity(b2Vec2(0, 0));
 		}
 	}
 
@@ -386,6 +427,21 @@ bool Player::Update()
 
 	DetectPosX = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.x);
 	DetectPosY = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.y);
+	
+	lifeT1X = METERS_TO_PIXELS(lifeT1->body->GetTransform().p.x);
+	lifeT1Y = METERS_TO_PIXELS(lifeT1->body->GetTransform().p.y);	
+	
+	lifeT2X = METERS_TO_PIXELS(lifeT2->body->GetTransform().p.x);
+	lifeT2Y = METERS_TO_PIXELS(lifeT2->body->GetTransform().p.y);
+	
+	lifeT3X = METERS_TO_PIXELS(lifeT3->body->GetTransform().p.x);
+	lifeT3Y = METERS_TO_PIXELS(lifeT3->body->GetTransform().p.y);
+
+	lifeT4X = METERS_TO_PIXELS(lifeT4->body->GetTransform().p.x);
+	lifeT4Y = METERS_TO_PIXELS(lifeT4->body->GetTransform().p.y);
+	
+	lifeT5X = METERS_TO_PIXELS(lifeT5->body->GetTransform().p.x);
+	lifeT5Y = METERS_TO_PIXELS(lifeT5->body->GetTransform().p.y);
 
 	SDL_Rect gui;
 	gui.x = 128; 
@@ -399,11 +455,32 @@ bool Player::Update()
 
 	if (lifeP1->body->IsActive() == true)
 	{
-		app->render->DrawTexture(textureHearth, 220, 1295, &gui);
+		app->render->DrawTexture(textureHearth, lifep1X - 8, lifep1Y - 8, &gui);
 	}
 	if (lifeP3->body->IsActive() == true)
 	{
-		app->render->DrawTexture(textureHearth, 220, 1395, &gui);
+		app->render->DrawTexture(textureHearth, lifep3X - 8, lifep3Y - 8, &gui);
+	}
+
+	if (DieCounter >= 1)
+	{
+		app->render->DrawTexture(textureHearth, lifeT1X - 8, lifeT1Y - 8, &gui);
+	}	
+	if (DieCounter >= 2)
+	{
+		app->render->DrawTexture(textureHearth, lifeT2X - 8, lifeT2Y - 8, &gui);
+	}
+	if (DieCounter >= 3)
+	{
+		app->render->DrawTexture(textureHearth, lifeT3X - 8, lifeT3Y - 8, &gui);
+	}	
+	if (DieCounter >= 4)
+	{
+		app->render->DrawTexture(textureHearth, lifeT4X - 8, lifeT4Y - 8, &gui);
+	}
+	if (DieCounter >= 5)
+	{
+		app->render->DrawTexture(textureHearth, lifeT5X - 8, lifeT5Y - 8, &gui);
 	}
 
 	time++;
