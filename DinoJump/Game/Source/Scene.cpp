@@ -276,6 +276,12 @@ bool Scene::Update(float dt)
 
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+		app->sceneIntro->checkpoint1 = true;
+		app->sceneIntro->reset = false;
+		app->SaveGameRequest();
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera.y += 1;
 

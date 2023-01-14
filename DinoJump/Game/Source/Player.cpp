@@ -130,7 +130,7 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		META->ctype = ColliderType::META;
 
-		CHECK = app->physics->CreateRectangleSensor(229, 900, 50, 90, STATIC);
+		CHECK = app->physics->CreateRectangleSensor(150, 890, 50, 60, STATIC);
 		// L07 DONE 7: Assign collider type
 		CHECK->ctype = ColliderType::CHECK;
 
@@ -459,7 +459,9 @@ bool Player::Update()
 
 	DetectPosX = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.x);
 	DetectPosY = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.y);
-	
+
+	LOG("LAVDETECT %d", DetectPosY);
+
 	lifeT1X = METERS_TO_PIXELS(lifeT1->body->GetTransform().p.x);
 	lifeT1Y = METERS_TO_PIXELS(lifeT1->body->GetTransform().p.y);	
 	
@@ -593,14 +595,17 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		app->scene->walk->deadanim = true;
 		break;
 	case ColliderType::CHECK:
-		app->SaveGameRequest();
 		app->sceneIntro->reset = false;
+		app->sceneIntro->checkpoint1 = false;
+		app->SaveGameRequest();
 		LOG("Check");
 		break;
 	case ColliderType::CAM:
+		LOG("CAM");
 		lava = true;
 		break;
 	case ColliderType::CAMG:
+		LOG("CAMGROUND");
 		camg = true;
 		break;
 	case ColliderType::LAVA:
@@ -634,9 +639,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		app->scene->walk->deadanim = true;
 		break;
 	case ColliderType::LAVADETECT:
+		LOG("LAVADEC");
 		lava = false;
 		break;
 	case ColliderType::CAMGDETECT:
+		LOG("CAMGDEC");
 		camg = false;
 		break;
 	case ColliderType::LIFE:

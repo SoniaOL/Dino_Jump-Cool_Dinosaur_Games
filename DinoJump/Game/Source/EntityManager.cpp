@@ -151,26 +151,6 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	app->scene->player->lava = false;
 	app->scene->player->camg = false;
 
-	PosX = data.child("player").attribute("x").as_int();
-	PosY = data.child("player").attribute("y").as_int();
-
-	app->scene->player->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-
-	PosX = data.child("CAM").attribute("x").as_int();
-	PosY = data.child("CAM").attribute("y").as_int();
-
-	app->scene->player->CAM->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-
-	PosX = data.child("LAVDetect").attribute("x").as_int();
-	PosY = data.child("LAVDetect").attribute("y").as_int();
-
-	app->scene->player->LAVDetect->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-
-	PosX = data.child("LAV").attribute("x").as_int();
-	PosY = data.child("LAV").attribute("y").as_int();
-
-	app->scene->player->LAV->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-
 	PosX = data.child("CAMG").attribute("x").as_int();
 	PosY = data.child("CAMG").attribute("y").as_int();
 
@@ -179,88 +159,114 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	PosX = data.child("CAMGDETECT").attribute("x").as_int();
 	PosY = data.child("CAMGDETECT").attribute("y").as_int();
 
-	app->scene->player->CAMGDetect->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
+	app->scene->player->CAMGDetect->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+	PosX = data.child("CAM").attribute("x").as_int();
+	PosY = data.child("CAM").attribute("y").as_int();
+
+	app->scene->player->CAM->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+	PosX = data.child("player").attribute("x").as_int();
+	PosY = data.child("player").attribute("y").as_int();
+
+	app->scene->player->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 	
-	PosX = data.child("Life1").attribute("x").as_int();
-	PosY = data.child("Life1").attribute("y").as_int();
+	PosX = data.child("LAVDetect").attribute("x").as_int();
+	PosY = data.child("LAVDetect").attribute("y").as_int();
 
-	app->scene->player->lifeT1->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-	
-	PosX = data.child("Life2").attribute("x").as_int();
-	PosY = data.child("Life2").attribute("y").as_int();
+	app->scene->player->LAVDetect->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
-	app->scene->player->lifeT2->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-	
-	PosX = data.child("Life3").attribute("x").as_int();
-	PosY = data.child("Life3").attribute("y").as_int();
 
-	app->scene->player->lifeT3->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
-	
-	PosX = data.child("Life4").attribute("x").as_int();
-	PosY = data.child("Life4").attribute("y").as_int();
-
-	app->scene->player->lifeT4->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
-	
-	PosX = data.child("Life5").attribute("x").as_int();
-	PosY = data.child("Life5").attribute("y").as_int();
-
-	app->scene->player->lifeT5->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
-	
-	PosX = data.child("item").attribute("x").as_int();
-	PosY = data.child("item").attribute("y").as_int();
-
-	app->scene->player->Coin1->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
-	
-	PosX = data.child("item2").attribute("x").as_int();
-	PosY = data.child("item2").attribute("y").as_int();
-
-	app->scene->player->Coin2->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-	
-	PosX = data.child("item3").attribute("x").as_int();
-	PosY = data.child("item3").attribute("y").as_int();
-
-	app->scene->player->Coin3->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
-	
-	PosX = data.child("item4").attribute("x").as_int();
-	PosY = data.child("item4").attribute("y").as_int();
-
-	app->scene->player->Coin4->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-
-	if (!app->scene->fly->isDead) 
+	if (!app->sceneIntro->checkpoint1)
 	{
+		PosX = data.child("LAV").attribute("x").as_int();
+		PosY = data.child("LAV").attribute("y").as_int();
 
-		PosX = data.child("FLYENEMY").attribute("x").as_int();
-		PosY = data.child("FLYENEMY").attribute("y").as_int();
+		app->scene->player->LAV->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
-		app->scene->fly->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-	}
+		PosX = data.child("Life1").attribute("x").as_int();
+		PosY = data.child("Life1").attribute("y").as_int();
 
-	if (flyLive == 0)
-	{
-		if (app->scene->fly->isDead)
+		app->scene->player->lifeT1->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+		PosX = data.child("Life2").attribute("x").as_int();
+		PosY = data.child("Life2").attribute("y").as_int();
+
+		app->scene->player->lifeT2->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+		PosX = data.child("Life3").attribute("x").as_int();
+		PosY = data.child("Life3").attribute("y").as_int();
+
+		app->scene->player->lifeT3->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+		PosX = data.child("Life4").attribute("x").as_int();
+		PosY = data.child("Life4").attribute("y").as_int();
+
+		app->scene->player->lifeT4->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+		PosX = data.child("Life5").attribute("x").as_int();
+		PosY = data.child("Life5").attribute("y").as_int();
+
+		app->scene->player->lifeT5->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+		PosX = data.child("item").attribute("x").as_int();
+		PosY = data.child("item").attribute("y").as_int();
+
+		app->scene->player->Coin1->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+		PosX = data.child("item2").attribute("x").as_int();
+		PosY = data.child("item2").attribute("y").as_int();
+
+		app->scene->player->Coin2->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+		PosX = data.child("item3").attribute("x").as_int();
+		PosY = data.child("item3").attribute("y").as_int();
+
+		app->scene->player->Coin3->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+		PosX = data.child("item4").attribute("x").as_int();
+		PosY = data.child("item4").attribute("y").as_int();
+
+		app->scene->player->Coin4->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+
+		if (!app->scene->fly->isDead)
 		{
-			app->scene->fly->col = true;
+
+			PosX = data.child("FLYENEMY").attribute("x").as_int();
+			PosY = data.child("FLYENEMY").attribute("y").as_int();
+
+			app->scene->fly->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 		}
-	}
 
-	if (!app->scene->walk->isDead) {
-
-
-		PosX = data.child("WALKENEMY").attribute("x").as_int();
-		PosY = data.child("WALKENEMY").attribute("y").as_int();
-
-		app->scene->fly->position.x = PosX;
-		app->scene->fly->position.y = PosY;
-
-		app->scene->walk->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
-	}
-	
-	if (walkLive == 0)
-	{
-		if (app->scene->walk->isDead)
+		if (flyLive == 0)
 		{
-			app->scene->walk->col = true;
+			if (app->scene->fly->isDead)
+			{
+				app->scene->fly->col = true;
+			}
 		}
+
+		if (!app->scene->walk->isDead) {
+
+
+			PosX = data.child("WALKENEMY").attribute("x").as_int();
+			PosY = data.child("WALKENEMY").attribute("y").as_int();
+
+			app->scene->fly->position.x = PosX;
+			app->scene->fly->position.y = PosY;
+
+			app->scene->walk->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+		}
+
+		if (walkLive == 0)
+		{
+			if (app->scene->walk->isDead)
+			{
+				app->scene->walk->col = true;
+			}
+		}
+
+		app->sceneIntro->checkpoint1 = false;
 	}
 
 	return true;
@@ -289,8 +295,10 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 	pugi::xml_node Item4 = data.append_child("item4");
 
 
-	if (!app->sceneIntro->reset) {
-		
+	if (!app->sceneIntro->reset) 
+	{
+		if (!app->sceneIntro->checkpoint1) 
+		{
 		play.append_attribute("x") = app->scene->player->position.x;
 		play.append_attribute("y") = app->scene->player->position.y;
 
@@ -357,9 +365,38 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		if (app->scene->walk->isDead) {
 			walkLive = 1;
 		}
+
+		}
 	}
 
-	if (app->sceneIntro->reset) {
+	if (app->sceneIntro->checkpoint1) 
+	{
+		app->render->camera.y = -618;
+
+		app->scene->player->lava = false;
+
+		play.append_attribute("x") = 125;
+		play.append_attribute("y") = 895;
+
+		lavDetect.append_attribute("x") = 37;
+		lavDetect.append_attribute("y") = 1485;
+
+		cam.append_attribute("x") = 37;
+		cam.append_attribute("y") = 1128;
+
+		camg.append_attribute("x") = 37;
+		camg.append_attribute("y") = 1500;
+
+		camgD.append_attribute("x") = 37;
+		camgD.append_attribute("y") = 1138;
+
+		app->LoadGameRequest();
+
+	}
+
+	if (app->sceneIntro->reset) 
+	{
+
 		play.append_attribute("x") = 176;
 		play.append_attribute("y") = 1745;
 
