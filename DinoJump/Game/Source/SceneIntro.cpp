@@ -200,6 +200,10 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 	case 1:
 		LOG("Button 1 click");
 		app->scene->col = true; 
+		app->scene->item->restart = true; 
+		app->scene->player->Coins = 0; 
+		app->scene->player->lives = true; 
+		app->scene->player->DieCounter = 3; 
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 
 		break;

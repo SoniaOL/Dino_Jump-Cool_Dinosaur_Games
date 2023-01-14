@@ -43,7 +43,8 @@
 	  <LAV x="37" y="1842" texturepath="Assets/Textures/Lava.png " />
       <Meta x="229" y="719" texturepath="Assets/Textures/MetaRed.png " />
 	  <audio path="Assets/Audio/Music/Background.ogg"/>	
-	  <audioJump path="Assets/Audio/Fx/bitJump.ogg"/>	
+	  <audioJump path="Assets/Audio/Fx/bitJump.ogg"/>
+    <audioCoin path="Assets/Audio/Fx/Coin.ogg"/>	
 	  <audioSlide path="Assets/Audio/Fx/Slide.ogg"/>	
 		
     </player>
@@ -54,11 +55,11 @@
 		<audio walkhurt ="Assets/Audio/Fx/walkhurt.wav" flyhurt ="Assets/Audio/Fx/flyhurt.wav"/>
 	</enemies> 
 	  
-    <!--item x="159" y="1700" texturepath="Assets/Textures/goldCoin.png"/>
-    <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
+    <item x="300" y="1600" texturepath="Assets/Textures/goldCoin.png"/>
+    <!-->item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
-    <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/ -->
+    <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/-->
   </scene>
 
   <map>

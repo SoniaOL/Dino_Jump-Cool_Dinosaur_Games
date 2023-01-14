@@ -105,6 +105,7 @@ public:
 	bool col = true;
 	bool die = false;
 	int DieCounter = 3;
+	int Coins = 0;
 	bool audiob = true;
 	bool audiow = true; 
 	bool Right = false;
@@ -155,8 +156,10 @@ private:
 
 
 	const char* audioPath;
+	const char* audioCoin;
 	const char* audioPathSlide;
 	int audio;
+	int pickCoinFxId;
 	int audioSlide;
 
 	/*int pickCoinFxId;*/

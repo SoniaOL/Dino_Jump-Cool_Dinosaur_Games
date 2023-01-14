@@ -27,6 +27,9 @@
 		<Life3 x="360" y="950" />
 		<Life4 x="340" y="950" />
 		<Life5 x="320" y="950" />
+		<item x="300" y="1600" />
+		<item2 x="200" y="1400" />
+		<item3 x="350" y="1150" />
 		<camera x="0" y="-900" />
 	</entitymanager>
 	<FadeToBlack />

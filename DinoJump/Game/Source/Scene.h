@@ -43,6 +43,7 @@ public:
 	Player* player;
 	FlyEnemy* fly;
 	WalkEnemy* walk;
+	Item* item;
 	bool col = true;
 	int count = 0;
 	int countGod = 0;

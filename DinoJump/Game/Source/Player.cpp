@@ -43,6 +43,7 @@ bool Player::Awake() {
 	//texturePath = "Assets/Textures/player/idle1.png";
 
 	audioPath = parameters.child("audioJump").attribute("path").as_string();
+	audioCoin = parameters.child("audioCoin").attribute("path").as_string();
 	audioPathSlide = parameters.child("audioSlide").attribute("path").as_string();
 
 	//L02: DONE 5: Get Player parameters from XML
@@ -73,6 +74,7 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
+	pickCoinFxId = app->audio->LoadFx(audioCoin);
 	audio = app->audio->LoadFx(audioPath);
 	audioSlide = app->audio->LoadFx(audioPathSlide);
 
@@ -172,6 +174,12 @@ bool Player::Update()
 
 		//LIFES.emplace_back(life3);
 
+		lifeP1 = app->physics->CreateRectangleSensor(lifep1X, lifep1Y, 20, 20, STATIC);
+		lifeP1->ctype = ColliderType::LIFE;
+
+		lifeP3 = app->physics->CreateRectangleSensor(lifep3X, lifep3Y, 20, 20, STATIC);
+		lifeP3->ctype = ColliderType::LIFE;
+
 		if (init)
 		{
 			app->sceneIntro->reset = true;
@@ -186,16 +194,11 @@ bool Player::Update()
 
 	if (lives == true) 
 	{
-		lifeP1 = app->physics->CreateRectangleSensor(lifep1X, lifep1Y, 20, 20, STATIC);
-		lifeP1->ctype = ColliderType::LIFE;
-
-		lifeP3 = app->physics->CreateRectangleSensor(lifep3X, lifep3Y, 20, 20, STATIC);
-		lifeP3->ctype = ColliderType::LIFE;
+		lifeP1->body->SetActive(true);
+		lifeP3->body->SetActive(true);
 
 		lives = false;
 	}
-
-	LOG("DieCounter: %d", DieCounter);
 
 	if (DieCounter <= 0) 
 	{
@@ -502,11 +505,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 
 	switch (physB->ctype)
 	{
-		//case ColliderType::ITEM:
-		//	LOG("Collision ITEM");
-		//	app->audio->PlayFx(pickCoinFxId);
-		//	item->CleanUp(); 
-		//	break;
+		case ColliderType::ITEM:
+			app->audio->PlayFx(pickCoinFxId);
+			if (physB->body->IsActive() == true)
+			{
+				Coins++;
+			}
+			physB->body->SetActive(false);
+			break;
 	case ColliderType::PLATFORM:
 		jump = true;
 		isjumping = false;
@@ -578,43 +584,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 			DieCounter++;
 		}
 		physB->body->SetActive(false);
-
-		/*if (physB == lifeP1) 
-		{*/
-			/*lifeP1->~PhysBody();
-			lifeP1->body->GetWorld()->DestroyBody(lifeP1->body);
-			physB->body->GetWorld()->DestroyBody(physB->body);
-			physB->~PhysBody();*/
-		/*	lifeP1->body->SetActive(false);
-			LOG("LIFE1");
-		}*/
-			//if (physB == lifeP2) {
-			//	/*lifeP2->~PhysBody();
-			//	lifeP2->body->GetWorld()->DestroyBody(lifeP2->body);
-			//	physB->body->GetWorld()->DestroyBody(physB->body);
-			//	physB->~PhysBody();*/
-			//	lifeP2->body->SetActive(false);
-			//	LOG("LIFE2");
-			//}
-			/*if (physB == lifeP3) 
-			{*/
-				/*lifeP3->~PhysBody();
-				lifeP3->body->GetWorld()->DestroyBody(lifeP3->body);
-				physB->body->GetWorld()->DestroyBody(physB->body);
-				physB->~PhysBody();*/
-			/*	lifeP3->body->SetActive(false);
-				LOG("LIFE3");
-			}*/
-			/*physB->body->GetWorld()->DestroyBody(physB->body);
-			if (LIFES.at(0).Life->body == physB->body) {
-				LIFES.at(0).Life->body->GetWorld()->DestroyBody(LIFES.at(0).Life->body);
-			}
-			if (LIFES.at(1).Life->body == physB->body) {
-				LIFES.at(1).Life->body->GetWorld()->DestroyBody(LIFES.at(1).Life->body);
-			}
-			if (LIFES.at(2).Life->body == physB->body) {
-				LIFES.at(2).Life->body->GetWorld()->DestroyBody(LIFES.at(2).Life->body);
-			}*/
 			break;
 	case ColliderType::UNKNOWN:
 		break;

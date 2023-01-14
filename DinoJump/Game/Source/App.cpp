@@ -16,6 +16,7 @@
 #include "GuiManager.h"
 #include "SceneLose.h"
 #include "SceneWin.h"
+#include "Item.h"
 
 #include "Defs.h"
 #include "Log.h"

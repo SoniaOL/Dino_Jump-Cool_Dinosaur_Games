@@ -50,6 +50,9 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	walk = (WalkEnemy*)app->entityManager->CreateEntity(EntityType::WALKENEMY);
 	walk->parameters = config.child("enemies");
+	
+	item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	item->parameters = config.child("item");
 
 
 	audioPath = config.child("player").child("audio").attribute("path").as_string();
@@ -202,8 +205,6 @@ bool Scene::Update(float dt)
 		if (!app->scene->walk->kill) {
 			app->scene->walk->CleanUp();
 		}
-		app->scene->fly->col = true;
-		app->scene->walk->col = true;
 		app->SaveGameRequest();
 		this->active = false;
 	}
