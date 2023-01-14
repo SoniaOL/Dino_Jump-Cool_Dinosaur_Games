@@ -209,17 +209,22 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	PosX = data.child("item").attribute("x").as_int();
 	PosY = data.child("item").attribute("y").as_int();
 
-	app->scene->item->Coin1->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
+	app->scene->player->Coin1->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
 	
 	PosX = data.child("item2").attribute("x").as_int();
 	PosY = data.child("item2").attribute("y").as_int();
 
-	app->scene->item->Coin2->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
+	app->scene->player->Coin2->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 	
 	PosX = data.child("item3").attribute("x").as_int();
 	PosY = data.child("item3").attribute("y").as_int();
 
-	app->scene->item->Coin3->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
+	app->scene->player->Coin3->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);	
+	
+	PosX = data.child("item4").attribute("x").as_int();
+	PosY = data.child("item4").attribute("y").as_int();
+
+	app->scene->player->Coin4->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
 	if (!app->scene->fly->isDead) 
 	{
@@ -281,6 +286,7 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 	pugi::xml_node Item = data.append_child("item");
 	pugi::xml_node Item2 = data.append_child("item2");
 	pugi::xml_node Item3 = data.append_child("item3");
+	pugi::xml_node Item4 = data.append_child("item4");
 
 
 	if (!app->sceneIntro->reset) {
@@ -324,14 +330,17 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		Life5.append_attribute("x") = app->scene->player->lifeT5X;
 		Life5.append_attribute("y") = app->scene->player->lifeT5Y;		
 		
-		Item.append_attribute("x") = app->scene->item->CoinX1;
-		Item.append_attribute("y") = app->scene->item->CoinY1;
+		Item.append_attribute("x") = app->scene->player->CoinX1;
+		Item.append_attribute("y") = app->scene->player->CoinY1;
 		
-		Item2.append_attribute("x") = app->scene->item->CoinX2;
-		Item2.append_attribute("y") = app->scene->item->CoinY2;		
+		Item2.append_attribute("x") = app->scene->player->CoinX2;
+		Item2.append_attribute("y") = app->scene->player->CoinY2;
 		
-		Item3.append_attribute("x") = app->scene->item->CoinX3;
-		Item3.append_attribute("y") = app->scene->item->CoinY3;
+		Item3.append_attribute("x") = app->scene->player->CoinX3;
+		Item3.append_attribute("y") = app->scene->player->CoinY3;		
+		
+		Item4.append_attribute("x") = app->scene->player->CoinX4;
+		Item4.append_attribute("y") = app->scene->player->CoinY4;
 
 		if (!app->scene->fly->isDead) {
 			flyLive = 0;
@@ -414,6 +423,9 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		
 		Item3.append_attribute("x") = 350;
 		Item3.append_attribute("y") = 1150;
+		
+		Item4.append_attribute("x") = 365;
+		Item4.append_attribute("y") = 980;
 
 		app->render->SaveState(data);
 		app->render->LoadState(data);

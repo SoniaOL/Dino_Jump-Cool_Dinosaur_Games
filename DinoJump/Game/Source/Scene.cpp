@@ -331,6 +331,15 @@ bool Scene::Update(float dt)
 	// L12: Debug pathfinding
 	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
 
+	//const char* coins = app->scene->player->Coins;
+	
+	//LOG("coins: %c", coins);
+
+	std::string c = std::to_string(app->scene->player->Coins);
+	char const* coins = c.c_str();
+
+	app->render->TextDraw(coins, 390, 75, 80, 157, 0, 255, 12);
+
 	return ret;
 }
 

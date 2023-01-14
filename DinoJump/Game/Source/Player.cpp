@@ -180,6 +180,20 @@ bool Player::Update()
 		lifeP3 = app->physics->CreateRectangleSensor(lifep3X, lifep3Y, 20, 20, STATIC);
 		lifeP3->ctype = ColliderType::LIFE;
 
+		// L07 DONE 4: Add a physics to an item - initialize the physics body
+		Coin1 = app->physics->CreateRectangleSensor(CoinX1, CoinY1, 16, 16, bodyType::KINEMATIC);
+
+		// L07 DONE 7: Assign collider type
+		Coin1->ctype = ColliderType::ITEM;
+
+		Coin2 = app->physics->CreateRectangleSensor(CoinX2, CoinY2, 16, 16, bodyType::KINEMATIC);
+		Coin2->ctype = ColliderType::ITEM;
+
+		Coin3 = app->physics->CreateRectangleSensor(CoinX3, CoinY3, 16, 16, bodyType::KINEMATIC);
+		Coin3->ctype = ColliderType::ITEM;
+
+		Coin4 = app->physics->CreateRectangleSensor(CoinX4, CoinY4, 16, 16, bodyType::KINEMATIC);
+
 		if (init)
 		{
 			app->sceneIntro->reset = true;
@@ -198,6 +212,17 @@ bool Player::Update()
 		lifeP3->body->SetActive(true);
 
 		lives = false;
+	}
+
+	if (app->scene->item->restart == true) 
+	{
+		Coin1->body->SetActive(true);
+		Coin2->body->SetActive(true);
+		Coin3->body->SetActive(true);
+
+		textureCoin = app->tex->Load(app->scene->item->texturePath);
+
+		app->scene->item->restart = false;
 	}
 
 	if (DieCounter <= 0) 
@@ -361,6 +386,7 @@ bool Player::Update()
 			lifeT3->body->SetLinearVelocity(b2Vec2(0, -4.8));
 			lifeT4->body->SetLinearVelocity(b2Vec2(0, -4.8));
 			lifeT5->body->SetLinearVelocity(b2Vec2(0, -4.8));
+			Coin4->body->SetLinearVelocity(b2Vec2(0, -4.8));
 	}
 
 	if(!lava)
@@ -376,6 +402,7 @@ bool Player::Update()
 			lifeT3->body->SetLinearVelocity(b2Vec2(0, 0));
 			lifeT4->body->SetLinearVelocity(b2Vec2(0, 0));
 			lifeT5->body->SetLinearVelocity(b2Vec2(0, 0));
+			Coin4->body->SetLinearVelocity(b2Vec2(0, 0));
 		}
 	}
 
@@ -391,6 +418,7 @@ bool Player::Update()
 		lifeT3->body->SetLinearVelocity(b2Vec2(0, 4.8));
 		lifeT4->body->SetLinearVelocity(b2Vec2(0, 4.8));
 		lifeT5->body->SetLinearVelocity(b2Vec2(0, 4.8));
+		Coin4->body->SetLinearVelocity(b2Vec2(0, 4.8));	
 	}
 
 	if (!camg) 
@@ -406,6 +434,7 @@ bool Player::Update()
 			lifeT3->body->SetLinearVelocity(b2Vec2(0, 0));
 			lifeT4->body->SetLinearVelocity(b2Vec2(0, 0));
 			lifeT5->body->SetLinearVelocity(b2Vec2(0, 0));
+			Coin4->body->SetLinearVelocity(b2Vec2(0, 0));
 		}
 	}
 
@@ -444,7 +473,10 @@ bool Player::Update()
 	lifeT4Y = METERS_TO_PIXELS(lifeT4->body->GetTransform().p.y);
 	
 	lifeT5X = METERS_TO_PIXELS(lifeT5->body->GetTransform().p.x);
-	lifeT5Y = METERS_TO_PIXELS(lifeT5->body->GetTransform().p.y);
+	lifeT5Y = METERS_TO_PIXELS(lifeT5->body->GetTransform().p.y);	
+	
+	CoinX4 = METERS_TO_PIXELS(Coin4->body->GetTransform().p.x);
+	CoinY4 = METERS_TO_PIXELS(Coin4->body->GetTransform().p.y);
 
 	SDL_Rect gui;
 	gui.x = 128; 
@@ -485,6 +517,36 @@ bool Player::Update()
 	{
 		app->render->DrawTexture(textureHearth, lifeT5X - 8, lifeT5Y - 8, &gui);
 	}
+
+	if (Coin1->body->IsActive() == true)
+	{
+		if (Coin1->body->GetPosition().y >= lavaPosY)
+		{
+			Coin1->body->SetActive(false);
+		}
+
+		app->render->DrawTexture(textureCoin, CoinX1 - 16, CoinY1 - 16);
+	}
+	if (Coin2->body->IsActive() == true)
+	{
+		if (Coin2->body->GetPosition().y >= lavaPosY)
+		{
+			Coin2->body->SetActive(false);
+		}
+
+		app->render->DrawTexture(textureCoin, CoinX2 - 16, CoinY2 - 16);
+	}
+	if (Coin3->body->IsActive() == true)
+	{
+		if (Coin3->body->GetPosition().y >= lavaPosY)
+		{
+			Coin3->body->SetActive(false);
+		}
+
+		app->render->DrawTexture(textureCoin, CoinX3 - 16, CoinY3 - 16);
+	}
+
+	app->render->DrawTexture(textureCoin, CoinX4 - 16, CoinY4 - 16);
 
 	time++;
 	timeS++;

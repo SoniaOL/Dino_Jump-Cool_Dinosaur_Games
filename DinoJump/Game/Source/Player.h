@@ -139,6 +139,24 @@ public:
 	int lifeT5Y = 950;
 	int lifeT5X = 320;
 
+
+	PhysBody* Coin1;
+	PhysBody* Coin2;
+	PhysBody* Coin3;
+	PhysBody* Coin4;
+
+	int CoinX1 = 300;
+	int CoinY1 = 1600;
+
+	int CoinX2 = 200;
+	int CoinY2 = 1400;
+
+	int CoinX3 = 350;
+	int CoinY3 = 1150;
+
+	int CoinX4 = 365;
+	int CoinY4 = 980;
+
 private:
 
 	//L02: DONE 1: Declare player parameters
@@ -154,6 +172,7 @@ private:
 	SDL_Texture* textureHearth; 
 	const char* texturePathHearth; 
 
+	SDL_Texture* textureCoin;
 
 	const char* audioPath;
 	const char* audioCoin;
