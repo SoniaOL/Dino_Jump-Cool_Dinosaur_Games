@@ -166,6 +166,9 @@ public:
 	int Check2X = 70;
 	int Check2Y = 1250;
 
+	bool check1;
+	bool check2;
+
 private:
 
 	//L02: DONE 1: Declare player parameters

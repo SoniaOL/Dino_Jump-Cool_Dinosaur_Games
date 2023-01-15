@@ -89,6 +89,8 @@ bool SceneLose::Update(float dt)
 			app->map->active = true;
 			app->sceneIntro->On = true;
 			app->sceneIntro->reset = true;
+			app->scene->player->check1 = false;
+			app->scene->player->check2 = false;
 
 			app->SaveGameRequest();
 		}

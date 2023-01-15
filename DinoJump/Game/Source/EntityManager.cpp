@@ -245,7 +245,7 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 			app->scene->fly->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 		}
 
-		if (flyLive == 0)
+		if (app->sceneIntro->reset == true)
 		{
 			if (app->scene->fly->isDead)
 			{
@@ -253,9 +253,22 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 			}
 		}
 
-		if (!app->scene->walk->isDead) {
+		if(app->scene->player->check1 == false)
+		{
+			if (app->scene->player->check2 == false)
+			{
+				if (flyLive == 0)
+				{
+					if (app->scene->fly->isDead)
+					{
+						app->scene->fly->col = true;
+					}
+				}
+			}
+		}
 
-
+		if (!app->scene->walk->isDead) 
+		{
 			PosX = data.child("WALKENEMY").attribute("x").as_int();
 			PosY = data.child("WALKENEMY").attribute("y").as_int();
 
@@ -265,13 +278,29 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 			app->scene->walk->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 		}
 
-		if (walkLive == 0)
+		if (app->sceneIntro->reset == true)
 		{
 			if (app->scene->walk->isDead)
 			{
 				app->scene->walk->col = true;
 			}
 		}
+
+		if (app->scene->player->check1 == false)
+		{
+			if (app->scene->player->check2 == false)
+			{
+				if (walkLive == 0)
+				{
+					if (app->scene->walk->isDead)
+					{
+						app->scene->walk->col = true;
+					}
+				}
+			}
+		}
+		
+		app->sceneIntro->reset = false;
 
 	return true;
 }
@@ -392,12 +421,17 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		lav.append_attribute("x") = app->scene->player->lavaPosX;
 		lav.append_attribute("y") = app->scene->player->lavaPosY;
 
-		flyEnemy.append_attribute("x") = app->scene->fly->position.x;
-		flyEnemy.append_attribute("y") = app->scene->fly->position.y;
+		if (!app->scene->fly->isDead)
+		{
+			flyEnemy.append_attribute("x") = app->scene->fly->position.x;
+			flyEnemy.append_attribute("y") = app->scene->fly->position.y;
+		}
 
-		walkEnemy.append_attribute("x") = app->scene->walk->position.x;
-		walkEnemy.append_attribute("y") = app->scene->walk->position.y;
-
+		if (!app->scene->walk->isDead)
+		{
+			walkEnemy.append_attribute("x") = app->scene->walk->position.x;
+			walkEnemy.append_attribute("y") = app->scene->walk->position.y;
+		}
 		Item.append_attribute("x") = app->scene->player->CoinX1;
 		Item.append_attribute("y") = app->scene->player->CoinY1;
 
@@ -602,8 +636,6 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		app->LoadGameRequest();
 
 		LOG("RESET");
-
-		app->sceneIntro->reset = false;
 	}
 
 	return true;

@@ -145,6 +145,8 @@ bool Player::Update()
 		lifeT5 = app->physics->CreateRectangleSensor(lifeT5X, lifeT5Y, 20, 20, KINEMATIC);
 		lifeT5->ctype = ColliderType::UNKNOWN;
 
+		Coin4 = app->physics->CreateRectangleSensor(CoinX4, CoinY4, 16, 16, bodyType::KINEMATIC);
+
 
 		/*life1 = life();
 		life1.Life = app->physics->CreateRectangleSensor(229, 1200, 20, 20, STATIC);
@@ -193,8 +195,6 @@ bool Player::Update()
 
 			Coin3 = app->physics->CreateRectangleSensor(CoinX3, CoinY3, 16, 16, bodyType::KINEMATIC);
 			Coin3->ctype = ColliderType::ITEM;
-
-			Coin4 = app->physics->CreateRectangleSensor(CoinX4, CoinY4, 16, 16, bodyType::KINEMATIC);
 
 			CHECK = app->physics->CreateRectangleSensor(150, 890, 50, 60, STATIC);
 			// L07 DONE 7: Assign collider type
@@ -547,30 +547,24 @@ bool Player::Update()
 
 	if (Coin1->body->IsActive() == true)
 	{
-		if (CoinY1 + 16 > lavaPosY)
+		if (CoinY1 + 16 < lavaPosY)
 		{
-			Coin1->body->SetActive(false);
+			app->render->DrawTexture(textureCoin, CoinX1 - 16, CoinY1 - 16);
 		}
-
-		app->render->DrawTexture(textureCoin, CoinX1 - 16, CoinY1 - 16);
 	}
 	if (Coin2->body->IsActive() == true)
 	{
-		if (CoinY2 + 16 > lavaPosY)
+		if (CoinY2 + 16 < lavaPosY)
 		{
-			Coin2->body->SetActive(false);
+			app->render->DrawTexture(textureCoin, CoinX2 - 16, CoinY2 - 16);
 		}
-
-		app->render->DrawTexture(textureCoin, CoinX2 - 16, CoinY2 - 16);
 	}
 	if (Coin3->body->IsActive() == true)
 	{
-		if (CoinY3 + 16 > lavaPosY)
+		if (CoinY3 + 16 < lavaPosY)
 		{
-			Coin3->body->SetActive(false);
+			app->render->DrawTexture(textureCoin, CoinX3 - 16, CoinY3 - 16);
 		}
-
-		app->render->DrawTexture(textureCoin, CoinX3 - 16, CoinY3 - 16);
 	}
 
 	app->render->DrawTexture(textureCoin, CoinX4 - 16, CoinY4 - 16);
@@ -622,11 +616,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		app->scene->walk->deadanim = true;*/
 		break;
 	case ColliderType::CHECK:
+		check2 = false;
+		check1 = true;
 		app->sceneIntro->checkpoint1 = true;
 		app->sceneIntro->reset = false;
 		app->SaveGameRequest();
 		break;
 	case ColliderType::CHECK1:
+		check1 = false;
+		check2 = true;
 		app->sceneIntro->checkpoint2 = true;
 		app->sceneIntro->reset = false;
 		app->SaveGameRequest();

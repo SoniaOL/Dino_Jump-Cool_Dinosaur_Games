@@ -76,6 +76,8 @@ bool SceneWin::Update(float dt)
 			app->scene->player->lives = true;
 			app->scene->col = true;
 			app->scene->player->Coins = 0;
+			/*app->scene->player->check1 = false;
+			app->scene->player->check2 = false;*/
 			app->fade->FadeToBlack(this, (Module*)app->sceneIntro, 40);
 		}
 	}

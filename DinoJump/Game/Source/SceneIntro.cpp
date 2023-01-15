@@ -204,11 +204,36 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		app->scene->player->Coins = 0; 
 		app->scene->player->lives = true; 
 		app->scene->player->DieCounter = 3; 
+		app->scene->player->check1 = false;
+		app->scene->player->check2 = false;
+		reset = true;
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 
 		break;
 	case 2:
 		LOG("Button 2 click");
+
+		if (app->scene->player->check1) {
+
+			app->scene->col = true;
+			app->scene->player->Coins = 0;
+			app->scene->player->lives = true;
+			app->scene->player->DieCounter = 3;
+			app->LoadFromFile();
+
+			app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+		}
+		if (app->scene->player->check2) {
+
+			app->scene->col = true;
+			app->scene->player->Coins = 0;
+			app->scene->player->lives = true;
+			app->scene->player->DieCounter = 3;
+			app->LoadFromFile();
+
+			app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+		}
+
 		break;
 	case 3:
 		LOG("Button 3 click");

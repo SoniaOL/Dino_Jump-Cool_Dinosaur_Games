@@ -169,9 +169,14 @@ bool Scene::Update(float dt)
 		app->entityManager->active = true;
 		app->map->active = true;
 		app->sceneIntro->On = true;
-		app->sceneIntro->reset = true;
-
-		app->SaveGameRequest();
+		if (app->scene->player->check1 == false)
+		{
+			if (app->scene->player->check2 == false)
+			{
+				app->sceneIntro->reset = true;
+				app->SaveGameRequest();
+			}
+		}
 
 		app->audio->PlayMusic(audioPath, 0.0f);
 	
@@ -198,6 +203,8 @@ bool Scene::Update(float dt)
 		app->sceneIntro->active = true;
 		app->physics->debug = false;
 		app->sceneIntro->reset = true;
+		/*app->scene->player->check1 = false;
+		app->scene->player->check2 = false;*/
 
 		if (!app->scene->fly->kill) {
 			app->scene->fly->CleanUp();
@@ -205,14 +212,13 @@ bool Scene::Update(float dt)
 		if (!app->scene->walk->kill) {
 			app->scene->walk->CleanUp();
 		}
-		app->SaveGameRequest();
 		this->active = false;
 	}
 	
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		if (player->dieCount != 1) {
-			app->SaveGameRequest();
 			app->sceneIntro->reset = false;
+			app->SaveGameRequest();
 		}
 	}
 
