@@ -39,6 +39,7 @@ public:
 
 	// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 	void OnCollision(PhysBody* physA, PhysBody* physB);
+	void EndContact(PhysBody* physA, PhysBody* physB);
 
 
 public:
@@ -168,6 +169,8 @@ public:
 
 	bool check1;
 	bool check2;
+	bool CheckOut1 = true;
+	bool CheckOut2 = true;
 	bool playerPos = false;
 
 private:

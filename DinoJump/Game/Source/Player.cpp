@@ -497,8 +497,6 @@ bool Player::Update()
 	CoinX4 = METERS_TO_PIXELS(Coin4->body->GetTransform().p.x);
 	CoinY4 = METERS_TO_PIXELS(Coin4->body->GetTransform().p.y);
 
-	LOG("CoinY1 %d", CoinY1);
-
 	SDL_Rect gui;
 	gui.x = 128; 
 	gui.y = 128; 
@@ -616,20 +614,28 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		app->scene->walk->deadanim = true;*/
 		break;
 	case ColliderType::CHECK:
-		check2 = false;
-		check1 = true;
-		playerPos = true;
-		app->sceneIntro->checkpoint1 = true;
-		app->sceneIntro->reset = false;
-		app->SaveGameRequest();
+		if (CheckOut1 == true)
+		{
+			check2 = false;
+			check1 = true;
+			playerPos = true;
+			app->sceneIntro->checkpoint1 = true;
+			app->sceneIntro->reset = false;
+			app->SaveGameRequest();
+			CheckOut1 = false;
+		}
 		break;
 	case ColliderType::CHECK1:
-		check1 = false;
-		check2 = true;
-		playerPos = true;
-		app->sceneIntro->checkpoint2 = true;
-		app->sceneIntro->reset = false;
-		app->SaveGameRequest();
+		if (CheckOut2 == true)
+		{
+			check1 = false;
+			check2 = true;
+			playerPos = true;
+			app->sceneIntro->checkpoint2 = true;
+			app->sceneIntro->reset = false;
+			app->SaveGameRequest();
+			CheckOut2 = false;
+		}
 		break;
 	case ColliderType::CAM:
 		lava = true;
@@ -686,4 +692,18 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::UNKNOWN:
 		break;
 		}
+}
+
+void Player::EndContact(PhysBody* physA, PhysBody* physB) {
+	switch (physB->ctype)
+	{
+	case ColliderType::CHECK:
+		LOG("OUT1");
+		CheckOut1 = true;
+		break;	
+	case ColliderType::CHECK1:
+		LOG("OUT2");
+		CheckOut2 = true;
+		break;
+	}
 }
