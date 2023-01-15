@@ -82,7 +82,6 @@ public:
 	PhysBody* LAVDetect;
 	PhysBody* LAV;
 	PhysBody* META;
-	PhysBody* CHECK;
 	PhysBody* CAMGDetect;
 	PhysBody* TOP;
 
@@ -156,6 +155,16 @@ public:
 
 	int CoinX4 = 365;
 	int CoinY4 = 980;
+
+
+	PhysBody* CHECK;
+	PhysBody* CHECK1;
+
+	int Check1X = 150;
+	int Check1Y = 890;	
+	
+	int Check2X = 70;
+	int Check2Y = 1250;
 
 private:
 

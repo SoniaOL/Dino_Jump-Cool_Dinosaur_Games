@@ -130,10 +130,6 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		META->ctype = ColliderType::META;
 
-		CHECK = app->physics->CreateRectangleSensor(150, 890, 50, 60, STATIC);
-		// L07 DONE 7: Assign collider type
-		CHECK->ctype = ColliderType::CHECK;
-
 		lifeT1 = app->physics->CreateRectangleSensor(lifeT1X, lifeT1Y, 20, 20, KINEMATIC);
 		lifeT1->ctype = ColliderType::UNKNOWN;
 
@@ -172,33 +168,41 @@ bool Player::Update()
 		life3.Life->ctype = ColliderType::LIFE;
 		life3.id = 2;*/
 
-		//LIFES.emplace_back(life3);
-
-		lifeP1 = app->physics->CreateRectangleSensor(lifep1X, lifep1Y, 20, 20, STATIC);
-		lifeP1->ctype = ColliderType::LIFE;
-
-		lifeP3 = app->physics->CreateRectangleSensor(lifep3X, lifep3Y, 20, 20, STATIC);
-		lifeP3->ctype = ColliderType::LIFE;
-
-		// L07 DONE 4: Add a physics to an item - initialize the physics body
-		Coin1 = app->physics->CreateRectangleSensor(CoinX1, CoinY1, 16, 16, bodyType::KINEMATIC);
-
-		// L07 DONE 7: Assign collider type
-		Coin1->ctype = ColliderType::ITEM;
-
-		Coin2 = app->physics->CreateRectangleSensor(CoinX2, CoinY2, 16, 16, bodyType::KINEMATIC);
-		Coin2->ctype = ColliderType::ITEM;
-
-		Coin3 = app->physics->CreateRectangleSensor(CoinX3, CoinY3, 16, 16, bodyType::KINEMATIC);
-		Coin3->ctype = ColliderType::ITEM;
-
-		Coin4 = app->physics->CreateRectangleSensor(CoinX4, CoinY4, 16, 16, bodyType::KINEMATIC);
-
 		if (init)
 		{
 			app->sceneIntro->reset = true;
 
 			app->SaveGameRequest();
+
+			//LIFES.emplace_back(life3);
+
+			lifeP1 = app->physics->CreateRectangleSensor(lifep1X, lifep1Y, 20, 20, STATIC);
+			lifeP1->ctype = ColliderType::LIFE;
+
+			lifeP3 = app->physics->CreateRectangleSensor(lifep3X, lifep3Y, 20, 20, STATIC);
+			lifeP3->ctype = ColliderType::LIFE;
+
+			// L07 DONE 4: Add a physics to an item - initialize the physics body
+			Coin1 = app->physics->CreateRectangleSensor(CoinX1, CoinY1, 16, 16, bodyType::KINEMATIC);
+
+			// L07 DONE 7: Assign collider type
+			Coin1->ctype = ColliderType::ITEM;
+
+			Coin2 = app->physics->CreateRectangleSensor(CoinX2, CoinY2, 16, 16, bodyType::KINEMATIC);
+			Coin2->ctype = ColliderType::ITEM;
+
+			Coin3 = app->physics->CreateRectangleSensor(CoinX3, CoinY3, 16, 16, bodyType::KINEMATIC);
+			Coin3->ctype = ColliderType::ITEM;
+
+			Coin4 = app->physics->CreateRectangleSensor(CoinX4, CoinY4, 16, 16, bodyType::KINEMATIC);
+
+			CHECK = app->physics->CreateRectangleSensor(150, 890, 50, 60, STATIC);
+			// L07 DONE 7: Assign collider type
+			CHECK->ctype = ColliderType::CHECK;
+
+			CHECK1 = app->physics->CreateRectangleSensor(70, 1250, 50, 60, STATIC);
+			// L07 DONE 7: Assign collider type
+			CHECK1->ctype = ColliderType::CHECK1;
 
 			init = false;
 		}
@@ -460,7 +464,20 @@ bool Player::Update()
 	DetectPosX = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.x);
 	DetectPosY = METERS_TO_PIXELS(LAVDetect->body->GetTransform().p.y);
 
-	LOG("LAVDETECT %d", DetectPosY);
+	CoinX1 = METERS_TO_PIXELS(Coin1->body->GetTransform().p.x);
+	CoinY1 = METERS_TO_PIXELS(Coin1->body->GetTransform().p.y);	
+	
+	CoinX2 = METERS_TO_PIXELS(Coin2->body->GetTransform().p.x);
+	CoinY2 = METERS_TO_PIXELS(Coin2->body->GetTransform().p.y);
+
+	CoinX3 = METERS_TO_PIXELS(Coin3->body->GetTransform().p.x);
+	CoinY3 = METERS_TO_PIXELS(Coin3->body->GetTransform().p.y);
+
+	lifep1X = METERS_TO_PIXELS(lifeP1->body->GetTransform().p.x);
+	lifep1Y = METERS_TO_PIXELS(lifeP1->body->GetTransform().p.y);
+	
+	lifep3X = METERS_TO_PIXELS(lifeP3->body->GetTransform().p.x);
+	lifep3Y = METERS_TO_PIXELS(lifeP3->body->GetTransform().p.y);
 
 	lifeT1X = METERS_TO_PIXELS(lifeT1->body->GetTransform().p.x);
 	lifeT1Y = METERS_TO_PIXELS(lifeT1->body->GetTransform().p.y);	
@@ -480,6 +497,8 @@ bool Player::Update()
 	CoinX4 = METERS_TO_PIXELS(Coin4->body->GetTransform().p.x);
 	CoinY4 = METERS_TO_PIXELS(Coin4->body->GetTransform().p.y);
 
+	LOG("CoinY1 %d", CoinY1);
+
 	SDL_Rect gui;
 	gui.x = 128; 
 	gui.y = 128; 
@@ -492,11 +511,17 @@ bool Player::Update()
 
 	if (lifeP1->body->IsActive() == true)
 	{
-		app->render->DrawTexture(textureHearth, lifep1X - 8, lifep1Y - 8, &gui);
+		if (lifep1Y + 20 < lavaPosY)
+		{
+			app->render->DrawTexture(textureHearth, lifep1X - 8, lifep1Y - 8, &gui);
+		}
 	}
 	if (lifeP3->body->IsActive() == true)
 	{
-		app->render->DrawTexture(textureHearth, lifep3X - 8, lifep3Y - 8, &gui);
+		if (lifep3Y + 20 < lavaPosY)
+		{
+			app->render->DrawTexture(textureHearth, lifep3X - 8, lifep3Y - 8, &gui);
+		}
 	}
 
 	if (DieCounter >= 1)
@@ -522,7 +547,7 @@ bool Player::Update()
 
 	if (Coin1->body->IsActive() == true)
 	{
-		if (Coin1->body->GetPosition().y >= lavaPosY)
+		if (CoinY1 + 16 > lavaPosY)
 		{
 			Coin1->body->SetActive(false);
 		}
@@ -531,7 +556,7 @@ bool Player::Update()
 	}
 	if (Coin2->body->IsActive() == true)
 	{
-		if (Coin2->body->GetPosition().y >= lavaPosY)
+		if (CoinY2 + 16 > lavaPosY)
 		{
 			Coin2->body->SetActive(false);
 		}
@@ -540,7 +565,7 @@ bool Player::Update()
 	}
 	if (Coin3->body->IsActive() == true)
 	{
-		if (Coin3->body->GetPosition().y >= lavaPosY)
+		if (CoinY3 + 16 > lavaPosY)
 		{
 			Coin3->body->SetActive(false);
 		}
@@ -589,23 +614,27 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::META:
 		Meta = true;
 		audiow = true;
-		app->scene->fly->kill = true;
+		app->scene->fly->CleanUp();
+		app->scene->walk->CleanUp();
+		/*app->scene->fly->kill = true;
 		app->scene->fly->deadanim = true;
 		app->scene->walk->kill = true;
-		app->scene->walk->deadanim = true;
+		app->scene->walk->deadanim = true;*/
 		break;
 	case ColliderType::CHECK:
+		app->sceneIntro->checkpoint1 = true;
 		app->sceneIntro->reset = false;
-		app->sceneIntro->checkpoint1 = false;
 		app->SaveGameRequest();
-		LOG("Check");
+		break;
+	case ColliderType::CHECK1:
+		app->sceneIntro->checkpoint2 = true;
+		app->sceneIntro->reset = false;
+		app->SaveGameRequest();
 		break;
 	case ColliderType::CAM:
-		LOG("CAM");
 		lava = true;
 		break;
 	case ColliderType::CAMG:
-		LOG("CAMGROUND");
 		camg = true;
 		break;
 	case ColliderType::LAVA:
@@ -639,11 +668,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		app->scene->walk->deadanim = true;
 		break;
 	case ColliderType::LAVADETECT:
-		LOG("LAVADEC");
 		lava = false;
 		break;
 	case ColliderType::CAMGDETECT:
-		LOG("CAMGDEC");
 		camg = false;
 		break;
 	case ColliderType::LIFE:

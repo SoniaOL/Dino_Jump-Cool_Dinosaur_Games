@@ -45,6 +45,7 @@ public:
 	bool On = false;
 	bool reset = false;
 	bool checkpoint1 = false;
+	bool checkpoint2 = false;
 	Player* player;
 
 

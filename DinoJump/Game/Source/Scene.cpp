@@ -280,6 +280,11 @@ bool Scene::Update(float dt)
 		app->sceneIntro->checkpoint1 = true;
 		app->sceneIntro->reset = false;
 		app->SaveGameRequest();
+	}	
+	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+		app->sceneIntro->checkpoint2 = true;
+		app->sceneIntro->reset = false;
+		app->SaveGameRequest();
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
