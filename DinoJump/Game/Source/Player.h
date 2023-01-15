@@ -168,6 +168,7 @@ public:
 
 	bool check1;
 	bool check2;
+	bool playerPos = false;
 
 private:
 

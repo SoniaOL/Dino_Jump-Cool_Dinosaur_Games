@@ -441,8 +441,20 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		Item3.append_attribute("x") = app->scene->player->CoinX3;
 		Item3.append_attribute("y") = app->scene->player->CoinY3;
 
-		play.append_attribute("x") = 125;
-		play.append_attribute("y") = 895;
+		if (app->scene->player->playerPos == false)
+		{
+			play.append_attribute("x") = 125;
+			play.append_attribute("y") = 895;
+		}
+
+		if (app->scene->player->playerPos == true)
+		{
+			play.append_attribute("x") = app->scene->player->position.x;
+			play.append_attribute("y") = app->scene->player->position.y;
+
+			app->scene->player->playerPos = false;
+			
+		}
 
 		lavDetect.append_attribute("x") = 37;
 		lavDetect.append_attribute("y") = 1485;
@@ -480,10 +492,10 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		Check2.append_attribute("x") = app->scene->player->Check2X;
 		Check2.append_attribute("y") = app->scene->player->Check2Y;
 
+		app->sceneIntro->checkpoint1 = false;
+		
 		app->LoadGameRequest();
 
-
-		app->sceneIntro->checkpoint1 = false;
 	}
 
 	if (app->sceneIntro->checkpoint2)
@@ -493,12 +505,17 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		lav.append_attribute("x") = app->scene->player->lavaPosX;
 		lav.append_attribute("y") = app->scene->player->lavaPosY;
 
-		flyEnemy.append_attribute("x") = app->scene->fly->position.x;
-		flyEnemy.append_attribute("y") = app->scene->fly->position.y;
+		if (!app->scene->fly->isDead)
+		{
+			flyEnemy.append_attribute("x") = app->scene->fly->position.x;
+			flyEnemy.append_attribute("y") = app->scene->fly->position.y;
+		}
 
-		walkEnemy.append_attribute("x") = app->scene->walk->position.x;
-		walkEnemy.append_attribute("y") = app->scene->walk->position.y;
-
+		if (!app->scene->walk->isDead)
+		{
+			walkEnemy.append_attribute("x") = app->scene->walk->position.x;
+			walkEnemy.append_attribute("y") = app->scene->walk->position.y;
+		}
 		Item.append_attribute("x") = app->scene->player->CoinX1;
 		Item.append_attribute("y") = app->scene->player->CoinY1;
 
@@ -508,10 +525,19 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		Item3.append_attribute("x") = app->scene->player->CoinX3;
 		Item3.append_attribute("y") = app->scene->player->CoinY3;
 
-		//app->scene->player->lava = false;
+		if (app->scene->player->playerPos == false)
+		{
+			play.append_attribute("x") = 80;
+			play.append_attribute("y") = 1245;
+		}
 
-		play.append_attribute("x") = 80;
-		play.append_attribute("y") = 1245;
+		if (app->scene->player->playerPos == true)
+		{
+			play.append_attribute("x") = app->scene->player->position.x;
+			play.append_attribute("y") = app->scene->player->position.y;
+
+			app->scene->player->playerPos = false;
+		}
 
 		lavDetect.append_attribute("x") = 37;
 		lavDetect.append_attribute("y") = 1385;
@@ -548,11 +574,11 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 
 		Check2.append_attribute("x") = app->scene->player->Check2X;
 		Check2.append_attribute("y") = app->scene->player->Check2Y;
+		
+		app->sceneIntro->checkpoint2 = false;
 
 		app->LoadGameRequest();
-	
 
-		app->sceneIntro->checkpoint2 = false;
 	}
 
 	if (app->sceneIntro->reset) 

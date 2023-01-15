@@ -618,6 +618,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::CHECK:
 		check2 = false;
 		check1 = true;
+		playerPos = true;
 		app->sceneIntro->checkpoint1 = true;
 		app->sceneIntro->reset = false;
 		app->SaveGameRequest();
@@ -625,6 +626,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::CHECK1:
 		check1 = false;
 		check2 = true;
+		playerPos = true;
 		app->sceneIntro->checkpoint2 = true;
 		app->sceneIntro->reset = false;
 		app->SaveGameRequest();
@@ -641,6 +643,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 			if (app->scene->player->die == false) {
 				DieCounter--;
 				/*audiob = true;*/
+				check1 = false;
+				check2 = false;
 				app->LoadGameRequest();
 				app->sceneIntro->reset = false;
 			}
