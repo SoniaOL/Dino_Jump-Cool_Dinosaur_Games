@@ -207,7 +207,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		app->scene->player->check1 = false;
 		app->scene->player->check2 = false;
 		reset = true;
-		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+		app->fade->FadeToBlack(this, (Module*)app->scene, 20);
 
 		break;
 	case 2:
@@ -223,7 +223,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 
 			app->scene->player->CheckOut1 = false;
 			app->scene->player->CheckOut2 = false;
-			app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+			app->fade->FadeToBlack(this, (Module*)app->scene, 20);
 			app->scene->player->CheckOut1 = false;
 			app->scene->player->CheckOut2 = false;
 		}
@@ -237,7 +237,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 
 			app->scene->player->CheckOut1 = false;
 			app->scene->player->CheckOut2 = false;
-			app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+			app->fade->FadeToBlack(this, (Module*)app->scene, 20);
 			app->scene->player->CheckOut1 = false;
 			app->scene->player->CheckOut2 = false;
 		}
