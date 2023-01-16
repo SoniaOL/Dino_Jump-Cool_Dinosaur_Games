@@ -253,10 +253,7 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 			}
 		}
 
-		if(app->scene->player->check1 == false)
-		{
-			if (app->scene->player->check2 == false)
-			{
+		
 				if (flyLive == 0)
 				{
 					if (app->scene->fly->isDead)
@@ -264,16 +261,16 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 						app->scene->fly->col = true;
 					}
 				}
-			}
-		}
+		
+
 
 		if (!app->scene->walk->isDead) 
 		{
 			PosX = data.child("WALKENEMY").attribute("x").as_int();
 			PosY = data.child("WALKENEMY").attribute("y").as_int();
 
-			app->scene->fly->position.x = PosX;
-			app->scene->fly->position.y = PosY;
+			app->scene->walk->position.x = PosX;
+			app->scene->walk->position.y = PosY;
 
 			app->scene->walk->pbody->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 		}
@@ -286,10 +283,7 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 			}
 		}
 
-		if (app->scene->player->check1 == false)
-		{
-			if (app->scene->player->check2 == false)
-			{
+	
 				if (walkLive == 0)
 				{
 					if (app->scene->walk->isDead)
@@ -297,8 +291,7 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 						app->scene->walk->col = true;
 					}
 				}
-			}
-		}
+		
 		
 		app->sceneIntro->reset = false;
 
@@ -492,6 +485,22 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		Check2.append_attribute("x") = app->scene->player->Check2X;
 		Check2.append_attribute("y") = app->scene->player->Check2Y;
 
+		if (!app->scene->fly->isDead) {
+			flyLive = 0;
+		}
+
+		if (app->scene->fly->isDead) {
+			flyLive = 1;
+		}
+
+		if (!app->scene->walk->isDead) {
+			walkLive = 0;
+		}
+
+		if (app->scene->walk->isDead) {
+			walkLive = 1;
+		}
+
 		app->sceneIntro->checkpoint1 = false;
 		
 		app->LoadGameRequest();
@@ -575,6 +584,22 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		Check2.append_attribute("x") = app->scene->player->Check2X;
 		Check2.append_attribute("y") = app->scene->player->Check2Y;
 		
+		if (!app->scene->fly->isDead) {
+			flyLive = 0;
+		}
+
+		if (app->scene->fly->isDead) {
+			flyLive = 1;
+		}
+
+		if (!app->scene->walk->isDead) {
+			walkLive = 0;
+		}
+
+		if (app->scene->walk->isDead) {
+			walkLive = 1;
+		}
+
 		app->sceneIntro->checkpoint2 = false;
 
 		app->LoadGameRequest();
