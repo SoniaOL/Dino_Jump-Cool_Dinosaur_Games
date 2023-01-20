@@ -14,29 +14,30 @@
 	<sceneIntro />
 	<sceneIntro />
 	<entitymanager>
-		<player x="123" y="885" />
-		<LAV x="37" y="1692" />
-		<LAVDetect x="37" y="1485" />
-		<CAM x="37" y="1128" />
-		<CAMG x="37" y="1500" />
-		<CAMGDETECT x="37" y="1138" />
-		<FLYENEMY />
+		<player x="176" y="1745" />
+		<LAV x="37" y="1842" />
+		<LAVDetect x="37" y="1770" />
+		<CAM x="37" y="1412" />
+		<CAMG x="37" y="1785" />
+		<CAMGDETECT x="37" y="1462" />
+		<FLYENEMY x="348" y="1356" />
 		<WALKENEMY x="228" y="1090" />
-		<Life1 x="400" y="665" />
-		<Life2 x="380" y="665" />
-		<Life3 x="360" y="665" />
-		<Life4 x="340" y="665" />
-		<Life5 x="320" y="665" />
+		<Life1 x="400" y="950" />
+		<Life2 x="380" y="950" />
+		<Life3 x="360" y="950" />
+		<Life4 x="340" y="950" />
+		<Life5 x="320" y="950" />
 		<item x="300" y="1600" />
 		<item2 x="200" y="1400" />
 		<item3 x="350" y="1150" />
-		<item4 x="365" y="695" />
+		<item4 x="365" y="980" />
 		<Check1 x="150" y="890" />
 		<Check2 x="70" y="1250" />
+		<camera x="0" y="-900" />
 	</entitymanager>
 	<FadeToBlack />
 	<guiManager />
 	<renderer>
-		<camera x="0" y="-618" />
+		<camera x="0" y="-900" />
 	</renderer>
 </save_state>

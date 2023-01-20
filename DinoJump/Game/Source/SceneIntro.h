@@ -48,7 +48,6 @@ public:
 	bool checkpoint2 = false;
 	Player* player;
 
-
 private:
 	const char* imgpath;
 	const char* deathpath;
@@ -78,9 +77,9 @@ private:
 	GuiButton* button4;
 
 	bool exit = true; 
-	
 
 	
+
 
 };
 

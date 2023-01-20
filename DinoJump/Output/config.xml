@@ -29,7 +29,8 @@
   <sceneIntro>
 	  <imgintro texturepath ="Assets/Textures/dinoInicio.png"/>
 	  <imgintrodeath death ="Assets/Textures/dinoDeath.png" win ="Assets/Textures/dinoWin.png"/>
-      <audio pathwin="Assets/Audio/Fx/win.ogg" pathlose="Assets/Audio/Fx/lose.ogg"/>	
+      <audio pathwin="Assets/Audio/Fx/win.ogg" pathlose="Assets/Audio/Fx/lose.ogg"/>
+	  <gui audio ="Assets/Audio/Fx/buttonsound.ogg "/>
   </sceneIntro>	
 
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->

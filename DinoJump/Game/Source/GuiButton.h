@@ -22,7 +22,10 @@ public:
 	bool canClick = true;
 	bool drawBasic = false;
 
-	uint audioFxId;
+	uint audioFx;
+	uint clickaudio; 
+
+	bool focused; 
 };
 
 #endif // __GUIBUTTON_H__

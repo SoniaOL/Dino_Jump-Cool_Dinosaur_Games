@@ -150,6 +150,12 @@ bool Audio::ResumeMusic()
 	return true;
 }
 
+bool Audio::Pause(uint a) {
+
+	Mix_Pause(a); 
+	return true; 
+}
+
 
 // Load WAV
 unsigned int Audio::LoadFx(const char* path)

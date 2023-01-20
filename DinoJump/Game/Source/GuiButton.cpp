@@ -3,7 +3,6 @@
 #include "App.h"
 #include "Audio.h"
 #include "Log.h"
-
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
@@ -11,8 +10,11 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 
 	canClick = true;
 	drawBasic = false;
+	focused = true; 
 
 	//audioFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	audioFx = app->audio->LoadFx("Assets/Audio/Fx/buttonsound.ogg");
+	clickaudio = app->audio->LoadFx("Assets/Audio/Fx/clickButton.ogg");
 }
 
 GuiButton::~GuiButton()
@@ -34,9 +36,11 @@ bool GuiButton::Update(float dt)
 			mouseY >= bounds.y && mouseY <= bounds.y + bounds.h) {
 
 			state = GuiControlState::FOCUSED;
-			if (previousState != state) {
+			if (previousState != state && focused == true) {
 				LOG("Change state from %d to %d", previousState, state);
-				//app->audio->PlayFx(audioFxId);
+				if (focused == true) {
+					app->audio->PlayFx(audioFx, 0);
+				}
 			}
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT) {
@@ -45,7 +49,11 @@ bool GuiButton::Update(float dt)
 
 			//
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
+				focused = false; 
+				//app->audio->Pause(audioFx); 
+				app->audio->PlayFx(clickaudio, 0);
 				NotifyObserver();
+
 			}
 		}
 		else {

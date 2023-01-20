@@ -36,6 +36,8 @@ public:
 
 	bool ResumeMusic();
 
+	bool Pause(uint a); 
+
 private:
 
 	_Mix_Music* music;
