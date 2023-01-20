@@ -27,6 +27,7 @@ class PathFinding;
 class GuiManager;
 class SceneLose; 
 class SceneWin;
+class SceneCredit;
 //class FlyEnemy;
 
 class App
@@ -107,6 +108,7 @@ public:
 	PathFinding* pathfinding;
 	PathFinding* pathfinding2;
 	GuiManager* guiManager;
+	SceneCredit* scenecredit;
 	//FlyEnemy* flyEnemy; 
 
 private:

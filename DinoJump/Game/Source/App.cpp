@@ -16,6 +16,7 @@
 #include "GuiManager.h"
 #include "SceneLose.h"
 #include "SceneWin.h"
+#include "SceneCredits.h"
 #include "Item.h"
 
 #include "Defs.h"
@@ -47,6 +48,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new ModuleFadeToBlack();
 	map = new Map();
 	guiManager = new GuiManager();
+	scenecredit = new SceneCredit();
 	//flyEnemy = new FlyEnemy();
 
 	// Ordered for awake / Start / Update
@@ -69,6 +71,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(fade);
 	AddModule(guiManager);
+	AddModule(scenecredit);
 
 	// Render last to swap buffer
 	AddModule(render);
