@@ -70,11 +70,13 @@ bool SceneIntro::Start()
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
-	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (int)w/2 - 85/2,700,85,20 }, this);
-	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { (int)w / 2 - 125/2,730,125,20 }, this);
-	button3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { (int)w / 2 - 125/2,760,125,20 }, this);
-	button4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit", { (int)w / 2 - 60/2,790,60,20 }, this);
-	button5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Credits", { (int)w / 2 - 113/2,820,113,20 }, this);
+	if (this->active == true) {
+		button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (int)w / 2 - 85 / 2,700,85,20 }, this);
+		button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { (int)w / 2 - 125 / 2,730,125,20 }, this);
+		button3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { (int)w / 2 - 125 / 2,760,125,20 }, this);
+		button4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit", { (int)w / 2 - 60 / 2,790,60,20 }, this);
+		button5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Credits", { (int)w / 2 - 113 / 2,820,113,20 }, this);
+	}
 
 	return true;
 }
@@ -179,7 +181,6 @@ bool SceneIntro::Update(float dt)
 	//	app->scenecredit->col = true;
 	//	app->fade->FadeToBlack(this, (Module*)app->scenecredit, 20);
 	//}
-
 	app->guiManager->Draw();
 
 

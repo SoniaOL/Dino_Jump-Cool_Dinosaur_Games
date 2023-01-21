@@ -3,6 +3,7 @@
 #include "App.h"
 #include "Audio.h"
 #include "Log.h"
+#include "SceneIntro.h"
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
@@ -38,7 +39,7 @@ bool GuiButton::Update(float dt)
 			state = GuiControlState::FOCUSED;
 			if (previousState != state && focused == true) {
 				LOG("Change state from %d to %d", previousState, state);
-				if (focused == true) {
+				if (focused == true && app->sceneIntro->active == true) {
 					app->audio->PlayFx(audioFx, 0);
 				}
 			}
@@ -51,9 +52,10 @@ bool GuiButton::Update(float dt)
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
 				focused = false; 
 				//app->audio->Pause(audioFx); 
-				app->audio->PlayFx(clickaudio, 0);
-				NotifyObserver();
-
+				if (app->sceneIntro->active == true) {
+					app->audio->PlayFx(clickaudio, 0);
+					NotifyObserver();
+				}
 			}
 		}
 		else {
