@@ -91,6 +91,8 @@ bool SceneLose::Update(float dt)
 			app->sceneIntro->reset = true;
 			app->scene->player->check1 = false;
 			app->scene->player->check2 = false;
+			app->sceneIntro->bluefire = false; 
+			app->scene->col = true; 
 
 			app->SaveGameRequest();
 		}

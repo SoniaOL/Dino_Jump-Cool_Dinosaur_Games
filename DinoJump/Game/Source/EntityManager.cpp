@@ -502,6 +502,8 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		}
 
 		app->sceneIntro->checkpoint1 = false;
+
+		app->sceneIntro->bluefire2 = true; 
 		
 		app->LoadGameRequest();
 
@@ -601,6 +603,8 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		}
 
 		app->sceneIntro->checkpoint2 = false;
+
+		app->sceneIntro->bluefire = true;
 
 		app->LoadGameRequest();
 

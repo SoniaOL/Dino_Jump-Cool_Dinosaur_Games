@@ -6,6 +6,7 @@
 #include "Item.h"
 #include "FlyEnemy.h"
 #include "WalkEnemy.h"
+#include "Animation.h"
 
 
 struct SDL_Texture;
@@ -55,11 +56,23 @@ public:
 private:
 	SDL_Texture* img;
 
+	SDL_Texture* fire; 
+	SDL_Texture* fire2;
+
+	const char* pathFire; 
+
+
 	const char* audioPath;
 	int audio; 
+	const char* audioPathfire;
+	int audiofire;
+	bool firesound = true; 
+	bool firesound2 = true; 
 
-
-
+	Animation* currentAnimation = nullptr;
+	Animation* currentAnimation2 = nullptr;
+	Animation fireloop;
+	Animation blueStart; 
 };
 
 #endif // __SCENE_H__

@@ -19,6 +19,34 @@
 Scene::Scene() : Module()
 {
 	name.Create("scene");
+
+	fireloop.PushBack({ 2,0,21,32 }); 
+	fireloop.PushBack({ 26,0,21,32 }); 
+	fireloop.PushBack({ 50,0,21,32 }); 
+	fireloop.PushBack({ 74,0,21,32 }); 
+	fireloop.PushBack({ 98,0,21,32 }); 
+	fireloop.PushBack({ 122,0,21,32 }); 
+	fireloop.PushBack({ 146,0,21,32 }); 
+	fireloop.PushBack({ 170,0,21,32 }); 
+	fireloop.speed = 0.2f; 
+
+	//fireloop.PushBack({ 98,32,21,32 });
+	//fireloop.PushBack({ 122,32,21,32 });
+	//fireloop.PushBack({ 146,32,21,32 });
+	//fireloop.PushBack({ 170,32,21,32 });
+
+	blueStart.PushBack({ 2,64,21,32 });
+	blueStart.PushBack({ 26,64,21,32 });
+	blueStart.PushBack({ 50,64,21,32 });
+	blueStart.PushBack({ 74,64,21,32 });
+	blueStart.PushBack({ 98,64,21,32 });
+	blueStart.PushBack({ 122,64,21,32 });
+	blueStart.PushBack({ 146,64,21,32 });
+	blueStart.PushBack({ 170,64,21,32 });
+	blueStart.speed = 0.2f; 
+
+	
+
 }
 
 // Destructor
@@ -56,7 +84,8 @@ bool Scene::Awake(pugi::xml_node& config)
 
 
 	audioPath = config.child("player").child("audio").attribute("path").as_string();
-	/*audio = app->audio->LoadFx(audioPath);*/
+	pathFire = config.child("player").child("fire").attribute("texturepath").as_string();
+	audioPathfire = config.child("player").child("fire").attribute("sound").as_string();
 
 	return ret;
 }
@@ -71,6 +100,13 @@ bool Scene::Start()
 	// L03: DONE: Load map
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load();
+
+	fire = app->tex->Load(pathFire);
+	fire2 = app->tex->Load(pathFire);
+
+	audiofire = app->audio->LoadFx(audioPathfire);
+	firesound = true;
+	firesound2 = true;
 
 	// L12 Create walkability map
 	if (retLoad) {
@@ -101,6 +137,9 @@ bool Scene::Start()
 		app->map->mapData.tilesets.Count());
 
 	app->win->SetTitle(title.GetString());
+
+	app->sceneIntro->bluefire = false;
+	app->sceneIntro->bluefire2 = false;
 
 
 	return true;
@@ -320,6 +359,41 @@ bool Scene::Update(float dt)
 	//Convert again the tile coordinates to world coordinates to render the texture of the tile
 	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
 	app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);
+
+	if (app->sceneIntro->bluefire == false) {
+		currentAnimation = &fireloop;
+	}
+	if (app->sceneIntro->bluefire2 == false) {
+		currentAnimation2 = &fireloop;
+	}
+
+	if (app->sceneIntro->bluefire == true) {
+		currentAnimation = &blueStart;
+		if (firesound == true) {
+			app->audio->PlayFx(audiofire);
+			firesound = false; 
+		}
+	}
+
+	if (app->sceneIntro->bluefire2 == true) {
+		currentAnimation2 = &blueStart;
+		if (firesound2 == true) {
+			app->audio->PlayFx(audiofire);
+			firesound2 = false;
+		}
+
+	}
+
+	SDL_Rect fireplace = currentAnimation->GetCurrentFrame(); 
+	SDL_Rect fireplace2 = currentAnimation2->GetCurrentFrame(); 
+ 
+	currentAnimation->Update(); 
+	currentAnimation2->Update(); 
+
+	app->render->DrawTexture(fire, 59, 1246, &fireplace); 
+	app->render->DrawTexture(fire2, 146, 890, &fireplace2); 
+
+	
 
 
 	//if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)

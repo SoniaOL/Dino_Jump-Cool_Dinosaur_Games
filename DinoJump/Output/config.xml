@@ -46,7 +46,8 @@
 	  <audio path="Assets/Audio/Music/Background.ogg"/>	
 	  <audioJump path="Assets/Audio/Fx/bitJump.ogg"/>
     <audioCoin path="Assets/Audio/Fx/Coin.ogg"/>	
-	  <audioSlide path="Assets/Audio/Fx/Slide.ogg"/>	
+	  <audioSlide path="Assets/Audio/Fx/Slide.ogg"/>
+	  <fire texturepath="Assets/Textures/fires2.png" sound="Assets/Audio/Fx/firesound.ogg"/>
 		
     </player>
 
