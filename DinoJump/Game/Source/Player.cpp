@@ -614,6 +614,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		app->scene->walk->deadanim = true;*/
 		break;
 	case ColliderType::CHECK:
+		app->sceneIntro->bluefire = false; 
+		app->scene->firesound = true;
+		app->sceneIntro->bluefire2 = true;
 		if (CheckOut1 == true)
 		{
 			check2 = false;
@@ -626,6 +629,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		}
 		break;
 	case ColliderType::CHECK1:
+		app->sceneIntro->bluefire2 = false;
+		app->scene->firesound2 = true;
+		app->sceneIntro->bluefire = true;
 		if (CheckOut2 == true)
 		{
 			check1 = false;

@@ -14,12 +14,12 @@
 	<sceneIntro />
 	<sceneIntro />
 	<entitymanager>
-		<player x="124" y="884" />
-		<LAV x="37" y="1684" />
-		<LAVDetect x="37" y="1485" />
-		<CAM x="37" y="1128" />
-		<CAMG x="37" y="1500" />
-		<CAMGDETECT x="37" y="1138" />
+		<player x="99" y="1227" />
+		<LAV x="37" y="1492" />
+		<LAVDetect x="37" y="1385" />
+		<CAM x="37" y="1028" />
+		<CAMG x="37" y="1400" />
+		<CAMGDETECT x="37" y="1038" />
 		<FLYENEMY x="348" y="1356" />
 		<WALKENEMY x="228" y="1090" />
 		<Life1 x="400" y="665" />
@@ -36,6 +36,7 @@
 	</entitymanager>
 	<FadeToBlack />
 	<guiManager />
+	<sceneIntro />
 	<renderer>
 		<camera x="0" y="-618" />
 	</renderer>

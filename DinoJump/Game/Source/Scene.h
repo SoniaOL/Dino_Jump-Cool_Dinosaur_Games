@@ -52,6 +52,9 @@ public:
 	bool originSelected = false;
 	bool change = false;
 	iPoint origin;
+	
+	bool firesound = true;
+	bool firesound2 = true;
 
 private:
 	SDL_Texture* img;
@@ -66,8 +69,6 @@ private:
 	int audio; 
 	const char* audioPathfire;
 	int audiofire;
-	bool firesound = true; 
-	bool firesound2 = true; 
 
 	Animation* currentAnimation = nullptr;
 	Animation* currentAnimation2 = nullptr;

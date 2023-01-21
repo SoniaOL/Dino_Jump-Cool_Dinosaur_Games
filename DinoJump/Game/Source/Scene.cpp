@@ -138,10 +138,6 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 
-	app->sceneIntro->bluefire = false;
-	app->sceneIntro->bluefire2 = false;
-
-
 	return true;
 }
 
@@ -211,6 +207,8 @@ bool Scene::Update(float dt)
 		{
 			if (app->scene->player->check2 == false)
 			{
+				app->sceneIntro->bluefire = false;
+				app->sceneIntro->bluefire2 = false;
 				app->sceneIntro->reset = true;
 				app->SaveGameRequest();
 			}
