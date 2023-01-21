@@ -15,6 +15,7 @@
 #include "GuiManager.h"
 #include "SceneLose.h"
 #include "SceneWin.h"
+#include "SceneCredits.h"
 
 SceneIntro::SceneIntro() : Module()
 {
@@ -52,6 +53,7 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 	app->entityManager->active = false;
 	app->map->active = false;
 	app->scene->active = false;
+	app->scenecredit->active = false;
 	app->sceneLose->active = false; 
 	app->sceneWin->active = false; 
 
@@ -169,6 +171,12 @@ bool SceneIntro::Update(float dt)
 			}
 			app->LoadGameRequest();
 		}
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) 
+	{
+		app->scenecredit->col = true;
+		app->fade->FadeToBlack(this, (Module*)app->scenecredit, 20);
 	}
 
 	app->guiManager->Draw();

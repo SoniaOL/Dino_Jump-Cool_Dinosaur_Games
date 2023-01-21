@@ -30,6 +30,7 @@
     <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\SceneWin.cpp" />
+    <ClCompile Include="Source\SceneCredits.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\SceneWin.h" />
+    <ClInclude Include="Source\SceneCredits.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
