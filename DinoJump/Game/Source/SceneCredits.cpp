@@ -39,6 +39,7 @@ bool SceneCredit::Awake(pugi::xml_node& config)
 bool SceneCredit::Start()
 {
 	credit = app->tex->Load(creditpath);
+	col = true; 
 	return true;
 }
 
@@ -53,7 +54,7 @@ bool SceneCredit::Update(float dt)
 {
 	bool ret = true;
 
-	if (col)
+	if (col == true)
 	{
 		app->audio->PlayMusic(creditsong, 0.0f);
 		

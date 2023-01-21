@@ -78,6 +78,7 @@ private:
 	GuiButton* button2;
 	GuiButton* button3;
 	GuiButton* button4;
+	GuiButton* button5;
 
 	bool exit = true; 
 
