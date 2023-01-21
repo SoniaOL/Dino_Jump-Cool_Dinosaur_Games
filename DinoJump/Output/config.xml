@@ -29,7 +29,7 @@
   <sceneIntro>
 	  <imgintro texturepath ="Assets/Textures/dinoInicio.png"/>
 	  <imgintrodeath death ="Assets/Textures/dinoDeath.png" win ="Assets/Textures/dinoWin.png"/>
-      <audio pathwin="Assets/Audio/Fx/win.ogg" pathlose="Assets/Audio/Fx/lose.ogg"/>
+      <audio pathwin="Assets/Audio/Fx/win.ogg" pathlose="Assets/Audio/Fx/lose.ogg" pathintro="Assets/Audio/Music/intro.ogg"/>
 	  <gui audio ="Assets/Audio/Fx/buttonsound.ogg "/>
 	  <credits path ="Assets/Textures/Credits.png" audio="Assets/Audio/Music/CreditsSong.ogg"/>
   </sceneIntro>	
@@ -46,8 +46,9 @@
       <Meta x="229" y="719" texturepath="Assets/Textures/MetaRed.png " />
 	  <audio path="Assets/Audio/Music/Background.ogg"/>	
 	  <audioJump path="Assets/Audio/Fx/bitJump.ogg"/>
-    <audioCoin path="Assets/Audio/Fx/Coin.ogg"/>	
+      <audioCoin path="Assets/Audio/Fx/Coin.ogg"/>	
 	  <audioSlide path="Assets/Audio/Fx/Slide.ogg"/>
+	  <audioheart heartsound="Assets/Audio/Fx/heart.ogg"/>
 	  <fire texturepath="Assets/Textures/fires2.png" sound="Assets/Audio/Fx/firesound.ogg"/>
 		
     </player>

@@ -69,6 +69,8 @@ bool Player::Awake() {
 
 	texturePathHearth = parameters.child("gui").attribute("texturepath").as_string();
 
+	audioheart = parameters.child("audioheart").attribute("heartsound").as_string();
+
 	return true;
 }
 
@@ -77,6 +79,7 @@ bool Player::Start() {
 	pickCoinFxId = app->audio->LoadFx(audioCoin);
 	audio = app->audio->LoadFx(audioPath);
 	audioSlide = app->audio->LoadFx(audioPathSlide);
+	heartsound = app->audio->LoadFx(audioheart); 
 
 	return true;
 }
@@ -688,9 +691,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		camg = false;
 		break;
 	case ColliderType::LIFE:
-
 		if (physB->body->IsActive() == true)
 		{
+			app->audio->PlayFx(heartsound); 
 			DieCounter++;
 		}
 		physB->body->SetActive(false);

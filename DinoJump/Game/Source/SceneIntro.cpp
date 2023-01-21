@@ -45,10 +45,8 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	imgpath = config.child("imgintro").attribute("texturepath").as_string();
-	/*deathpath = config.child("imgintrodeath").attribute("death").as_string();*/
-	/*winpath = config.child("imgintrodeath").attribute("win").as_string();*/
-	/*audioPathlose = config.child("audio").attribute("pathlose").as_string(); */
-	/*audioPathwin = config.child("audio").attribute("pathwin").as_string(); */
+	audioPathintro = config.child("audio").attribute("pathintro").as_string();
+
 
 	app->entityManager->active = false;
 	app->map->active = false;
@@ -63,14 +61,12 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneIntro::Start()
 {
-	//img = app->tex->Load("Assets/Textures/test.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+
 
 	img = app->tex->Load(imgpath); 
-	/*death = app->tex->Load(deathpath); */
-	/*win = app->tex->Load(winpath); */
-	/*audiolose = app->audio->LoadFx(audioPathlose);*/
-	//audiowin = app->audio->LoadFx(audioPathwin);
+
+	start = true; 
+
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
@@ -92,6 +88,10 @@ bool SceneIntro::PreUpdate()
 // Called each loop iteration
 bool SceneIntro::Update(float dt)
 {
+	if (start == true) {
+		app->audio->PlayMusic(audioPathintro, 0.0f);
+		start = false; 
+	}
 	bool ret = true;
 	/*app->render->DrawTexture(img, 0, 860);
 	app->render->DrawTexture(img2, 0, 860);*/
@@ -280,6 +280,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 bool SceneIntro::CleanUp()
 {
 	app->tex->UnLoad(img);
+	app->audio->PauseMusic(); 
 	//app->tex->UnLoad(death);
 	/*app->tex->UnLoad(win);*/
 

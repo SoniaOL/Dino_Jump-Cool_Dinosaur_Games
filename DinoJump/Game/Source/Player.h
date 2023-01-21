@@ -193,6 +193,8 @@ private:
 	const char* audioPath;
 	const char* audioCoin;
 	const char* audioPathSlide;
+	const char* audioheart; 
+	int heartsound;
 	int audio;
 	int pickCoinFxId;
 	int audioSlide;
