@@ -194,6 +194,8 @@ private:
 	const char* audioCoin;
 	const char* audioPathSlide;
 	const char* audioheart; 
+	const char* audiohit; 
+	int hitaudio; 
 	int heartsound;
 	int audio;
 	int pickCoinFxId;

@@ -71,6 +71,8 @@ bool Player::Awake() {
 
 	audioheart = parameters.child("audioheart").attribute("heartsound").as_string();
 
+	audiohit = parameters.child("audiohit").attribute("hitsound").as_string();
+
 	return true;
 }
 
@@ -80,6 +82,7 @@ bool Player::Start() {
 	audio = app->audio->LoadFx(audioPath);
 	audioSlide = app->audio->LoadFx(audioPathSlide);
 	heartsound = app->audio->LoadFx(audioheart); 
+	hitaudio = app->audio->LoadFx(audiohit); 
 
 	return true;
 }
@@ -656,6 +659,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		if (!GodMode)
 		{
 			if (app->scene->player->die == false) {
+				app->audio->PlayFx(hitaudio); 
 				DieCounter--;
 				/*audiob = true;*/
 				check1 = false;
@@ -669,6 +673,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		if (!GodMode)
 		{
 			if (app->scene->player->die == false) {
+				app->audio->PlayFx(hitaudio);
 				DieCounter--;
 				/*	audiob = true;*/
 				app->LoadGameRequest();
