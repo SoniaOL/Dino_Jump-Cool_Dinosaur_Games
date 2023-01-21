@@ -192,7 +192,7 @@ bool Scene::Update(float dt)
 		app->physics->debug = false;
 		//app->SaveGameRequest();
 		/*this->active = false;*/
-		app->fade->FadeToBlack(this, (Module*)app->sceneWin, 40);
+		app->fade->FadeToBlack(this, (Module*)app->sceneWin, 20);
 	}
 
 	if (col)
@@ -203,6 +203,17 @@ bool Scene::Update(float dt)
 		app->entityManager->active = true;
 		app->map->active = true;
 		app->sceneIntro->On = true;
+
+		if (app->scene->player->check1 == true) 
+		{
+			app->LoadFromFile();
+		}		
+		
+		if (app->scene->player->check2 == true) 
+		{
+			app->LoadFromFile();
+		}
+
 		if (app->scene->player->check1 == false)
 		{
 			if (app->scene->player->check2 == false)

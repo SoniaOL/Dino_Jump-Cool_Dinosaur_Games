@@ -233,7 +233,6 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 			app->scene->player->DieCounter = 3;
 			app->sceneIntro->bluefire = false;
 			app->sceneIntro->bluefire2 = true;
-			app->LoadFromFile();
 
 			app->scene->player->CheckOut1 = false;
 			app->scene->player->CheckOut2 = false;
@@ -249,13 +248,13 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 			app->scene->player->DieCounter = 3;
 			app->sceneIntro->bluefire = true;
 			app->sceneIntro->bluefire2 = false;
-			app->LoadFromFile();
 
 			app->scene->player->CheckOut1 = false;
 			app->scene->player->CheckOut2 = false;
 			app->fade->FadeToBlack(this, (Module*)app->scene, 20);
 			app->scene->player->CheckOut1 = false;
 			app->scene->player->CheckOut2 = false;
+			app->LoadFromFile();
 		}
 
 		break;
