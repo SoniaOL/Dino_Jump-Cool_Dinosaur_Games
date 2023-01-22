@@ -37,6 +37,7 @@ public:
 
 public:
 
+	bool init = true;
 
 
 private:

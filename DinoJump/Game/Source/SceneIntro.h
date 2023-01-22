@@ -48,6 +48,7 @@ public:
 	bool checkpoint2 = false;
 	bool bluefire = false; 
 	bool bluefire2 = false; 
+	bool init = true; 
 
 	Player* player;
 

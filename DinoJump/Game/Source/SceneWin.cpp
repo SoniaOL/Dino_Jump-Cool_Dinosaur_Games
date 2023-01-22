@@ -42,8 +42,12 @@ bool SceneWin::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneWin::Start()
 {
-	win = app->tex->Load(winpath);
-	audiowin = app->audio->LoadFx(audioPathwin);
+	if (init) {
+		win = app->tex->Load(winpath);
+		audiowin = app->audio->LoadFx(audioPathwin);
+		init = false;
+	}
+
 	return true;
 }
 
@@ -99,7 +103,7 @@ bool SceneWin::PostUpdate()
 // Called before quitting
 bool SceneWin::CleanUp()
 {
-	app->tex->UnLoad(win);
+	//app->tex->UnLoad(win);
 	LOG("Freeing scene");
 
 	return true;

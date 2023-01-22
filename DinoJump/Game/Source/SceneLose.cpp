@@ -124,6 +124,6 @@ bool SceneLose::PostUpdate()
 bool SceneLose::CleanUp()
 {
 	LOG("Freeing scene");
-	app->tex->UnLoad(death);
+	//app->tex->UnLoad(death);
 	return true;
 }

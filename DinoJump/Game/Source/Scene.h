@@ -55,6 +55,7 @@ public:
 	
 	bool firesound = true;
 	bool firesound2 = true;
+	bool init = true;
 
 private:
 	SDL_Texture* img;

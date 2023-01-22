@@ -136,24 +136,6 @@ bool Player::Update()
 		// L07 DONE 7: Assign collider type
 		META->ctype = ColliderType::META;
 
-		lifeT1 = app->physics->CreateRectangleSensor(lifeT1X, lifeT1Y, 20, 20, KINEMATIC);
-		lifeT1->ctype = ColliderType::UNKNOWN;
-
-		lifeT2 = app->physics->CreateRectangleSensor(lifeT2X, lifeT2Y, 20, 20, KINEMATIC);
-		lifeT2->ctype = ColliderType::UNKNOWN;
-
-		lifeT3 = app->physics->CreateRectangleSensor(lifeT3X, lifeT3Y, 20, 20, KINEMATIC);
-		lifeT3->ctype = ColliderType::UNKNOWN;
-
-		lifeT4 = app->physics->CreateRectangleSensor(lifeT4X, lifeT4Y, 20, 20, KINEMATIC);
-		lifeT4->ctype = ColliderType::UNKNOWN;
-
-		lifeT5 = app->physics->CreateRectangleSensor(lifeT5X, lifeT5Y, 20, 20, KINEMATIC);
-		lifeT5->ctype = ColliderType::UNKNOWN;
-
-		Coin4 = app->physics->CreateRectangleSensor(CoinX4, CoinY4, 16, 16, bodyType::KINEMATIC);
-
-
 		/*life1 = life();
 		life1.Life = app->physics->CreateRectangleSensor(229, 1200, 20, 20, STATIC);
 		life1.Life->ctype = ColliderType::LIFE;
@@ -209,6 +191,24 @@ bool Player::Update()
 			CHECK1 = app->physics->CreateRectangleSensor(70, 1250, 50, 60, STATIC);
 			// L07 DONE 7: Assign collider type
 			CHECK1->ctype = ColliderType::CHECK1;
+
+			lifeT1 = app->physics->CreateRectangleSensor(lifeT1X, lifeT1Y, 20, 20, KINEMATIC);
+			lifeT1->ctype = ColliderType::UNKNOWN;
+
+			lifeT2 = app->physics->CreateRectangleSensor(lifeT2X, lifeT2Y, 20, 20, KINEMATIC);
+			lifeT2->ctype = ColliderType::UNKNOWN;
+
+			lifeT3 = app->physics->CreateRectangleSensor(lifeT3X, lifeT3Y, 20, 20, KINEMATIC);
+			lifeT3->ctype = ColliderType::UNKNOWN;
+
+			lifeT4 = app->physics->CreateRectangleSensor(lifeT4X, lifeT4Y, 20, 20, KINEMATIC);
+			lifeT4->ctype = ColliderType::UNKNOWN;
+
+			lifeT5 = app->physics->CreateRectangleSensor(lifeT5X, lifeT5Y, 20, 20, KINEMATIC);
+			lifeT5->ctype = ColliderType::UNKNOWN;
+
+			Coin4 = app->physics->CreateRectangleSensor(CoinX4, CoinY4, 16, 16, bodyType::KINEMATIC);
+
 
 			init = false;
 		}

@@ -61,23 +61,23 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneIntro::Start()
 {
-
-
-	img = app->tex->Load(imgpath); 
-
 	start = true; 
-
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
-	if (this->active == true) {
-		button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (int)w / 2 - 85 / 2,700,85,20 }, this);
-		button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { (int)w / 2 - 125 / 2,730,125,20 }, this);
-		button3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { (int)w / 2 - 125 / 2,760,125,20 }, this);
-		button4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit", { (int)w / 2 - 60 / 2,790,60,20 }, this);
-		button5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Credits", { (int)w / 2 - 113 / 2,820,113,20 }, this);
-	}
 
+	if (this->active == true)
+	{
+		if (init) {
+			img = app->tex->Load(imgpath);
+			button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (int)w / 2 - 85 / 2,700,85,20 }, this);
+			button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { (int)w / 2 - 125 / 2,730,125,20 }, this);
+			button3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { (int)w / 2 - 125 / 2,760,125,20 }, this);
+			button4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit", { (int)w / 2 - 60 / 2,790,60,20 }, this);
+			button5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Credits", { (int)w / 2 - 113 / 2,820,113,20 }, this);
+			init = false;
+		}
+	}
 	return true;
 }
 
@@ -279,7 +279,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 // Called before quitting
 bool SceneIntro::CleanUp()
 {
-	app->tex->UnLoad(img);
+	//app->tex->UnLoad(img);
 	app->audio->PauseMusic(); 
 	//app->tex->UnLoad(death);
 	/*app->tex->UnLoad(win);*/

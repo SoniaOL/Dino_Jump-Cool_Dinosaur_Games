@@ -88,7 +88,7 @@ bool SceneCredit::PostUpdate()
 // Called before quitting
 bool SceneCredit::CleanUp()
 {
-	app->tex->UnLoad(credit);
+	//app->tex->UnLoad(credit);
 	app->audio->PauseMusic();
 
 	return true;

@@ -101,8 +101,12 @@ bool Scene::Start()
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load();
 
-	fire = app->tex->Load(pathFire);
-	fire2 = app->tex->Load(pathFire);
+	if (init)
+	{
+		fire = app->tex->Load(pathFire);
+		fire2 = app->tex->Load(pathFire);
+		init = false;
+	}
 
 	audiofire = app->audio->LoadFx(audioPathfire);
 	firesound = true;
