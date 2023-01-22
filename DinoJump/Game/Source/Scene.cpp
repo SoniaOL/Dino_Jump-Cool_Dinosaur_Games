@@ -404,7 +404,7 @@ bool Scene::Update(float dt)
 	currentAnimation2->Update(); 
 
 	app->render->DrawTexture(fire, 59, 1246, &fireplace); 
-	app->render->DrawTexture(fire2, 146, 890, &fireplace2); 
+	app->render->DrawTexture(fire2, 146, 886, &fireplace2); 
 
 	
 
