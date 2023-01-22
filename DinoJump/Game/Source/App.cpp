@@ -114,6 +114,8 @@ bool App::Awake()
 
 		maxFrameDuration = configNode.child("app").child("frcap").attribute("value").as_int();
 
+		Vsync = configNode.child("renderer").child("vsync").attribute("value").as_string();
+
 		ListItem<Module*>* item;
 		item = modules.start;
 
@@ -242,8 +244,8 @@ void App::FinishUpdate()
 
 	// Shows the time measurements in the window title
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
-		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
+	sprintf_s(title, 256, "DINO JUMP - Av.FPS: %.2f Vsync: %c Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u",
+		averageFps, Vsync, framesPerSecond, dt, secondsSinceStartup, frameCount);
 
 	app->win->SetTitle(title);
 }
