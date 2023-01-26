@@ -4,6 +4,7 @@
 #include "Audio.h"
 #include "Log.h"
 #include "SceneIntro.h"
+#include "Scene.h"
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
@@ -25,6 +26,17 @@ GuiButton::~GuiButton()
 
 bool GuiButton::Update(float dt)
 {
+
+	if (app->scene->player->check1 == false && app->scene->player->check2 == false && id == 2) {
+
+		state = GuiControlState::DISABLED;
+	}
+
+	else if (app->scene->player->check1 == true && id == 2 || app->scene->player->check2 == true && id == 2) {
+
+		state = GuiControlState::NORMAL;
+	}
+
 	if (state != GuiControlState::DISABLED)
 	{
 		// L15: DONE 3: Update the state of the GUiButton according to the mouse position
@@ -58,6 +70,7 @@ bool GuiButton::Update(float dt)
 				}
 			}
 		}
+
 		else {
 			state = GuiControlState::NORMAL;
 		}
@@ -76,10 +89,13 @@ bool GuiButton::Draw(Render* render)
 	switch (state)
 	{
 	case GuiControlState::DISABLED:
-		render->DrawRectangle(bounds, 200, 200, 200, 255, true, false);
+		render->DrawRectangle(bounds, 107, 107, 107, 255, true, false);
 		break;
 	case GuiControlState::NORMAL:
 		render->DrawRectangle(bounds, 24, 158, 35, 255, true, false);
+		break;
+	case GuiControlState::INACTIVE:
+		render->DrawRectangle(bounds, 107, 107, 107, 255, true, false);
 		break;
 	case GuiControlState::FOCUSED:
 		render->DrawRectangle(bounds, 0, 0, 20, 255, true, false);
