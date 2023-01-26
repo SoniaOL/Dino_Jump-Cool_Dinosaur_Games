@@ -610,6 +610,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		slide = true;
 		break;
 	case ColliderType::META:
+		playerPos = false;
 		Meta = true;
 		audiow = true;
 		app->scene->fly->CleanUp();
