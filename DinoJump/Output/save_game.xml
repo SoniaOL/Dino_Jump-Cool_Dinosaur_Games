@@ -14,13 +14,13 @@
 	<sceneIntro />
 	<sceneIntro />
 	<entitymanager>
-		<player x="123" y="887" />
-		<LAV x="37" y="1650" />
+		<player x="178" y="872" />
+		<LAV x="37" y="1499" />
 		<LAVDetect x="37" y="1485" />
 		<CAM x="37" y="1128" />
 		<CAMG x="37" y="1500" />
 		<CAMGDETECT x="37" y="1138" />
-		<FLYENEMY />
+		<FLYENEMY x="348" y="1356" />
 		<WALKENEMY />
 		<Life1 x="400" y="665" />
 		<Life2 x="380" y="665" />

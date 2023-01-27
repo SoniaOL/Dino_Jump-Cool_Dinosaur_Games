@@ -229,17 +229,22 @@ void App::FinishUpdate()
 	// L14: TODO 2: Use SDL_Delay to make sure you get your capped framerate
 	// L14: TODO 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
 
-	float delay = float(maxFrameDuration) - dt;
+	if (app->scene->frcap) 
+	{
+		float delay = float(maxFrameDuration) - dt;
 
-	PerfTimer delayTimer = PerfTimer();
-	delayTimer.Start();
-	if (maxFrameDuration > 0 && delay > 0) {
-		SDL_Delay(delay);
-		//LOG("We waited for %f milliseconds and the real delay is % f", delay, delayTimer.ReadMs());
-		dt = maxFrameDuration;
-	}
-	else {
-		//LOG("No wait");
+		PerfTimer delayTimer = PerfTimer();
+		delayTimer.Start();
+
+		if (maxFrameDuration > 0 && delay > 0)
+		{
+			SDL_Delay(delay);
+			//LOG("We waited for %f milliseconds and the real delay is % f", delay, delayTimer.ReadMs());
+			dt = maxFrameDuration;
+		}
+		else {
+			//LOG("No wait");
+		}
 	}
 
 	// Shows the time measurements in the window title
