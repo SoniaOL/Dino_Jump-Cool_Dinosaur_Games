@@ -73,6 +73,8 @@ bool SceneWin::Update(float dt)
 		}
 		app->render->camera.y = -900;
 		app->render->DrawTexture(win, 0, 900, &dinoW);
+		app->scene->player->timer->Start();
+		app->scene->player->t = 0;
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{

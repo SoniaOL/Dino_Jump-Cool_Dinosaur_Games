@@ -216,6 +216,8 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		app->scene->player->DieCounter = 3; 
 		app->scene->player->check1 = false;
 		app->scene->player->check2 = false;
+		app->scene->player->timer->Start();
+		app->scene->player->t = 0;
 		reset = true;
 		app->sceneIntro->bluefire = false;
 		app->sceneIntro->bluefire2 = false;

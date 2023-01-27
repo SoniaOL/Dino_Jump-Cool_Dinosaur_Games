@@ -7,6 +7,7 @@
 #include "SDL/include/SDL.h"
 #include "Physics.h"
 #include "FlyEnemy.h"
+#include "Timer.h"
 //#include "Item.h"
 
 #include <vector>
@@ -173,6 +174,9 @@ public:
 	bool CheckOut2 = true;
 	bool playerPos = false;
 	bool MetaSpawn = false;
+
+	Timer* timer;
+	Uint32 t;
 
 private:
 
