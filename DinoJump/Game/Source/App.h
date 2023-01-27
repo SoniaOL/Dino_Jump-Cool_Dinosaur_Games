@@ -65,7 +65,7 @@ public:
 
 	// L03: DONE 1: Create methods to control that the real Load and Save happens at the end of the frame
 	void LoadGameRequest();
-	void SaveGameRequest() ;
+	void SaveGameRequest();
 	bool LoadFromFile();
 	bool SaveToFile() ;
 
@@ -113,6 +113,11 @@ public:
 	SceneCredit* scenecredit;
 	//FlyEnemy* flyEnemy; 
 
+	// L03: DONE 1: Create control variables to control that the real Load and Save happens at the end of the frame
+	bool saveGameRequested;
+	bool loadGameRequested;
+
+
 private:
 
 	int argc;
@@ -148,10 +153,6 @@ private:
 	uint32 maxFrameDuration = 0;
 
 	std::string Vsync;
-
-	// L03: DONE 1: Create control variables to control that the real Load and Save happens at the end of the frame
-    bool saveGameRequested;
-	bool loadGameRequested;
 };
 
 extern App* app;

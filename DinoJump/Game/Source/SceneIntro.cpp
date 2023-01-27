@@ -172,7 +172,7 @@ bool SceneIntro::Update(float dt)
 			if (app->scene->walk->isDead) {
 				app->scene->walk->col = true;
 			}
-			app->LoadGameRequest();
+			//app->LoadGameRequest();
 		}
 	}
 
@@ -254,7 +254,6 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 			app->fade->FadeToBlack(this, (Module*)app->scene, 20);
 			app->scene->player->CheckOut1 = false;
 			app->scene->player->CheckOut2 = false;
-			app->LoadFromFile();
 		}
 
 		break;

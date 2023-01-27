@@ -610,6 +610,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		slide = true;
 		break;
 	case ColliderType::META:
+		MetaSpawn = false;
 		playerPos = false;
 		Meta = true;
 		audiow = true;
@@ -624,7 +625,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		app->sceneIntro->bluefire = false; 
 		app->scene->firesound = true;
 		app->sceneIntro->bluefire2 = true;
-		if (CheckOut1 == true)
+		if (MetaSpawn) 
 		{
 			check2 = false;
 			check1 = true;
@@ -634,12 +635,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 			app->SaveGameRequest();
 			CheckOut1 = false;
 		}
+		
 		break;
 	case ColliderType::CHECK1:
 		app->sceneIntro->bluefire2 = false;
 		app->scene->firesound2 = true;
 		app->sceneIntro->bluefire = true;
-		if (CheckOut2 == true)
+		if (MetaSpawn)
 		{
 			check1 = false;
 			check2 = true;

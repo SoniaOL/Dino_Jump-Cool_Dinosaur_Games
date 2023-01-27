@@ -172,6 +172,7 @@ public:
 	bool CheckOut1 = true;
 	bool CheckOut2 = true;
 	bool playerPos = false;
+	bool MetaSpawn = false;
 
 private:
 
