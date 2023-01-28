@@ -52,6 +52,8 @@ public:
 
 	Player* player;
 
+	bool Continue = false;
+
 private:
 	const char* imgpath;
 	const char* deathpath;
@@ -74,9 +76,6 @@ private:
 
 	bool start = true; 
 	bool exit = true; 
-
-	
-
 
 };
 

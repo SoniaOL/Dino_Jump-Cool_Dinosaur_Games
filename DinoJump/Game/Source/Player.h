@@ -175,9 +175,6 @@ public:
 	bool playerPos = false;
 	bool MetaSpawn = false;
 
-	Timer* timer;
-	Uint32 t;
-
 private:
 
 	//L02: DONE 1: Declare player parameters

@@ -84,8 +84,6 @@ bool Player::Start() {
 	heartsound = app->audio->LoadFx(audioheart); 
 	hitaudio = app->audio->LoadFx(audiohit); 
 
-	timer = new Timer();
-
 	return true;
 }
 
@@ -93,7 +91,6 @@ bool Player::Update()
 {
 
 	if (col) {
-		timer->Start();
 
 		//initilize textures
 		texture = app->tex->Load(texturePath);
@@ -218,13 +215,6 @@ bool Player::Update()
 
 		col = false;
 	}
-
-	if (!Meta && !die)
-	{
-		t = timer->ReadSec();
-	}
-
-	LOG("Timer: %d", t);	
 
 	if (lives == true) 
 	{

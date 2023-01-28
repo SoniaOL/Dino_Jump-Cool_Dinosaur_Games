@@ -58,6 +58,15 @@ public:
 	bool init = true;
 	bool frcap = true;
 
+	int Tx = 387;
+	int Ty = 100;
+
+	Timer* timer;
+	Uint32 ts;
+	Uint32 saveTime;
+
+	bool Keypressed = false;
+
 private:
 	SDL_Texture* img;
 

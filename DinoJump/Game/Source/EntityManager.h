@@ -43,6 +43,7 @@ public:
 
 	float PosX;
 	float PosY;
+	float Time;
 	int flyLive = 0;
 	int walkLive = 0;
 };

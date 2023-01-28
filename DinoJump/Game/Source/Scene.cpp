@@ -140,6 +140,9 @@ bool Scene::Start()
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
 
+
+	timer = new Timer();
+
 	app->win->SetTitle(title.GetString());
 
 	return true;
@@ -226,6 +229,7 @@ bool Scene::Update(float dt)
 				app->sceneIntro->bluefire2 = false;
 				app->sceneIntro->reset = true;
 				app->SaveGameRequest();
+				timer->Start();
 			}
 		}
 
@@ -332,6 +336,7 @@ bool Scene::Update(float dt)
 	}	
 	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_UP) 
 	{
+		Keypressed = true;
 		app->LoadGameRequest();
 	}
 
@@ -343,6 +348,7 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_UP)
 	{
+		Keypressed = true;
 		app->LoadGameRequest();
 	}
 
@@ -408,7 +414,16 @@ bool Scene::Update(float dt)
 	app->render->DrawTexture(fire, 59, 1246, &fireplace); 
 	app->render->DrawTexture(fire2, 146, 886, &fireplace2); 
 
-	
+
+
+		if (!player->Meta && !player->die)
+		{
+			ts = timer->ReadSec();
+			ts += saveTime;
+		}
+
+		LOG("SaveTime %d", saveTime);
+		LOG("Timer: %d", ts);
 
 
 	//if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -444,6 +459,11 @@ bool Scene::Update(float dt)
 	char const* coins = c.c_str();
 
 	app->render->TextDraw(coins, 390, 75, 80, 157, 0, 255, 12);
+	
+	std::string tim = std::to_string(ts);
+	char const* times = tim.c_str();
+
+	app->render->TextDraw(times, Tx, Ty, 255, 255, 255, 255, 15);
 
 	return ret;
 }

@@ -76,8 +76,8 @@ bool SceneLose::Update(float dt)
 			app->scene->player->audiob = false;
 		}
 
-		app->scene->player->timer->Start();
-		app->scene->player->t = 0;
+		app->scene->timer->Start();
+		app->scene->ts = 0;
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{

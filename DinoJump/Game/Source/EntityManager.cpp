@@ -236,6 +236,21 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 
 		app->scene->player->CHECK1->body->SetTransform({ PIXEL_TO_METERS(PosX), PIXEL_TO_METERS(PosY) }, 0);
 
+		Time = data.child("Timer").attribute("t").as_int();
+		PosX = data.child("Timer").attribute("x").as_int();
+		PosY = data.child("Timer").attribute("y").as_int();
+
+		if (!app->scene->Keypressed)
+		{
+			app->scene->saveTime = Time;
+			app->scene->Tx = PosX;
+			app->scene->Ty = PosY;
+		}
+		else 
+		{
+			app->scene->Keypressed = false;
+		}
+
 		if (!app->scene->fly->isDead)
 		{
 
@@ -322,6 +337,7 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 	pugi::xml_node Item4 = data.append_child("item4");
 	pugi::xml_node Check1 = data.append_child("Check1");
 	pugi::xml_node Check2 = data.append_child("Check2");
+	pugi::xml_node Timer = data.append_child("Timer");
 
 
 	if (!app->sceneIntro->reset) 
@@ -485,6 +501,10 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 
 		Check2.append_attribute("x") = app->scene->player->Check2X;
 		Check2.append_attribute("y") = app->scene->player->Check2Y;
+		
+		Timer.append_attribute("t") = app->scene->ts;
+		Timer.append_attribute("x") = 375;
+		Timer.append_attribute("y") = 95;
 
 		if (!app->scene->fly->isDead) {
 			flyLive = 0;
@@ -587,6 +607,10 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 			Check2.append_attribute("x") = app->scene->player->Check2X;
 			Check2.append_attribute("y") = app->scene->player->Check2Y;
 
+			Timer.append_attribute("t") = app->scene->ts;
+			Timer.append_attribute("x") = 375;
+			Timer.append_attribute("y") = 95;
+
 			if (!app->scene->fly->isDead) {
 				flyLive = 0;
 			}
@@ -682,6 +706,10 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 
 		Check2.append_attribute("x") = 70;
 		Check2.append_attribute("y") = 1250;
+
+		Timer.append_attribute("t") = 0;			
+		Timer.append_attribute("x") = 387;
+		Timer.append_attribute("y") = 100;
 
 		app->render->SaveState(data);
 		app->render->LoadState(data);

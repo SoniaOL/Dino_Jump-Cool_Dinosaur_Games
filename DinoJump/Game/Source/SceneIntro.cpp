@@ -210,14 +210,15 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 	case 1:
 		LOG("Button 1 click");
 		app->scene->col = true; 
+		Continue = false;
 		app->scene->item->restart = true; 
 		app->scene->player->Coins = 0; 
 		app->scene->player->lives = true; 
 		app->scene->player->DieCounter = 3; 
 		app->scene->player->check1 = false;
 		app->scene->player->check2 = false;
-		app->scene->player->timer->Start();
-		app->scene->player->t = 0;
+		app->scene->timer->Start();
+		app->scene->ts = 0;
 		reset = true;
 		app->sceneIntro->bluefire = false;
 		app->sceneIntro->bluefire2 = false;
@@ -230,6 +231,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		if (app->scene->player->check1) {
 
 			app->scene->col = true;
+			Continue = true;
 			app->scene->player->Coins = 0;
 			app->scene->player->lives = true;
 			app->scene->player->DieCounter = 3;
@@ -245,6 +247,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		if (app->scene->player->check2) {
 
 			app->scene->col = true;
+			Continue = true;
 			app->scene->player->Coins = 0;
 			app->scene->player->lives = true;
 			app->scene->player->DieCounter = 3;
