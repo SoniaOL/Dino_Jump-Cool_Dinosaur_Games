@@ -84,6 +84,12 @@ bool SceneWin::Update(float dt)
 			app->scene->player->check2 = false;*/
 			app->fade->FadeToBlack(this, (Module*)app->sceneIntro, 40);
 		}
+
+		std::string tim = std::to_string(app->scene->ts);
+		char const* times = tim.c_str();
+
+		app->render->TextDraw(times, 317, 860, 255, 255, 255, 255, 20);
+		app->render->TextDraw("YOUR TIME IS", 100, 860, 255, 255, 255, 255, 20);
 	}
 
 	return ret;
