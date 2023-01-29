@@ -38,7 +38,7 @@ During this adventure, our protagonist will be able to use his skills such as do
  - Continue: If you press Continue when it's able, you will appear un your last active Checkpoint.
  - Credits: If you press it you will go to the credits screen, press X to go back to IntroScreen. 
  - Exit: If you press it you will close the app.
- - Settings: This button sorry but couldn't be implemented in time.  
+ - Settings: Show a settings menu, for up/down music. 
 
 ## Developers
 
@@ -49,7 +49,7 @@ During this adventure, our protagonist will be able to use his skills such as do
 
 Continue -> The Continue button only works if you win and want to do another play on the last checkpoint. In other words, if you win you have the posibility
 to click on Continue and start the game on your last checkpoint, or start a new run on Start.  
-Settings -> Sorry but we don't have time to implement the settings menu, we apologize for it.
+Settings -> We have basic settings with up/down music.
 
 ## License
 
