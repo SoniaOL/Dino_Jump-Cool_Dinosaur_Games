@@ -1,4 +1,4 @@
-# Dino Jump
+# Dino Jump - Cool_Dinosaur_Games
 
 ## Description
 
@@ -21,14 +21,22 @@ During this adventure, our protagonist will be able to use his skills such as do
  - SPACE -> to jump or doble jump, and restarting the game on dying or winning situation.
  - LEFT SHIFT -> to slide in direction of the movement.
  - ENTER -> to restart the game on Check Point in case of dying, or start the game in intro scene.
- - F1/F2 -> Reset the game. 
+ - ESCAPE -> If you press it while doing gameplay, you will close the app. 
+ - F1/F2 -> Go to the main menu. 
  - F3 -> Start from the beginning of the level.
  - F5 -> Save the current game state.
  - F6 -> Load the previous state.
  - F9 -> View colliders.
  - F10 -> God Mode.
- - F11 -> Limit 30/60 fps.
+ - F11 -> Limit/Unlimit fps, frcap yes/no.
 	
+## GUI Guide
+
+ - Start: If you press it you will start a new game with no Checkpoints.
+ - Continue: If you press Continue when it's able, you will appear un your last active Checkpoint.
+ - Credits: If you press it you will go to the credits screen, press X to go back to IntroScreen. 
+ - Exit: If you press it you will close the app.
+ - Settings: This button sorry but couldn't be implemented in time.  
 
 ## Developers
 
@@ -37,8 +45,9 @@ During this adventure, our protagonist will be able to use his skills such as do
 
 ## Commentary
 
-If the game goes so fast, or the player seems uncontrollable is because of the fast your processor run the code. To fix it you can change the speed of
-the player on "Player.cpp" and the GRAVITY_Y on "Physics.h", and adjust it to your PC.
+Continue -> The Continue button only works if you win and want to do another play on the last checkpoint. In other words, if you win you have the posibility
+to click on Continue and start the game on your last checkpoint, or start a new run on Start.  
+Settings -> Sorry but we don't have time to implement the settings menu, we apologize for it.
 
 ## License
 

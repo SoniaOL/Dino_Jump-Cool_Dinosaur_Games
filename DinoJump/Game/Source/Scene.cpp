@@ -258,16 +258,17 @@ bool Scene::Update(float dt)
 		app->sceneIntro->active = true;
 		app->physics->debug = false;
 		app->sceneIntro->reset = true;
+
+		app->scene->fly->CleanUp();
+		
+		app->scene->walk->CleanUp();
+
 		/*app->scene->player->check1 = false;
 		app->scene->player->check2 = false;*/
-
-		if (!app->scene->fly->kill) {
-			app->scene->fly->CleanUp();
-		}		
-		if (!app->scene->walk->kill) {
-			app->scene->walk->CleanUp();
-		}
-		this->active = false;
+		app->render->camera.y = -900;
+		app->fade->FadeToBlack(this, (Module*)app->sceneIntro, 40);
+		/*app->scene->player->check1 = false;
+		app->scene->player->check2 = false;*/
 	}
 	
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
