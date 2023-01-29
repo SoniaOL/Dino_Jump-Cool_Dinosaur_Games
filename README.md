@@ -29,6 +29,8 @@ During this adventure, our protagonist will be able to use his skills such as do
  - F9 -> View colliders.
  - F10 -> God Mode.
  - F11 -> Limit/Unlimit fps, frcap yes/no.
+ - 1 -> Teleportation to Checkpoint 1.
+ - 2 -> Teleportation to Checkpoint 2.
 	
 ## GUI Guide
 
