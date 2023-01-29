@@ -54,6 +54,8 @@ public:
 
 	bool Continue = false;
 
+	bool button = false;
+
 private:
 	const char* imgpath;
 	const char* deathpath;
@@ -76,6 +78,9 @@ private:
 
 	bool start = true; 
 	bool exit = true; 
+
+
+	int volume = 20, maxvolume;
 
 };
 

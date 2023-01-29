@@ -16,6 +16,7 @@
 #include "SceneLose.h"
 #include "SceneWin.h"
 #include "SceneCredits.h"
+#include "Setting.h"
 
 SceneIntro::SceneIntro() : Module()
 {
@@ -62,6 +63,8 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 bool SceneIntro::Start()
 {
 	start = true; 
+
+	volume = 20; 
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
@@ -209,12 +212,12 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button 1 click");
-		app->scene->col = true; 
+		app->scene->col = true;
 		Continue = false;
-		app->scene->item->restart = true; 
-		app->scene->player->Coins = 0; 
-		app->scene->player->lives = true; 
-		app->scene->player->DieCounter = 3; 
+		app->scene->item->restart = true;
+		app->scene->player->Coins = 0;
+		app->scene->player->lives = true;
+		app->scene->player->DieCounter = 3;
 		app->scene->player->check1 = false;
 		app->scene->player->check2 = false;
 		app->scene->timer->Start();
@@ -223,6 +226,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		app->sceneIntro->bluefire = false;
 		app->sceneIntro->bluefire2 = false;
 		app->fade->FadeToBlack(this, (Module*)app->scene, 20);
+		app->settings->active = false;
 
 		break;
 	case 2:
@@ -264,18 +268,31 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	case 3:
 		LOG("Button 3 click");
+		app->settings->active = true;
+		button = true; 
 		break;
 	case 4:
 		LOG("Button 4 click");
-		exit = false; 
+		exit = false;
 		break;
 
 	case 5:
-		LOG("Button 5 click"); 
+		LOG("Button 5 click");
 		app->scenecredit->col = true;
 		app->fade->FadeToBlack(this, (Module*)app->scenecredit, 20);
+		break;
 
+	case 6:
+		volume--;
+		maxvolume = volume * SDL_MIX_MAXVOLUME / 60;
+		app->audio->ChangeMusicVolume(maxvolume);
+	
+     case 7:
+	     volume++;
+		 maxvolume = volume * SDL_MIX_MAXVOLUME / 60;
+		 app->audio->ChangeMusicVolume(maxvolume);
 	}
+
 
 	return true;
 }

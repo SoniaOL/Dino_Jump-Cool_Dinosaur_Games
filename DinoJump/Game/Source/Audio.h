@@ -38,6 +38,10 @@ public:
 
 	bool Pause(uint a); 
 
+	bool ChangeMusicVolume(int vol);
+
+	int volumeM; 
+
 private:
 
 	_Mix_Music* music;

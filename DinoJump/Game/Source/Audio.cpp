@@ -64,7 +64,7 @@ bool Audio::CleanUp()
 	if(!active)
 		return true;
 
-	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
+	LOG("Freeing sound FX, closing Mixer and Audio subsystem"); 
 
 	if(music != NULL)
 	{
@@ -194,4 +194,17 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+bool Audio::ChangeMusicVolume(int vol)
+{
+	if (vol >= 0 && vol <= SDL_MIX_MAXVOLUME)
+	{
+		Mix_VolumeMusic(vol);
+		volumeM = vol;
+
+		return true;
+	}
+
+	return false;
 }

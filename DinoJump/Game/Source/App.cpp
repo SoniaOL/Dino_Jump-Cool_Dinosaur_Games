@@ -18,6 +18,7 @@
 #include "SceneWin.h"
 #include "SceneCredits.h"
 #include "Item.h"
+#include "Setting.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -49,6 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	guiManager = new GuiManager();
 	scenecredit = new SceneCredit();
+	settings = new Settings(); 
 	//flyEnemy = new FlyEnemy();
 
 	// Ordered for awake / Start / Update
@@ -59,7 +61,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(scenelogo); 
 	AddModule(sceneIntro);
-	//L07 DONE 2: Add Physics module
+	//L07 DONE 2: Add Physics module es que es dificil 
 	AddModule(physics);
 	AddModule(pathfinding);
 	AddModule(pathfinding2);
@@ -72,6 +74,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(guiManager);
 	AddModule(scenecredit);
+	AddModule(settings); 
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -106,7 +109,7 @@ bool App::Awake()
 	bool ret = false;
 
 	// L01: DONE 3: Load config from XML
-	ret = LoadConfig();
+	ret = LoadConfig(); 
 
 	if (ret == true)
 	{

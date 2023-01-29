@@ -117,6 +117,7 @@
     <ClCompile Include="Source\sceneLogo.cpp" />
     <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\SceneWin.cpp" />
+    <ClCompile Include="Source\Settings.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\WalkEnemy.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Source\sceneLogo.h" />
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\SceneWin.h" />
+    <ClInclude Include="Source\Setting.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\WalkEnemy.h" />
@@ -161,9 +163,6 @@
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\..\..\Public\Desktop\Steam.lnk" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

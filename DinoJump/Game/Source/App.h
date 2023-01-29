@@ -30,6 +30,7 @@ class GuiManager;
 class SceneLose; 
 class SceneWin;
 class SceneCredit;
+class Settings;
 //class FlyEnemy;
 
 class App
@@ -111,6 +112,7 @@ public:
 	PathFinding* pathfinding2;
 	GuiManager* guiManager;
 	SceneCredit* scenecredit;
+	Settings* settings; 
 	//FlyEnemy* flyEnemy; 
 
 	// L03: DONE 1: Create control variables to control that the real Load and Save happens at the end of the frame

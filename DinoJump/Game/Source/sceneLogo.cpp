@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "Defs.h"
 #include "Log.h"
+#include "Setting.h"
 
 sceneLogo::sceneLogo() : Module()
 {
@@ -41,6 +42,7 @@ bool sceneLogo::Start()
 
 	img = app->tex->Load(imgpath);
 	app->sceneIntro->active = false; 
+	app->settings->active = false; 
 
 	return true;
 }
